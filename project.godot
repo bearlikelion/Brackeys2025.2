@@ -30,6 +30,10 @@ folder_colors={
 "res://Scripts/": "green"
 }
 
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

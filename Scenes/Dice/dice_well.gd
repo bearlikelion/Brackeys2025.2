@@ -13,4 +13,5 @@ func _ready() -> void:
 
 func _on_roll_die() -> void:
 	var d6: D6 = d_6.instantiate()
+	d6.position = Vector3(0, 0.3, 0)
 	dice.add_child(d6)
