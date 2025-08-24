@@ -4,7 +4,7 @@ Created by:
 
 * [bearlikelion](https://bearlikelion.com)
 * [Nerdiful](https://nerdiful.itch.io)
-* OPNewPlayer
+* [OPNewPlayer](https://mohamadstudio.com)
 
 ## Theme:
 
