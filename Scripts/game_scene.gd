@@ -146,19 +146,27 @@ func set_mutator(dice_face: int) -> void:
 			if not enchanted_biscuit:
 				enchanted_biscuit = true
 		5:
-			pass
+			mutator_string = "Exploding Biscuit"
+			biscuiit_bust()
 		6:
-			pass
+			mutator_string = "🌈Rainbow Biscuit"
+			add_score(20)
 
 
 func _on_roll_button_pressed() -> void:
 	dice_well.roll_die()
 
 
+func clear_mutators() -> void:
+	for child: Label in mutators_bar.get_children():
+		child.queue_free()
+
+
 func _on_bake_button_pressed() -> void:
 	dice_well.clear_dice()
 	biscuits_baked += 1
 	bake_button.hide()
+	clear_mutators()
 	dice_rolled = 0
 	total += score
 	score = 0
@@ -177,5 +185,6 @@ func biscuiit_bust() -> void:
 	dice_well.clear_dice()
 	biscuits_baked += 1
 	bake_button.hide()
+	clear_mutators()
 	dice_rolled = 0
 	print("BISCUIT BUST")

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="1_x87qo"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_6h5vk"]
-viewport_path = NodePath("DiceWell/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fiftr"]
 viewport_path = NodePath("SubViewport")
