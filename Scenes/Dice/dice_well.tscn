@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqhqwc8kdgbeb"]
+
+[ext_resource type="Script" uid="uid://eped60x6pfae" path="res://Scenes/Dice/dice_well.gd" id="1_y30fj"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_y30fj"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Environment" id="Environment_mrvuc"]
+background_color = Color(1, 1, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y30fj"]
+size = Vector3(2, 1, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3l6j6"]
+size = Vector3(2, 0.1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y30fj"]
+albedo_color = Color(0.49196, 0.437878, 0.312213, 1)
+
+[node name="DiceWell" type="Node"]
+script = ExtResource("1_y30fj")
+
+[node name="Dice" type="Node" parent="."]
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="DebugUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_y30fj")
+
+[node name="RollDie" type="Button" parent="DebugUI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "ROLL DIE"
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.5, -0.5)
+environment = SubResource("Environment_mrvuc")
+projection = 1
+current = true
+
+[node name="Colliders" type="Node" parent="SubViewport"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Colliders"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="SubViewport/Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D2"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="SubViewport/Colliders"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D3"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="SubViewport/Colliders"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D4"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="SubViewport/Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.5)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D5"]
+shape = SubResource("BoxShape3D_3l6j6")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="SubViewport/Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D6"]
+shape = SubResource("BoxShape3D_3l6j6")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.5)
+material_override = SubResource("StandardMaterial3D_y30fj")
+size = Vector3(2, 0.1, 2)
