@@ -2,9 +2,9 @@
 
 Created by:
 
-	* [bearlikelion](https://bearlikelion.com)
-	* [Nerdiful](https://nerdiful.itch.io)
-	* OPNewPlayer
+* [bearlikelion](https://bearlikelion.com)
+* [Nerdiful](https://nerdiful.itch.io)
+* OPNewPlayer
 
 ## Theme:
 
