@@ -15,17 +15,18 @@ reflected_light_source = 1
 size = Vector3(4, 1, 0.25)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y30fj"]
-albedo_color = Color(0.49196, 0.437878, 0.312213, 1)
+albedo_color = Color(0.0951575, 0.07924, 0.0421386, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3l6j6"]
 size = Vector3(4, 0.2, 2.2)
 
-[node name="DiceWell" type="Node"]
+[node name="DiceWell" type="Node3D"]
 script = ExtResource("1_y30fj")
 
 [node name="Dice" type="Node" parent="."]
 
 [node name="DebugUI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="TextureRect" type="TextureRect" parent="DebugUI"]
 anchors_preset = 15
@@ -67,25 +68,25 @@ size = 2.5
 [node name="Colliders" type="Node" parent="SubViewport"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D"]
 shape = SubResource("BoxShape3D_y30fj")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D2"]
 shape = SubResource("BoxShape3D_y30fj")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.8, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.7, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D3"]
 shape = SubResource("BoxShape3D_y30fj")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.8, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.7, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D4"]
 shape = SubResource("BoxShape3D_y30fj")

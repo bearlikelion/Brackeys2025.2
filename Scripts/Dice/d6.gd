@@ -1,6 +1,8 @@
 class_name D6
 extends RigidBody3D
 
+signal roll_result(face_number: int)
+
 var roll_strength: int = randi_range(1, 5)
 
 @onready var ray_casts: Node = $RayCasts
@@ -56,4 +58,5 @@ func detect_face() -> void:
 		for raycast: DieRaycast in ray_casts.get_children():
 			if raycast.is_colliding():
 				print("Dice landed on %s" % raycast.opposite_side)
+				roll_result.emit(raycast.opposite_side)
 				break

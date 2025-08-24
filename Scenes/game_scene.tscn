@@ -1,0 +1,134 @@
+[gd_scene load_steps=6 format=3 uid="uid://dn84qu6x3gkeb"]
+
+[ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_scene.gd" id="1_6h5vk"]
+[ext_resource type="FontFile" uid="uid://mr2l1a4mfaft" path="res://Assets/Fonts/ZOMBIE.TTF" id="1_b6fju"]
+[ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="1_x87qo"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6h5vk"]
+viewport_path = NodePath("DiceWell/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_fiftr"]
+viewport_path = NodePath("SubViewport")
+
+[node name="GameScene" type="Node3D"]
+script = ExtResource("1_6h5vk")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_6h5vk")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="UI/MarginContainer/VBoxContainer/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_b6fju")
+theme_override_font_sizes/font_size = 24
+text = "TYPE: NONE"
+horizontal_alignment = 1
+
+[node name="FillingLabel" type="Label" parent="UI/MarginContainer/VBoxContainer/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_b6fju")
+theme_override_font_sizes/font_size = 24
+text = "FILLING: NONE"
+horizontal_alignment = 1
+
+[node name="ToppingLabel" type="Label" parent="UI/MarginContainer/VBoxContainer/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_b6fju")
+theme_override_font_sizes/font_size = 24
+text = "TOPPINGS: NONE"
+horizontal_alignment = 1
+
+[node name="ScoreBar" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="UI/MarginContainer/VBoxContainer/ScoreBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_b6fju")
+theme_override_font_sizes/font_size = 36
+text = "SCORE: 0"
+horizontal_alignment = 1
+
+[node name="TotalLabel" type="Label" parent="UI/MarginContainer/VBoxContainer/ScoreBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_b6fju")
+theme_override_font_sizes/font_size = 36
+text = "TOTAL: 0"
+horizontal_alignment = 1
+
+[node name="BuscuitBar" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BuscuitsLabel" type="Label" parent="UI/MarginContainer/VBoxContainer/BuscuitBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_b6fju")
+theme_override_font_sizes/font_size = 36
+text = "Biscuits Baked: 0"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 25
+
+[node name="RollButton" type="Button" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_b6fju")
+theme_override_font_sizes/font_size = 32
+text = "ROLL DIE"
+
+[node name="BakeButton" type="Button" parent="UI/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_b6fju")
+theme_override_font_sizes/font_size = 32
+text = "BAKE BISCUIT"
+
+[node name="DiceWell" parent="." instance=ExtResource("1_x87qo")]
+
+[node name="TextureRect" parent="DiceWell/DebugUI" index="0"]
+texture = SubResource("ViewportTexture_fiftr")
+
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/RollButton" to="." method="_on_roll_button_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/BakeButton" to="." method="_on_bake_button_pressed"]
+
+[editable path="DiceWell"]
