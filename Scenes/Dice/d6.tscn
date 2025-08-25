@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://fyfnxkcvk6f7"]
+[gd_scene load_steps=10 format=3 uid="uid://fyfnxkcvk6f7"]
 
 [ext_resource type="PackedScene" uid="uid://kwqeitw7tje3" path="res://Assets/Models/Dice/dice.glb" id="1_6fe33"]
 [ext_resource type="Script" uid="uid://cdi2i5y5bgh66" path="res://Scripts/Dice/d6.gd" id="1_s5j61"]
 [ext_resource type="Shader" uid="uid://vg4wehnnqc4v" path="res://Shaders/3d_dissolve.gdshader" id="3_04fms"]
 [ext_resource type="Script" uid="uid://c8mqr5ve058h0" path="res://Scripts/Dice/die_raycast.gd" id="3_g7d41"]
 [ext_resource type="Texture2D" uid="uid://carg2uxrkvhks" path="res://Assets/Models/Dice/dice_inverted.png" id="4_112kq"]
+[ext_resource type="AudioStream" uid="uid://dfthaj275rg5i" path="res://Assets/Audio/SFX/736744__zxcmnbzxc__roll-die.ogg" id="6_112kq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_04fms"]
 friction = 0.5
@@ -87,6 +88,9 @@ target_position = Vector3(0, -0.1, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 1
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_112kq")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 

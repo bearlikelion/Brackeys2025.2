@@ -3,6 +3,7 @@ extends RigidBody3D
 
 signal roll_result(face_number: int, type: String, die_name: String)
 
+var dice_power = 400
 var roll_strength: int = randi_range(1, 5)
 
 var die_name: String
@@ -13,7 +14,7 @@ var dice_material: ShaderMaterial
 
 @onready var ray_casts: Node = $RayCasts
 @onready var dice: MeshInstance3D = $Mesh/Dice
-var dice_power = 400
+@onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 func _ready() -> void:
 	roll()
@@ -89,7 +90,12 @@ func detect_face() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	if body is D6 :
+	if body != self:
+		if not audio_stream_player_3d.playing:
+			audio_stream_player_3d.pitch_scale += randf_range(-0.33, 0.33)
+			audio_stream_player_3d.play()
+
+	if body is D6:
 		body.apply_central_force((global_position - body.global_position).normalized()*50)
 		apply_central_force(Vector3.UP*dice_power)
 		dice_power /= 4

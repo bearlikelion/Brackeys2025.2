@@ -15,16 +15,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="Control"]
+[node name="Title" type="RichTextLabel" parent="Control"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 23.0
+offset_bottom = 97.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("1_6l7je")
-theme_override_font_sizes/font_size = 96
-text = "Baking Biscuits"
+theme_override_font_sizes/normal_font_size = 96
+bbcode_enabled = true
+text = "[shake rate=1.5]BAKE OR BREAK[/shake]
+"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
 layout_mode = 1
