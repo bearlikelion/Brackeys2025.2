@@ -4,7 +4,7 @@ extends Panel
 @export var fillings: ButtonGroup
 @export var toppings: ButtonGroup
 @export var decorations: ButtonGroup
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
+
 signal filling_pressed(is_toggled: bool)
 signal topping_pressed(is_toggled: bool)
 signal decoration_pressed(is_toggled: bool)
@@ -15,6 +15,7 @@ var topping: String
 var decoration: String
 
 @onready var bake: Button = %Bake
+@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 
 func _ready() -> void:
 	if game_manager != null :

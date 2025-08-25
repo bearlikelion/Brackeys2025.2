@@ -26,7 +26,7 @@ var decoration: String
 var filling_score: int = 0
 
 @onready var dice_scorer: Node = $DiceScorer
-@onready var dice_well: DiceWell = $DiceWell
+@onready var dice_well: DiceWell = $OvenScene/DiceWell
 
 @onready var type_label: Label = %TypeLabel
 @onready var topping_label: Label = %ToppingLabel

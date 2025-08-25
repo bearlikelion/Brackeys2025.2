@@ -7,13 +7,11 @@ signal dice_rolled()
 signal roll_finished()
 signal roll_result(dice_face: int, dice_type: String, dice_name: String)
 
-@onready var roll_die_button: Button = $DebugUI/RollDie
 @onready var dice: Node = $Dice
 
 
 func _ready() -> void:
-	roll_die_button.pressed.connect(roll_die.bind({"type": "base", "name": "Shortbread"}))
-
+	pass
 
 func roll_die(die: Dictionary) -> void:
 	var d6: D6 = d_6.instantiate()

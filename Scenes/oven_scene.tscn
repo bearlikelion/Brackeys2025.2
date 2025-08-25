@@ -1,16 +1,17 @@
-[gd_scene load_steps=35 format=3 uid="uid://b614yacjdob64"]
+[gd_scene load_steps=39 format=3 uid="uid://b614yacjdob64"]
 
 [ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="1_hybjd"]
-[ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/3d_oven_scene.gd" id="1_mn46d"]
+[ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/oven_scene.gd" id="1_mn46d"]
 [ext_resource type="Shader" uid="uid://b7w8vso1bv4mm" path="res://Shaders/oven_heat_schlieren.gdshader" id="2_52l15"]
 [ext_resource type="PackedScene" uid="uid://d0poxk80yd3ps" path="res://Assets/Models/Witch/character_witch.gltf" id="3_poiax"]
 [ext_resource type="Script" uid="uid://dhoqdlbqwk5nn" path="res://Scripts/base_selector.gd" id="4_wxl4b"]
 [ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="5_4rjkd"]
-[ext_resource type="Script" uid="uid://beovhj8ophdrq" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
+[ext_resource type="Script" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
 [ext_resource type="Script" uid="uid://cc8ijqj6wre6c" path="res://Scripts/toppings_selector.gd" id="6_x5r4b"]
 [ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="7_cuf8n"]
 [ext_resource type="ButtonGroup" uid="uid://dvl0w16ip6kic" path="res://Scenes/UI/Toppings/toppings.tres" id="8_6fgqh"]
 [ext_resource type="ButtonGroup" uid="uid://tsnshd513sfe" path="res://Scenes/UI/Toppings/decorations.tres" id="9_7og8u"]
+[ext_resource type="Script" uid="uid://eped60x6pfae" path="res://Scenes/Dice/dice_well.gd" id="12_0elqv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk8vj"]
 albedo_color = Color(0.105424, 0.0422749, 0.00954492, 1)
@@ -415,6 +416,15 @@ viewport_path = NodePath("Sprite3D/SubViewport")
 resource_local_to_scene = true
 transparency = 1
 albedo_texture = SubResource("ViewportTexture_x5r4b")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y30fj"]
+size = Vector3(3, 1, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3l6j6"]
+size = Vector3(4, 0.2, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y30fj"]
+albedo_color = Color(0.0951575, 0.07924, 0.0421386, 1)
 
 [node name="OvenScene" type="Node3D"]
 script = ExtResource("1_mn46d")
@@ -1117,6 +1127,54 @@ shape = SubResource("BoxShape3D_x5r4b")
 transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, 0, -0.062, 0)
 mesh = SubResource("QuadMesh_4rjkd")
 surface_material_override/0 = SubResource("StandardMaterial3D_cuf8n")
+
+[node name="DiceWell" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.14683, 0, 0)
+script = ExtResource("12_0elqv")
+
+[node name="Dice" type="Node" parent="DiceWell"]
+
+[node name="Colliders" type="Node3D" parent="DiceWell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DiceWell/Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DiceWell/Colliders/StaticBody3D"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="DiceWell/Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DiceWell/Colliders/StaticBody3D2"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="DiceWell/Colliders"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DiceWell/Colliders/StaticBody3D3"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="DiceWell/Colliders"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.9, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DiceWell/Colliders/StaticBody3D4"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="DiceWell/Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DiceWell/Colliders/StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0999999)
+shape = SubResource("BoxShape3D_3l6j6")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="DiceWell/Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_y30fj")
+size = Vector3(4, 0.1, 2)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 
