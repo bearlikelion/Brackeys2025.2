@@ -1,21 +1,26 @@
+class_name GameManager
 extends Node3D
 
 var fear: int = 0
 var total: int = 0
 var score: int = 0
-var dice_rolled: int = 0
+
 var dice_to_roll: int = 0
 var biscuits_baked: int = 0
+
+var dice: Array = []
 
 var cracked_biscuit: bool = false
 var enchanted_biscuit: bool = true
 
+var bust: bool = false
 var type: String
 var filling: String
 var topping: String
 var decoration: String
 var filling_score: int = 0
 
+@onready var dice_scorer: Node = $DiceScorer
 @onready var dice_well: DiceWell = $DiceWell
 
 @onready var type_label: Label = %TypeLabel
@@ -43,22 +48,14 @@ func _ready() -> void:
 	toppings_selector.toppings_selected.connect(_on_toppings_selected)
 
 
-func _on_roll_result(dice_face: int) -> void:
-	match dice_face:
-		1:
-			if type != "Shortbread":
-				add_fear(1)
-		2:
-			if type != "Shortbread":
-				add_fear(2)
-		3:
-			add_score(1)
-		4:
-			add_score(2)
-		5:
-			add_score(4)
-		6:
-			add_score(6)
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("roll_new") and OS.has_feature("debug"):
+		base_selector.show()
+
+
+func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
+	if not bust:
+		dice_scorer.score_die(dice_type, dice_name, dice_face)
 
 
 func add_score(amount: int) -> void:
@@ -68,6 +65,10 @@ func add_score(amount: int) -> void:
 
 func add_fear(amount: int) -> void:
 	fear += amount
+
+	if fear < 0:
+		fear = 0
+
 	fear_label.text = "FEAR: %s" % str(fear)
 
 
@@ -97,6 +98,9 @@ func _on_base_selected(selected_base: String) -> void:
 		"Skull":
 			dice_to_roll += 6
 
+	for dice_i: int in range(dice_to_roll):
+		dice.append({"kind": "base", "name": type})
+
 	type_label.text = "TYPE: %s" % selected_base
 	toppings_selector.show()
 	update_dice_count()
@@ -107,22 +111,24 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 
 	if _filling != "":
 		filling = _filling
+		dice.append({"kind": "filling", "name": filling})
 
 	if _topping != "":
 		topping = _topping
+		dice.append({"kind": "topping", "name": topping})
 
 	if _decoration != "":
 		decoration = _decoration
+		dice.append({"kind": "decoration", "name": decoration})
 
 	print("NOW ROLL YOUR LUCK | DICE %s" % dice_to_roll)
 	roll_dice()
 
 
 func roll_dice() -> void:
-	for dice_i: int in range(dice_to_roll):
-		dice_well.roll_die()
-		await get_tree().create_timer(0.1).timeout
-
+	bust = false
+	dice_well.roll_dice(dice)
+	dice = []
 	dice_to_roll = 0
 	update_dice_count()
 

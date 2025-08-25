@@ -41,7 +41,6 @@ script = ExtResource("1_y30fj")
 [node name="Dice" type="Node" parent="."]
 
 [node name="DebugUI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="TextureRect" type="TextureRect" parent="DebugUI"]
 anchors_preset = 15
@@ -52,6 +51,7 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_y30fj")
 
 [node name="RollDie" type="Button" parent="DebugUI"]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -77,6 +77,7 @@ size = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.37113e-09, -0.1)
+visible = false
 material_override = SubResource("ShaderMaterial_yvw5r")
 mesh = SubResource("QuadMesh_y30fj")
 

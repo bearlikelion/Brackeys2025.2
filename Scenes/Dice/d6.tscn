@@ -1,13 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://fyfnxkcvk6f7"]
+[gd_scene load_steps=9 format=3 uid="uid://fyfnxkcvk6f7"]
 
 [ext_resource type="PackedScene" uid="uid://kwqeitw7tje3" path="res://Assets/Models/Dice/dice.glb" id="1_6fe33"]
 [ext_resource type="Script" uid="uid://cdi2i5y5bgh66" path="res://Scripts/Dice/d6.gd" id="1_s5j61"]
+[ext_resource type="Shader" uid="uid://vg4wehnnqc4v" path="res://Shaders/3d_dissolve.gdshader" id="3_04fms"]
 [ext_resource type="Script" uid="uid://c8mqr5ve058h0" path="res://Scripts/Dice/die_raycast.gd" id="3_g7d41"]
+[ext_resource type="Texture2D" uid="uid://carg2uxrkvhks" path="res://Assets/Models/Dice/dice_inverted.png" id="4_112kq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_04fms"]
+friction = 0.15
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7d41"]
 size = Vector3(0.15, 0.15, 0.15)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltpww"]
+render_priority = 0
+shader = ExtResource("3_04fms")
+shader_parameter/baseColor = Color(1, 1, 1, 1)
+shader_parameter/baseColorTexture = ExtResource("4_112kq")
+shader_parameter/dissolveSlider = 0.0
+shader_parameter/dissolveNoiseScale = 1.0
+shader_parameter/edgeNoiseScale = -2.2352e-07
+shader_parameter/edgesThickness = 0.05
+shader_parameter/edgeColor = Color(1, 0, 0, 1)
+shader_parameter/edgeEmissionSlider = 1.0
+shader_parameter/enable_dissolve_animation = false
+shader_parameter/animation_speed = 1.0
+shader_parameter/animation_intensity = 0.2
+
 [node name="D6" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_04fms")
+gravity_scale = 8.0
+can_sleep = false
 linear_damp = 2.0
 angular_damp = 2.0
 script = ExtResource("1_s5j61")
@@ -15,8 +38,11 @@ script = ExtResource("1_s5j61")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_g7d41")
 
-[node name="dice" parent="." instance=ExtResource("1_6fe33")]
+[node name="Mesh" parent="." instance=ExtResource("1_6fe33")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="Dice" parent="Mesh" index="0"]
+material_override = SubResource("ShaderMaterial_ltpww")
 
 [node name="RayCasts" type="Node3D" parent="."]
 
@@ -61,4 +87,4 @@ collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 1
 
-[editable path="dice"]
+[editable path="Mesh"]

@@ -4,7 +4,7 @@ extends Node
 const d_6 = preload("res://Scenes/Dice/d6.tscn")
 
 signal dice_rolled()
-signal roll_result()
+signal roll_result(dice_face: int, dice_type: String, dice_name: String)
 
 @onready var roll_die_button: Button = $DebugUI/RollDie
 @onready var dice: Node = $Dice
@@ -14,16 +14,29 @@ func _ready() -> void:
 	roll_die_button.pressed.connect(roll_die)
 
 
-func roll_die() -> void:
+func roll_die(die: Dictionary) -> void:
 	var d6: D6 = d_6.instantiate()
 	d6.position = Vector3(0, 0.3, 0)
 	d6.roll_result.connect(_on_roll_result)
+
+	if die.has("kind"):
+		d6.kind = die.kind
+
+	if die.has("name"):
+		d6.die_name = die.name
+
 	dice.add_child(d6)
 	dice_rolled.emit()
 
 
-func _on_roll_result(dice_face: int) -> void:
-	roll_result.emit(dice_face)
+func roll_dice(dice: Array) -> void:
+	for dice_i: int in range(dice.size()):
+		roll_die(dice[dice_i])
+		await get_tree().create_timer(0.1).timeout
+
+
+func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
+	roll_result.emit(dice_face, dice_type, dice_name)
 
 
 func clear_dice() -> void:

@@ -45,13 +45,16 @@ func _on_bake_pressed() -> void:
 	var _filling: Button = fillings.get_pressed_button()
 	if _filling:
 		filling = _filling.name
+		_filling.button_pressed = false
 
 	var _topping: Button = toppings.get_pressed_button()
 	if _topping:
 		topping = _topping.name
+		_topping.button_pressed = false
 
 	var _decoration: Button = decorations.get_pressed_button()
 	if _decoration:
 		decoration = _decoration.name
+		_decoration.button_pressed = false
 
 	toppings_selected.emit(filling, topping, decoration)

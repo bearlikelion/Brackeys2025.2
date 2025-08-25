@@ -22,13 +22,13 @@ void fragment( ){
 	color *= vec3(pow(vignette,0.3));
 
 	//adjust brightness
-    color *= vec3(0.95,1.05,0.95);
-	color *= brightnessMult;
+    //color *= vec3(0.95,1.05,0.95);
+	//color *= brightnessMult;
 
 	//add scanlines
-	float scans = clamp( 0.35+0.35*sin(3.5*TIME+uv.y*iResolution.y*1.5), 0.0, 1.0);
-	float s = pow(scans,1.7);
-	color = color*vec3( 0.4+0.7*s) ;
+	//float scans = clamp( 0.35+0.35*sin(3.5*TIME+uv.y*iResolution.y*1.5), 0.0, 1.0);
+	//float s = pow(scans,1.7);
+	//color = color*vec3( 0.4+0.7*s) ;
 
     COLOR = vec4(color,1.0);
 }

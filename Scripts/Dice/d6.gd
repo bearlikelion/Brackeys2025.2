@@ -1,18 +1,34 @@
 class_name D6
 extends RigidBody3D
 
-signal roll_result(face_number: int)
+signal roll_result(face_number: int, type: String, die_name: String)
 
 var roll_strength: int = randi_range(1, 5)
 
+var die_name: String
+var kind: String
+var dissolve: bool = false
+var dissolve_value: float = 0.0
+var dice_material: ShaderMaterial
+
 @onready var ray_casts: Node = $RayCasts
+@onready var dice: MeshInstance3D = $Mesh/Dice
 
 
 func _ready() -> void:
 	roll()
+	dice_material = dice.material_override.duplicate()
+	dice.material_override = dice_material
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	if dissolve:
+		dissolve_value += 0.33 * delta
+		dice_material.set_shader_parameter("dissolveSlider", dissolve_value)
+
+		if dissolve_value >= 1.5:
+			queue_free()
+
 	if not freeze:
 		# Check if die is settled on a face and nearly stopped
 		if linear_velocity.length() <= 0.01 and angular_velocity.length() <= 0.01:
@@ -28,7 +44,6 @@ func _physics_process(_delta: float) -> void:
 				linear_velocity = Vector3.ZERO
 				angular_velocity = Vector3.ZERO
 				freeze = true
-				sleeping = true
 				detect_face()
 
 		# Debug output
@@ -54,9 +69,18 @@ func roll() -> void:
 
 
 func detect_face() -> void:
-	if sleeping:
+	if freeze:
 		for raycast: DieRaycast in ray_casts.get_children():
 			if raycast.is_colliding():
 				print("Dice landed on %s" % raycast.opposite_side)
-				roll_result.emit(raycast.opposite_side)
+				roll_result.emit(raycast.opposite_side, kind, die_name)
+				dissolve = true
+
+				if raycast.opposite_side == 1 or raycast.opposite_side == 2:
+					dice_material.set_shader_parameter("edgeColor", Color.WEB_PURPLE)
+				if raycast.opposite_side == 3 or raycast.opposite_side == 4:
+					dice_material.set_shader_parameter("edgeColor", Color.YELLOW)
+				if raycast.opposite_side == 5 or raycast.opposite_side == 6:
+					dice_material.set_shader_parameter("edgeColor", Color.GREEN)
+
 				break
