@@ -12,20 +12,21 @@ var dissolve_value: float = 0.0
 var dice_material: ShaderMaterial
 
 @onready var ray_casts: Node = $RayCasts
-@onready var dice: MeshInstance3D = $Mesh/Dice
+@onready var dice: MeshInstance3D = $Mesh/Cube2
+
 var dice_power = 400
 
 func _ready() -> void:
 	roll()
-	dice_material = dice.material_override.duplicate()
-	dice.material_override = dice_material
+	#dice_material = dice.material_override.duplicate()
+	#dice.material_override = dice_material
 
 
 func _physics_process(delta: float) -> void:
 	
 	if dissolve:
 		dissolve_value += 0.33 * delta
-		dice_material.set_shader_parameter("dissolveSlider", dissolve_value)
+		#dice_material.set_shader_parameter("dissolveSlider", dissolve_value)
 
 		if dissolve_value >= 1.5:
 			queue_free()
@@ -78,12 +79,12 @@ func detect_face() -> void:
 				roll_result.emit(raycast.opposite_side, kind, die_name)
 				#dissolve = true
 
-				if raycast.opposite_side == 1 or raycast.opposite_side == 2:
-					dice_material.set_shader_parameter("edgeColor", Color.REBECCA_PURPLE)
-				if raycast.opposite_side == 3 or raycast.opposite_side == 4:
-					dice_material.set_shader_parameter("edgeColor", Color.ORANGE_RED)
-				if raycast.opposite_side == 5 or raycast.opposite_side == 6:
-					dice_material.set_shader_parameter("edgeColor", Color.DARK_GREEN)
+				#if raycast.opposite_side == 1 or raycast.opposite_side == 2:
+					#dice_material.set_shader_parameter("edgeColor", Color.REBECCA_PURPLE)
+				#if raycast.opposite_side == 3 or raycast.opposite_side == 4:
+					#dice_material.set_shader_parameter("edgeColor", Color.ORANGE_RED)
+				#if raycast.opposite_side == 5 or raycast.opposite_side == 6:
+					#dice_material.set_shader_parameter("edgeColor", Color.DARK_GREEN)
 
 				break
 
@@ -93,3 +94,6 @@ func _on_body_entered(body: Node) -> void:
 		body.apply_central_force((global_position - body.global_position).normalized()*50)
 		apply_central_force(Vector3.UP*dice_power)
 		dice_power /= 4
+	else :
+		var tween2 := dice.create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE)
+		tween2.tween_property(dice, "scale",dice.scale*randi_range(0.2,0.2), 1)
