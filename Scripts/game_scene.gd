@@ -46,9 +46,11 @@ func _ready() -> void:
 func _on_roll_result(dice_face: int) -> void:
 	match dice_face:
 		1:
-			add_fear(1)
+			if type != "Shortbread":
+				add_fear(1)
 		2:
-			add_fear(2)
+			if type != "Shortbread":
+				add_fear(2)
 		3:
 			add_score(1)
 		4:
@@ -120,6 +122,9 @@ func roll_dice() -> void:
 	for dice_i: int in range(dice_to_roll):
 		dice_well.roll_die()
 		await get_tree().create_timer(0.1).timeout
+
+	dice_to_roll = 0
+	update_dice_count()
 
 
 func _on_topping_pressed(is_toggled: bool) -> void:

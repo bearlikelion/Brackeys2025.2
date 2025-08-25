@@ -788,6 +788,7 @@ script = ExtResource("4_5dgvu")
 
 [node name="TalkSound" type="AudioStreamPlayer" parent="UI/ChatMessage/Panel/MarginContainer/ChatInstructions"]
 stream = ExtResource("4_ikfsv")
+volume_db = -10.0
 
 [node name="Vignette" type="CanvasLayer" parent="."]
 layer = 3
