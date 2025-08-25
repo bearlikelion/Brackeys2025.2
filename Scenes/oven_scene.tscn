@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/oven_scene.gd" id="1_mn46d"]
 [ext_resource type="Shader" uid="uid://b7w8vso1bv4mm" path="res://Shaders/oven_heat_schlieren.gdshader" id="2_52l15"]
 [ext_resource type="PackedScene" uid="uid://d0poxk80yd3ps" path="res://Assets/Models/Witch/character_witch.gltf" id="3_poiax"]
-[ext_resource type="Script" uid="uid://beovhj8ophdrq" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
+[ext_resource type="Script" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
 [ext_resource type="PackedScene" uid="uid://bvnwrmfwdm0st" path="res://Scenes/UI/oven_ui.tscn" id="6_ifqwi"]
 [ext_resource type="Script" uid="uid://eped60x6pfae" path="res://Scenes/Dice/dice_well.gd" id="12_0elqv"]
 

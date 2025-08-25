@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	
+
 	if dissolve:
 		dissolve_value += 0.33 * delta
 		dice_material.set_shader_parameter("dissolveSlider", dissolve_value)
