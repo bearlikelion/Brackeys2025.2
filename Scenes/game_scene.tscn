@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dn84qu6x3gkeb"]
+[gd_scene load_steps=25 format=3 uid="uid://dn84qu6x3gkeb"]
 
 [ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_scene.gd" id="1_6h5vk"]
 [ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="1_x87qo"]
@@ -8,10 +8,15 @@
 [ext_resource type="Script" uid="uid://byxtjea03mn07" path="res://Scripts/chat_instructions.gd" id="4_5dgvu"]
 [ext_resource type="AudioStream" uid="uid://cmy2kmola5xkv" path="res://Assets/Audio/SFX/bewilderment-animal-crossing-sfx-233483.ogg" id="4_ikfsv"]
 [ext_resource type="Shader" uid="uid://r27skblhwo44" path="res://Shaders/dark_vignette.gdshader" id="4_rgj8m"]
+[ext_resource type="Script" uid="uid://dhoqdlbqwk5nn" path="res://Scripts/base_selector.gd" id="4_uscyt"]
 [ext_resource type="Shader" uid="uid://d4gge76unbuh4" path="res://Shaders/vingette.gdshader" id="5_2fmhe"]
+[ext_resource type="Script" uid="uid://cc8ijqj6wre6c" path="res://Scripts/toppings_selector.gd" id="5_4xiap"]
 [ext_resource type="AudioStream" uid="uid://5fh4pyk3xdn" path="res://Assets/Audio/Music/333220__robster881__horror-ambience.ogg" id="6_rgj8m"]
+[ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="6_w8jfd"]
+[ext_resource type="ButtonGroup" uid="uid://dvl0w16ip6kic" path="res://Scenes/UI/Toppings/toppings.tres" id="7_a7fet"]
+[ext_resource type="ButtonGroup" uid="uid://tsnshd513sfe" path="res://Scenes/UI/Toppings/decorations.tres" id="8_8m72m"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_6h5vk"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_w8jfd"]
 viewport_path = NodePath("DiceWell/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ikfsv"]
@@ -19,12 +24,6 @@ shader = ExtResource("4_rgj8m")
 shader_parameter/radius = 0.5
 shader_parameter/speed = 1.0
 shader_parameter/effect_color = Color(0.164736, 0.101794, 0.0158784, 1)
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_7iton"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_ikfsv"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_5dgvu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7iton"]
 bg_color = Color(0, 0, 0, 1)
@@ -85,13 +84,13 @@ script = ExtResource("1_6h5vk")
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI"]
+[node name="BackgroundViewport" type="TextureRect" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("ViewportTexture_6h5vk")
+texture = SubResource("ViewportTexture_w8jfd")
 
 [node name="DarkVignette" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_ikfsv")
@@ -136,6 +135,15 @@ size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_fiftr")
 theme_override_font_sizes/font_size = 36
 text = "Biscuits Baked: 0"
+horizontal_alignment = 1
+
+[node name="DiceAmount" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_fiftr")
+theme_override_font_sizes/font_size = 36
+text = "DICE TO ROLL: 0"
 horizontal_alignment = 1
 
 [node name="FearLabel" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
@@ -184,31 +192,8 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/TopBars"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = 25
-
-[node name="RollButton" type="Button" parent="UI/TopBars/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 32
-text = "ROLL DIE"
-
-[node name="BakeButton" type="Button" parent="UI/TopBars/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 32
-text = "BAKE BISCUIT"
-
 [node name="BaseSelector" type="Panel" parent="UI"]
+unique_name_in_owner = true
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -221,6 +206,7 @@ offset_right = 320.0
 offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("4_uscyt")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/BaseSelector"]
 layout_mode = 1
@@ -443,6 +429,7 @@ Failure: +2 fear instead of 1"
 horizontal_alignment = 1
 
 [node name="ToppingsSelector" type="Panel" parent="UI"]
+unique_name_in_owner = true
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -455,6 +442,10 @@ offset_right = 320.0
 offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("5_4xiap")
+fillings = ExtResource("6_w8jfd")
+toppings = ExtResource("7_a7fet")
+decorations = ExtResource("8_8m72m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/ToppingsSelector"]
 layout_mode = 1
@@ -483,7 +474,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_fiftr")
 theme_override_font_sizes/font_size = 16
-text = "Fillings"
+text = "Fillings +1d6"
 horizontal_alignment = 1
 
 [node name="Jam" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
@@ -491,7 +482,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_7iton")
+button_group = ExtResource("6_w8jfd")
 text = "Jam"
 
 [node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Jam"]
@@ -511,7 +502,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_7iton")
+button_group = ExtResource("6_w8jfd")
 text = "Cream"
 
 [node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Cream"]
@@ -531,7 +522,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_7iton")
+button_group = ExtResource("6_w8jfd")
 text = "Custard"
 
 [node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Custard"]
@@ -551,7 +542,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_7iton")
+button_group = ExtResource("6_w8jfd")
 text = "Marrow"
 
 [node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Marrow"]
@@ -566,26 +557,26 @@ grow_vertical = 0
 text = "Removes Fear"
 horizontal_alignment = 1
 
-[node name="Toppins" type="VBoxContainer" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer"]
+[node name="Toppings" type="VBoxContainer" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins"]
+[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_fiftr")
 theme_override_font_sizes/font_size = 16
-text = "Toppings"
+text = "Toppings +1d6"
 horizontal_alignment = 1
 
-[node name="Sugar" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins"]
+[node name="Sugar" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_ikfsv")
+button_group = ExtResource("7_a7fet")
 text = "Sugar Glaze"
 
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins/Sugar"]
+[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Sugar"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -597,15 +588,15 @@ grow_vertical = 0
 text = "Small Points"
 horizontal_alignment = 1
 
-[node name="Icing" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins"]
+[node name="Icing" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_ikfsv")
+button_group = ExtResource("7_a7fet")
 text = "Royal Icing"
 
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins/Icing"]
+[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Icing"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -617,15 +608,15 @@ grow_vertical = 0
 text = "Big Points but cracks easily"
 horizontal_alignment = 1
 
-[node name="Frosting" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins"]
+[node name="Frosting" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_ikfsv")
+button_group = ExtResource("7_a7fet")
 text = "Cursed Frosting"
 
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins/Frosting"]
+[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Frosting"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -637,15 +628,15 @@ grow_vertical = 0
 text = "Random Outcome"
 horizontal_alignment = 1
 
-[node name="Caramel" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins"]
+[node name="Caramel" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_ikfsv")
+button_group = ExtResource("7_a7fet")
 text = "Burnt Caramel"
 
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppins/Caramel"]
+[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Caramel"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -665,7 +656,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_fiftr")
 theme_override_font_sizes/font_size = 16
-text = "Decorations"
+text = "Decorations +1d6"
 horizontal_alignment = 1
 
 [node name="Sprinkles" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
@@ -673,7 +664,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_5dgvu")
+button_group = ExtResource("8_8m72m")
 text = "Sprinkles"
 
 [node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Sprinkles"]
@@ -693,7 +684,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_5dgvu")
+button_group = ExtResource("8_8m72m")
 text = "Tongue"
 
 [node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Tongue"]
@@ -713,7 +704,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_5dgvu")
+button_group = ExtResource("8_8m72m")
 text = "Etched Runes"
 
 [node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Runes"]
@@ -733,7 +724,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-button_group = SubResource("ButtonGroup_5dgvu")
+button_group = ExtResource("8_8m72m")
 text = "Candied Eyes"
 
 [node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Eyes"]
@@ -747,6 +738,13 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Creeeepy"
 horizontal_alignment = 1
+
+[node name="Bake" type="Button" parent="UI/ToppingsSelector/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_fiftr")
+theme_override_font_sizes/font_size = 16
+text = "BAKE A BISCUIT"
 
 [node name="ChatMessage" type="MarginContainer" parent="UI"]
 anchors_preset = 12
@@ -779,8 +777,10 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
 [node name="ChatInstructions" type="RichTextLabel" parent="UI/ChatMessage/Panel/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "LETS START SIMPLE, A PLAIN SHORTBREAD WITH SOMETHING SPECIAL"
+theme_override_font_sizes/normal_font_size = 24
+text = "LETS START SIMPLE, A PLAIN SHORTBREAD WITH SOMETHING SWEET"
 horizontal_alignment = 1
 vertical_alignment = 1
 visible_characters_behavior = 1
@@ -841,8 +841,5 @@ visible = false
 [node name="Ambiance" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_rgj8m")
 autoplay = true
-
-[connection signal="pressed" from="UI/TopBars/HBoxContainer/RollButton" to="." method="_on_roll_button_pressed"]
-[connection signal="pressed" from="UI/TopBars/HBoxContainer/BakeButton" to="." method="_on_bake_button_pressed"]
 
 [editable path="DiceWell"]
