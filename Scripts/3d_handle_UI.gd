@@ -8,6 +8,7 @@ var last_event_pos2D := Vector2()
 
 ## The time of the last event in seconds since engine start.
 var last_event_time := -1.0
+var event_pos3D: Vector3
 
 @onready var node_viewport: SubViewport = $SubViewport
 @onready var node_quad: MeshInstance3D = $MeshInstance3D
@@ -47,6 +48,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			# If the event is a mouse/touch event, then we can ignore it here, because it will be
 			# handled via Physics Picking.
 			return
+	var direction = event
 	node_viewport.push_input(event)
 
 
@@ -55,7 +57,7 @@ func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Ve
 	var quad_mesh_size: Vector2 = node_quad.mesh.size
 
 	# Event position in Area3D in world coordinate space.
-	var event_pos3D := event_position
+	event_pos3D = event_position
 
 	# Current time in seconds since engine start.
 	var now := Time.get_ticks_msec() / 1000.0

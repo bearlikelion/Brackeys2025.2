@@ -13,7 +13,7 @@ var dice_material: ShaderMaterial
 
 @onready var ray_casts: Node = $RayCasts
 @onready var dice: MeshInstance3D = $Mesh/Dice
-
+var dice_power = 400
 
 func _ready() -> void:
 	roll()
@@ -22,6 +22,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
 	if dissolve:
 		dissolve_value += 0.33 * delta
 		dice_material.set_shader_parameter("dissolveSlider", dissolve_value)
@@ -45,6 +46,7 @@ func _physics_process(delta: float) -> void:
 				angular_velocity = Vector3.ZERO
 				freeze = true
 				detect_face()
+
 
 		# Debug output
 		#if linear_velocity.length() > 0.01 or angular_velocity.length() > 0.01:
@@ -74,7 +76,7 @@ func detect_face() -> void:
 			if raycast.is_colliding():
 				print("Dice landed on %s" % raycast.opposite_side)
 				roll_result.emit(raycast.opposite_side, kind, die_name)
-				dissolve = true
+				#dissolve = true
 
 				if raycast.opposite_side == 1 or raycast.opposite_side == 2:
 					dice_material.set_shader_parameter("edgeColor", Color.REBECCA_PURPLE)
@@ -84,3 +86,10 @@ func detect_face() -> void:
 					dice_material.set_shader_parameter("edgeColor", Color.DARK_GREEN)
 
 				break
+
+
+func _on_body_entered(body: Node) -> void:
+	if body is D6 :
+		body.apply_central_force((global_position - body.global_position).normalized()*50)
+		apply_central_force(Vector3.UP*dice_power)
+		dice_power /= 4

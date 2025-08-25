@@ -1,9 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://dn84qu6x3gkeb"]
+[gd_scene load_steps=24 format=3 uid="uid://dn84qu6x3gkeb"]
 
 [ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_manager.gd" id="1_6h5vk"]
 [ext_resource type="Script" uid="uid://c70ich6p4r7cl" path="res://Scripts/dice_scorer.gd" id="2_a7fet"]
 [ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="2_fiftr"]
 [ext_resource type="Shader" uid="uid://bw7fjsock0lut" path="res://Shaders/camcorder.gdshader" id="3_fiftr"]
+[ext_resource type="Shader" uid="uid://d24hqaydysmou" path="res://Shaders/screen_shake.gdshader" id="3_wywco"]
 [ext_resource type="Shader" uid="uid://bfvdcb4qd4kqv" path="res://Shaders/horror_canvas.gdshader" id="4_1ixah"]
 [ext_resource type="Script" uid="uid://byxtjea03mn07" path="res://Scripts/chat_instructions.gd" id="4_5dgvu"]
 [ext_resource type="AudioStream" uid="uid://cmy2kmola5xkv" path="res://Assets/Audio/SFX/bewilderment-animal-crossing-sfx-233483.ogg" id="4_ikfsv"]
@@ -12,6 +13,13 @@
 [ext_resource type="Script" uid="uid://dc2l8bv5lwwxe" path="res://Scripts/dark_vignette.gd" id="5_gtbs0"]
 [ext_resource type="AudioStream" uid="uid://5fh4pyk3xdn" path="res://Assets/Audio/Music/333220__robster881__horror-ambience.ogg" id="6_rgj8m"]
 [ext_resource type="PackedScene" uid="uid://b614yacjdob64" path="res://Scenes/oven_scene.tscn" id="17_8m72m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ldntv"]
+shader = ExtResource("3_wywco")
+shader_parameter/ShakeStrength = 0.05
+shader_parameter/FactorA = Vector2(10, 50)
+shader_parameter/FactorB = Vector2(1.2, 9.54)
+shader_parameter/magnitude = Vector2(0.01, 0.01)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ikfsv"]
 shader = ExtResource("4_rgj8m")
@@ -65,18 +73,9 @@ shader_parameter/color_bleed_quality = 5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ixah"]
 shader = ExtResource("4_1ixah")
-shader_parameter/brightnessMult = 0.8
-shader_parameter/wiggleMult = 0.0025
-shader_parameter/chromaticAberrationOffset = 0.001
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_4xiap"]
-allow_unpress = true
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_wywco"]
-allow_unpress = true
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_ldntv"]
-allow_unpress = true
+shader_parameter/brightnessMult = 0.9
+shader_parameter/wiggleMult = 0.0008
+shader_parameter/chromaticAberrationOffset = 0.00113
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_w8jfd"]
 viewport_path = NodePath("OvenScene/Sprite3D/SubViewport")
@@ -95,22 +94,14 @@ script = ExtResource("2_a7fet")
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
-visible = false
+[node name="screan_shake" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_ldntv")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
-own_world_3d = true
-handle_input_locally = false
-size = Vector2i(1280, 720)
-render_target_update_mode = 0
-
-[node name="OvenScene" parent="UI/SubViewportContainer/SubViewport" instance=ExtResource("17_8m72m")]
+mouse_filter = 2
 
 [node name="DarkVignette" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_ikfsv")
@@ -156,16 +147,18 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "SCORE: 0"
 horizontal_alignment = 1
 
 [node name="BuscuitsLabel" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "Biscuits Baked: 0"
 horizontal_alignment = 1
 
@@ -173,8 +166,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "DICE TO ROLL: 0"
 horizontal_alignment = 1
 
@@ -182,8 +176,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "FEAR: 0"
 horizontal_alignment = 1
 
@@ -195,8 +190,9 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "TYPE: NONE"
 horizontal_alignment = 1
 
@@ -204,8 +200,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "FILLING: NONE"
 horizontal_alignment = 1
 
@@ -213,8 +210,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "TOPPINGS: NONE"
 horizontal_alignment = 1
 
@@ -300,55 +298,20 @@ autoplay = true
 
 [node name="OvenScene" parent="." instance=ExtResource("17_8m72m")]
 
-[node name="OvenDoor" parent="OvenScene" index="6"]
-transform = Transform3D(-3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0, 1, 0.34759, 1.00667, 0)
-
 [node name="Camera3D" parent="OvenScene" index="8"]
 transform = Transform3D(-3.65107e-06, -0.939693, 0.342021, 1.13134e-08, 0.342021, 0.939693, -1, 3.43476e-06, -1.23811e-06, 3.8, 2, 0)
 
-[node name="ToppingsSelector" parent="OvenScene/Sprite3D/SubViewport" index="1"]
-fillings = SubResource("ButtonGroup_4xiap")
-toppings = SubResource("ButtonGroup_wywco")
-decorations = SubResource("ButtonGroup_ldntv")
-
-[node name="Jam" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings" index="1"]
-button_group = SubResource("ButtonGroup_4xiap")
-
-[node name="Cream" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings" index="2"]
-button_group = SubResource("ButtonGroup_4xiap")
-
-[node name="Custard" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings" index="3"]
-button_group = SubResource("ButtonGroup_4xiap")
-
-[node name="Marrow" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings" index="4"]
-button_group = SubResource("ButtonGroup_4xiap")
-
-[node name="Sugar" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings" index="1"]
-button_group = SubResource("ButtonGroup_wywco")
-
-[node name="Icing" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings" index="2"]
-button_group = SubResource("ButtonGroup_wywco")
-
-[node name="Frosting" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings" index="3"]
-button_group = SubResource("ButtonGroup_wywco")
-
-[node name="Caramel" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings" index="4"]
-button_group = SubResource("ButtonGroup_wywco")
-
-[node name="Sprinkles" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations" index="1"]
-button_group = SubResource("ButtonGroup_ldntv")
-
-[node name="Tongue" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations" index="2"]
-button_group = SubResource("ButtonGroup_ldntv")
-
-[node name="Runes" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations" index="3"]
-button_group = SubResource("ButtonGroup_ldntv")
-
-[node name="Eyes" parent="OvenScene/Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations" index="4"]
-button_group = SubResource("ButtonGroup_ldntv")
+[node name="Sprite3D" parent="OvenScene" index="15"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.09468, 0.763774, 0)
 
 [node name="MeshInstance3D" parent="OvenScene/Sprite3D" index="2"]
 surface_material_override/0 = SubResource("StandardMaterial3D_a7fet")
+
+[node name="Dice" parent="OvenScene/DiceWell" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.216031, 0.976387, 0, -0.976387, 0.216031, -0.255188, 1.38482, 0)
+
+[node name="CollisionShape3D" parent="OvenScene/DiceWell/Colliders/StaticBody3D4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.83099e-08, 0, 0.418881)
 
 [editable path="OvenScene"]
 [editable path="OvenScene/character_witch2"]

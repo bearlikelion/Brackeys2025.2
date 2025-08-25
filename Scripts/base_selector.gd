@@ -3,7 +3,7 @@ extends Panel
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 signal base_selected(selected_base: String)
 
-@onready var grid_container: GridContainer = $VBoxContainer/GridContainer
+@onready var grid_container: GridContainer = $MarginContainer/VBoxContainer/GridContainer
 
 func _ready() -> void:
 	if game_manager != null :
