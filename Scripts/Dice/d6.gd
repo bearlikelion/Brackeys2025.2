@@ -14,7 +14,7 @@ var dice_material: ShaderMaterial
 
 var can_clack: bool = true
 var time_accumulator: float = 0.0
-var audio_interval: float = 0.5
+var audio_interval: float = 1.0
 
 var stuck_timer: float = 0.0
 var stuck_threshold: float = 2.0

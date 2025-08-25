@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://vg4wehnnqc4v" path="res://Shaders/3d_dissolve.gdshader" id="3_04fms"]
 [ext_resource type="Script" uid="uid://c8mqr5ve058h0" path="res://Scripts/Dice/die_raycast.gd" id="3_g7d41"]
 [ext_resource type="Texture2D" uid="uid://carg2uxrkvhks" path="res://Assets/Models/Dice/dice_inverted.png" id="4_112kq"]
-[ext_resource type="AudioStream" uid="uid://dfthaj275rg5i" path="res://Assets/Audio/SFX/736744__zxcmnbzxc__roll-die.ogg" id="6_112kq"]
+[ext_resource type="AudioStream" uid="uid://w8oikj00c158" path="res://Assets/Audio/SFX/558204__jakubpjp__gamemisc_dice-roll-on-wood_jaku5.ogg" id="6_112kq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_04fms"]
 friction = 0.5
@@ -30,7 +30,7 @@ shader_parameter/animation_speed = 1.0
 shader_parameter/animation_intensity = 0.2
 
 [node name="D6" type="RigidBody3D"]
-mass = 3.0
+mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_04fms")
 can_sleep = false
 contact_monitor = true
