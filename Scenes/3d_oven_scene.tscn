@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b614yacjdob64"]
+[gd_scene load_steps=24 format=3 uid="uid://b614yacjdob64"]
 
 [ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="1_hybjd"]
 [ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/3d_oven_scene.gd" id="1_mn46d"]
@@ -324,20 +324,6 @@ tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.6, 1, 1.2, 2)
 }
 
-[sub_resource type="Animation" id="Animation_52l15"]
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_hybjd"]
 resource_name = "view_oven"
 tracks/0/type = "value"
@@ -368,11 +354,41 @@ tracks/0/keys = {
 "values": [Vector3(0, 1.5708, 0), Vector3(-1.22173, 1.5708, 3.3078e-08)]
 }
 
+[sub_resource type="Animation" id="Animation_52l15"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pod84"]
+resource_name = "baker_to_oven"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 3.14159, 0), Vector3(0, 1.5708, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4cb8m"]
 _data = {
 &"RESET": SubResource("Animation_wvgpl"),
+&"baker_to_oven": SubResource("Animation_pod84"),
 &"open_oven": SubResource("Animation_1sv68"),
-&"view_baker": SubResource("Animation_52l15"),
+&"oven_to_baker": SubResource("Animation_52l15"),
 &"view_oven": SubResource("Animation_hybjd"),
 &"view_table": SubResource("Animation_kk8vj")
 }
