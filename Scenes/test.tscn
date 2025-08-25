@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1mbpsi2sa62n"]
+
+[ext_resource type="Texture2D" uid="uid://c3e5pkyxja3k7" path="res://Assets/Images/layers/Untitled-1_0002_Layer-12.png" id="1_8od7v"]
+[ext_resource type="Texture2D" uid="uid://b7mxfqpxjlx1k" path="res://Assets/Images/layers/Layer-14.png" id="1_i3aeo"]
+[ext_resource type="Texture2D" uid="uid://bw3rgn4iphvnx" path="res://Assets/Images/layers/Untitled-1_0000_Layer-12-copy.png" id="2_8od7v"]
+[ext_resource type="Texture2D" uid="uid://cuiku27dt53s6" path="res://Assets/Images/layers/Untitled-1_0003_Layer-9.png" id="2_qc4db"]
+[ext_resource type="Script" uid="uid://bj4qguk0adh2n" path="res://scripts/camera_2d.gd" id="3_35xla"]
+[ext_resource type="Script" uid="uid://bdilpesd6g7ah" path="res://scripts/muse_light.gd" id="4_ys1qc"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qc4db"]
+diffuse_texture = ExtResource("1_8od7v")
+normal_texture = ExtResource("2_8od7v")
+
+[sub_resource type="Gradient" id="Gradient_35xla"]
+offsets = PackedFloat32Array(0, 0.217993, 0.543253)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.52549, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i3aeo"]
+gradient = SubResource("Gradient_35xla")
+width = 160
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Layer-14" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("1_i3aeo")
+region_enabled = true
+region_rect = Rect2(0, 0, 3000, 2000)
+
+[node name="Untitled-10002Layer-12" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-306, 165)
+texture = SubResource("CanvasTexture_qc4db")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+script = ExtResource("3_35xla")
+
+[node name="Untitled-10003Layer-9" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(252, 149)
+texture = ExtResource("2_qc4db")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 1.56
+texture = SubResource("GradientTexture2D_i3aeo")
+texture_scale = 3.75
+script = ExtResource("4_ys1qc")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+energy = 0.39
+texture = SubResource("GradientTexture2D_i3aeo")
+texture_scale = 9.1
+height = 365.0
+script = ExtResource("4_ys1qc")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
