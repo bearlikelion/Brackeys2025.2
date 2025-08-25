@@ -97,10 +97,10 @@ func score_round(dice_face: int) -> void:
 func score_gingerbread(dice_face: int) -> void:
 	match dice_face:
 		1:
-			game_manager.bust_biscit()
+			# game_manager.bust_biscit()
 			game_manager.add_fear(1)
 		2:
-			game_manager.bust_biscuit()
+			# game_manager.bust_biscuit()
 			game_manager.add_fear(2)
 		3:
 			game_manager.add_score(1)

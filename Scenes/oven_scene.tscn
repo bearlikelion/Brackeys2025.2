@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dsagmk2myfcxm"]
+[gd_scene load_steps=24 format=3 uid="uid://b614yacjdob64"]
 
 [ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="1_hybjd"]
 [ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/oven_scene.gd" id="1_mn46d"]
