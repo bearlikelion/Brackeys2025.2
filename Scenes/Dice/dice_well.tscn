@@ -1,36 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqhqwc8kdgbeb"]
+[gd_scene load_steps=7 format=3 uid="uid://bqhqwc8kdgbeb"]
 
 [ext_resource type="Script" uid="uid://eped60x6pfae" path="res://Scenes/Dice/dice_well.gd" id="1_y30fj"]
-[ext_resource type="Shader" uid="uid://copbgxkjofblx" path="res://Shaders/horror.gdshader" id="2_3l6j6"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_y30fj"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="Environment" id="Environment_mrvuc"]
-background_color = Color(1, 1, 1, 1)
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-reflected_light_source = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvw5r"]
-render_priority = 0
-shader = ExtResource("2_3l6j6")
-shader_parameter/luminance = Color(0.3086, 0.6094, 0.082, 1)
-shader_parameter/brightness = 0.5
-shader_parameter/contrast = 3.0
-shader_parameter/scale = 1.0
-shader_parameter/rotation = 0.08
-shader_parameter/resolution_downsampling = 4.0
-
-[sub_resource type="QuadMesh" id="QuadMesh_y30fj"]
-flip_faces = true
-size = Vector2(2, 2)
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y30fj"]
+bounce = 0.25
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y30fj"]
-size = Vector3(3, 1, 0.25)
+size = Vector3(4.24512, 1, 0.25)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3l6j6"]
+rough = true
+bounce = 0.25
+absorbent = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3l6j6"]
-size = Vector3(4, 0.2, 4)
+size = Vector3(4, 0.5, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y30fj"]
 albedo_color = Color(0.0951575, 0.07924, 0.0421386, 1)
@@ -38,94 +22,62 @@ albedo_color = Color(0.0951575, 0.07924, 0.0421386, 1)
 [node name="DiceWell" type="Node3D"]
 script = ExtResource("1_y30fj")
 
-[node name="Dice" type="Node" parent="."]
+[node name="Dice" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.216031, 0.976387, 0, -0.976387, 0.216031, 0.0744395, 1.04179, 0)
 
-[node name="DebugUI" type="CanvasLayer" parent="."]
-layer = 10
+[node name="Colliders" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04808, 0)
 
-[node name="TextureRect" type="TextureRect" parent="DebugUI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("ViewportTexture_y30fj")
-
-[node name="RollDie" type="Button" parent="DebugUI"]
-visible = false
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -8.0
-offset_top = -8.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "ROLL DIE"
-
-[node name="SubViewport" type="SubViewport" parent="."]
-own_world_3d = true
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(1280, 720)
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.7, 0)
-environment = SubResource("Environment_mrvuc")
-projection = 1
-current = true
-size = 2.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.37113e-09, -0.1)
-visible = false
-material_override = SubResource("ShaderMaterial_yvw5r")
-mesh = SubResource("QuadMesh_y30fj")
-
-[node name="Camera3DDebug" type="Camera3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.5, 2)
-environment = SubResource("Environment_mrvuc")
-size = 2.5
-
-[node name="Colliders" type="Node" parent="SubViewport"]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D"]
-shape = SubResource("BoxShape3D_y30fj")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D2"]
-shape = SubResource("BoxShape3D_y30fj")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.7, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D3"]
-shape = SubResource("BoxShape3D_y30fj")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.7, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/StaticBody3D4"]
-shape = SubResource("BoxShape3D_y30fj")
-
-[node name="DiceFloor" type="StaticBody3D" parent="SubViewport/Colliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+[node name="RightWall" type="StaticBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.74212)
 collision_layer = 3
 collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_y30fj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Colliders/DiceFloor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, -1.19209e-07)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/RightWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.422745)
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="LeftWall" type="StaticBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75978)
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_y30fj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/LeftWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.248253)
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="BackWall" type="StaticBody3D" parent="Colliders"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 0)
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_y30fj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/BackWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.34048e-08, 0, 0.53544)
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="Frontwall" type="StaticBody3D" parent="Colliders"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.34074, 0, 0)
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_y30fj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/Frontwall"]
+shape = SubResource("BoxShape3D_y30fj")
+
+[node name="Floor" type="StaticBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0173206, -0.5, 0)
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_3l6j6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.141273, 0.0999999)
 shape = SubResource("BoxShape3D_3l6j6")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Colliders"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Colliders"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_y30fj")

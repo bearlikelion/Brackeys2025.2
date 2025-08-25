@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://fyfnxkcvk6f7"]
+[gd_scene load_steps=13 format=4 uid="uid://fyfnxkcvk6f7"]
 
 [ext_resource type="Script" uid="uid://cdi2i5y5bgh66" path="res://Scripts/Dice/d6.gd" id="1_s5j61"]
+[ext_resource type="Shader" uid="uid://vg4wehnnqc4v" path="res://Shaders/3d_dissolve.gdshader" id="2_112kq"]
 [ext_resource type="Texture2D" uid="uid://brasrdvjwg1lq" path="res://Assets/Models/Dice/Untitled-2.png" id="2_hnbey"]
 [ext_resource type="Texture2D" uid="uid://d4f52v1c5rhar" path="res://Assets/Models/Dice/Dice3_normal.png" id="3_04fms"]
 [ext_resource type="Script" uid="uid://c8mqr5ve058h0" path="res://Scripts/Dice/die_raycast.gd" id="3_g7d41"]
-[ext_resource type="Texture2D" uid="uid://carg2uxrkvhks" path="res://Assets/Models/Dice/dice_inverted.png" id="4_112kq"]
 [ext_resource type="AudioStream" uid="uid://w8oikj00c158" path="res://Assets/Audio/SFX/558204__jakubpjp__gamemisc_dice-roll-on-wood_jaku5.ogg" id="6_112kq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_04fms"]
@@ -13,6 +13,21 @@ bounce = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7d41"]
 size = Vector3(0.245, 0.245, 0.245)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltpww"]
+render_priority = 0
+shader = ExtResource("2_112kq")
+shader_parameter/baseColor = Color(1, 1, 1, 1)
+shader_parameter/baseColorTexture = ExtResource("2_hnbey")
+shader_parameter/dissolveSlider = 0.0
+shader_parameter/dissolveNoiseScale = 2.0
+shader_parameter/edgeNoiseScale = 0.0
+shader_parameter/edgesThickness = 0.1
+shader_parameter/edgeColor = Color(1, 0, 0, 1)
+shader_parameter/edgeEmissionSlider = 1.0
+shader_parameter/enable_dissolve_animation = false
+shader_parameter/animation_speed = 1.0
+shader_parameter/animation_intensity = 0.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnbey"]
 albedo_texture = ExtResource("2_hnbey")
@@ -83,47 +98,48 @@ shape = SubResource("BoxShape3D_g7d41")
 transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
 
 [node name="Cube2" type="MeshInstance3D" parent="Mesh"]
-material_override = SubResource("StandardMaterial3D_hnbey")
+material_override = SubResource("ShaderMaterial_ltpww")
 mesh = SubResource("ArrayMesh_t27wh")
 
 [node name="RayCasts" type="Node3D" parent="."]
 
 [node name="RayCast1" type="RayCast3D" parent="RayCasts"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0.1, 0)
 target_position = Vector3(0, -0.13, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 6
 
 [node name="RayCast2" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -0.1, 0, 0)
 target_position = Vector3(0, -0.13, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 5
 
 [node name="RayCast3" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0, 0, 0)
+transform = Transform3D(-1, 8.74228e-08, -3.82138e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0, 0.1)
 target_position = Vector3(0, -0.13, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 4
 
 [node name="RayCast4" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, 0, 0, 0)
+transform = Transform3D(1, -1.74845e-07, 7.64275e-15, 0, -4.37114e-08, -1, 1.74845e-07, 1, -4.37114e-08, 0, 0, -0.1)
 target_position = Vector3(0, -0.13, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 3
 
 [node name="RayCast5" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91068e-15, 0.1, 0, 0)
 target_position = Vector3(0, -0.13, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 2
 
 [node name="RayCast6" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+transform = Transform3D(-1, 8.74228e-08, -7.64274e-15, 8.74228e-08, 1, -8.74228e-08, 0, -8.74228e-08, -1, 0, -0.1, 0)
 target_position = Vector3(0, -0.13, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")

@@ -39,8 +39,8 @@ func roll_dice(dice: Array) -> void:
 	animation_player.play("dice_rool")
 	last_dices.clear()
 
-	var dice_to_roll = dice.size()
-	var rolled_dice = 0
+	dice_to_roll = dice.size()
+	rolled_dice = 0
 
 	for dice_i: int in range(dice.size()):
 		roll_die(dice[dice_i])
@@ -82,12 +82,12 @@ func animate_dice_to_grid() -> void:
 
 		var target_pos: Vector3 = camera_3d.global_transform * local_pos
 
-		get_tree().create_timer(3.5).connect("timeout",dice.set_deferred.bind("dissolve",true))
+		get_tree().create_timer(3.5).connect("timeout", dice.set_deferred.bind("dissolve",true))
 		var tween := dice.create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
 		tween.tween_property(dice, "global_position", target_pos, 0.5).set_delay(delay)
 		var tween2 := dice.create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
-		tween2.tween_property(dice, "scale",dice.scale/5, 0.5).set_delay(delay)
-		delay += 0.1 +(delay*0.3)
+		tween2.tween_property(dice, "scale", dice.scale/5, 0.5).set_delay(delay)
+		delay += 0.1 + (delay * 0.3)
 		index += 1
 
 
@@ -96,7 +96,7 @@ func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> vo
 	if rolled_dice == dice_to_roll:
 		dice_to_face()
 	else:
-		print("Rolled Dice: %s" % rolled_dice)
+		print("Rolled Dice: %s / %s" % [rolled_dice, dice_to_roll])
 
 	roll_result.emit(dice_face, dice_type, dice_name)
 
