@@ -15,18 +15,21 @@ var topping: String
 var decoration: String
 
 @onready var bake: Button = %Bake
+@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 
 func _ready() -> void:
-	bake.pressed.connect(_on_bake_pressed)
+	if game_manager != null :
+		game_manager.toppings_selector = self
+		bake.pressed.connect(_on_bake_pressed)
 
-	for filling_button: Button in fillings.get_buttons():
-		filling_button.toggled.connect(_on_filling_pressed)
+		for filling_button: Button in fillings.get_buttons():
+			filling_button.toggled.connect(_on_filling_pressed)
 
-	for topping_button: Button in toppings.get_buttons():
-		topping_button.toggled.connect(_on_topping_pressed)
+		for topping_button: Button in toppings.get_buttons():
+			topping_button.toggled.connect(_on_topping_pressed)
 
-	for decoration_button: Button in decorations.get_buttons():
-		decoration_button.toggled.connect(_on_decoration_pressed)
+		for decoration_button: Button in decorations.get_buttons():
+			decoration_button.toggled.connect(_on_decoration_pressed)
 
 
 func _on_filling_pressed(toggled_on: bool) -> void:

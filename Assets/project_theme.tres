@@ -1,0 +1,65 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://b5j0dosuw0wa0"]
+
+[ext_resource type="Texture2D" uid="uid://bwsoj1n4sbm84" path="res://Assets/Images/layers/BUttons.png" id="1_4l6f7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4l6f7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nobx"]
+atlas = ExtResource("1_4l6f7")
+region = Rect2(0, 300, 808, 300)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8dqcu"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_6nobx")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqddd"]
+atlas = ExtResource("1_4l6f7")
+region = Rect2(0, 0, 808, 300)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nobx"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_qqddd")
+region_rect = Rect2(0, 0, 808, 296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4317"]
+atlas = ExtResource("1_4l6f7")
+region = Rect2(0, 616, 808, 304)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bjnve"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_a4317")
+texture_margin_top = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4l6f7"]
+atlas = ExtResource("1_4l6f7")
+region = Rect2(1216, 0, 2517, 2128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qqddd"]
+texture = SubResource("AtlasTexture_4l6f7")
+expand_margin_left = 70.0
+expand_margin_top = 40.0
+expand_margin_right = 70.0
+expand_margin_bottom = 70.0
+
+[resource]
+Button/colors/font_color = Color(0.329412, 0.286275, 0.254902, 1)
+Button/colors/font_focus_color = Color(0.329412, 0.286275, 0.254902, 1)
+Button/colors/font_hover_color = Color(0.792157, 0.678431, 0.498039, 1)
+Button/colors/font_hover_pressed_color = Color(0.180392, 0.164706, 0.160784, 1)
+Button/colors/font_pressed_color = Color(0.180392, 0.164706, 0.160784, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_4l6f7")
+Button/styles/hover = SubResource("StyleBoxTexture_8dqcu")
+Button/styles/normal = SubResource("StyleBoxTexture_6nobx")
+Button/styles/pressed = SubResource("StyleBoxTexture_bjnve")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = -5
+Panel/styles/panel = SubResource("StyleBoxTexture_qqddd")

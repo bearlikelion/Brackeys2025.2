@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://b7mxfqpxjlx1k" path="res://Assets/Images/layers/Layer-14.png" id="1_i3aeo"]
 [ext_resource type="Texture2D" uid="uid://bw3rgn4iphvnx" path="res://Assets/Images/layers/Untitled-1_0000_Layer-12-copy.png" id="2_8od7v"]
 [ext_resource type="Texture2D" uid="uid://cuiku27dt53s6" path="res://Assets/Images/layers/Untitled-1_0003_Layer-9.png" id="2_qc4db"]
-[ext_resource type="Script" uid="uid://bj4qguk0adh2n" path="res://scripts/camera_2d.gd" id="3_35xla"]
-[ext_resource type="Script" uid="uid://bdilpesd6g7ah" path="res://scripts/muse_light.gd" id="4_ys1qc"]
+[ext_resource type="Script" uid="uid://bj4qguk0adh2n" path="res://Scripts/camera_2d.gd" id="3_35xla"]
+[ext_resource type="Script" uid="uid://bdilpesd6g7ah" path="res://Scripts/muse_light.gd" id="4_ys1qc"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_qc4db"]
 diffuse_texture = ExtResource("1_8od7v")

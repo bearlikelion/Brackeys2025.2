@@ -40,6 +40,11 @@ folder_colors={
 
 GameManager=""
 
+[gui]
+
+theme/custom="uid://b5j0dosuw0wa0"
+theme/custom_font="uid://sfnsws1thumr"
+
 [input]
 
 roll_new={

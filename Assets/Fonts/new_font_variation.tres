@@ -1,0 +1,12 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://sfnsws1thumr"]
+
+[ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="1_p4gly"]
+
+[resource]
+base_font = ExtResource("1_p4gly")
+variation_embolden = 0.5
+opentype_features = {
+1667329140: 0
+}
+spacing_glyph = 1
+spacing_space = 1

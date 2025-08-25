@@ -1,26 +1,25 @@
-[gd_scene load_steps=27 format=3 uid="uid://dn84qu6x3gkeb"]
+[gd_scene load_steps=24 format=3 uid="uid://dn84qu6x3gkeb"]
 
 [ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_manager.gd" id="1_6h5vk"]
-[ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="1_x87qo"]
 [ext_resource type="Script" uid="uid://c70ich6p4r7cl" path="res://Scripts/dice_scorer.gd" id="2_a7fet"]
 [ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="2_fiftr"]
 [ext_resource type="Shader" uid="uid://bw7fjsock0lut" path="res://Shaders/camcorder.gdshader" id="3_fiftr"]
+[ext_resource type="Shader" uid="uid://d24hqaydysmou" path="res://Shaders/screen_shake.gdshader" id="3_wywco"]
 [ext_resource type="Shader" uid="uid://bfvdcb4qd4kqv" path="res://Shaders/horror_canvas.gdshader" id="4_1ixah"]
 [ext_resource type="Script" uid="uid://byxtjea03mn07" path="res://Scripts/chat_instructions.gd" id="4_5dgvu"]
 [ext_resource type="AudioStream" uid="uid://cmy2kmola5xkv" path="res://Assets/Audio/SFX/bewilderment-animal-crossing-sfx-233483.ogg" id="4_ikfsv"]
 [ext_resource type="Shader" uid="uid://r27skblhwo44" path="res://Shaders/dark_vignette.gdshader" id="4_rgj8m"]
-[ext_resource type="Script" uid="uid://dhoqdlbqwk5nn" path="res://Scripts/base_selector.gd" id="4_uscyt"]
 [ext_resource type="Shader" uid="uid://d4gge76unbuh4" path="res://Shaders/vingette.gdshader" id="5_2fmhe"]
-[ext_resource type="Script" uid="uid://cc8ijqj6wre6c" path="res://Scripts/toppings_selector.gd" id="5_4xiap"]
 [ext_resource type="Script" uid="uid://dc2l8bv5lwwxe" path="res://Scripts/dark_vignette.gd" id="5_gtbs0"]
 [ext_resource type="AudioStream" uid="uid://5fh4pyk3xdn" path="res://Assets/Audio/Music/333220__robster881__horror-ambience.ogg" id="6_rgj8m"]
-[ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="6_w8jfd"]
-[ext_resource type="ButtonGroup" uid="uid://dvl0w16ip6kic" path="res://Scenes/UI/Toppings/toppings.tres" id="7_a7fet"]
-[ext_resource type="ButtonGroup" uid="uid://tsnshd513sfe" path="res://Scenes/UI/Toppings/decorations.tres" id="8_8m72m"]
 [ext_resource type="PackedScene" uid="uid://b614yacjdob64" path="res://Scenes/oven_scene.tscn" id="17_8m72m"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_gtbs0"]
-viewport_path = NodePath("UI/SubViewport")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ldntv"]
+shader = ExtResource("3_wywco")
+shader_parameter/ShakeStrength = 0.05
+shader_parameter/FactorA = Vector2(10, 50)
+shader_parameter/FactorB = Vector2(1.2, 9.54)
+shader_parameter/magnitude = Vector2(0.01, 0.01)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ikfsv"]
 shader = ExtResource("4_rgj8m")
@@ -74,9 +73,17 @@ shader_parameter/color_bleed_quality = 5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ixah"]
 shader = ExtResource("4_1ixah")
-shader_parameter/brightnessMult = 0.8
-shader_parameter/wiggleMult = 0.0025
-shader_parameter/chromaticAberrationOffset = 0.001
+shader_parameter/brightnessMult = 0.9
+shader_parameter/wiggleMult = 0.0008
+shader_parameter/chromaticAberrationOffset = 0.00113
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w8jfd"]
+viewport_path = NodePath("OvenScene/Sprite3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a7fet"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_w8jfd")
 
 [node name="GameManager" type="Node3D" groups=["GameManager"]]
 script = ExtResource("1_6h5vk")
@@ -87,28 +94,14 @@ script = ExtResource("2_a7fet")
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI"]
+[node name="screan_shake" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_ldntv")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("ViewportTexture_gtbs0")
-
-[node name="SubViewport" type="SubViewport" parent="UI"]
-own_world_3d = true
-handle_input_locally = false
-size = Vector2i(1280, 720)
-render_target_update_mode = 4
-
-[node name="OvenScene" parent="UI/SubViewport" instance=ExtResource("17_8m72m")]
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+mouse_filter = 2
 
 [node name="DarkVignette" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_ikfsv")
@@ -134,11 +127,11 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="TopBars" type="MarginContainer" parent="UI"]
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 99.0
 grow_horizontal = 2
-grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
@@ -154,16 +147,18 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "SCORE: 0"
 horizontal_alignment = 1
 
 [node name="BuscuitsLabel" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "Biscuits Baked: 0"
 horizontal_alignment = 1
 
@@ -171,8 +166,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "DICE TO ROLL: 0"
 horizontal_alignment = 1
 
@@ -180,8 +176,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "FEAR: 0"
 horizontal_alignment = 1
 
@@ -193,8 +190,9 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "TYPE: NONE"
 horizontal_alignment = 1
 
@@ -202,8 +200,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "FILLING: NONE"
 horizontal_alignment = 1
 
@@ -211,8 +210,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "TOPPINGS: NONE"
 horizontal_alignment = 1
 
@@ -221,560 +221,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
-
-[node name="BaseSelector" type="Panel" parent="UI"]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("4_uscyt")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/BaseSelector"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="UI/BaseSelector/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 48
-text = "PICK YOUR BASE BISCUIT"
-horizontal_alignment = 1
-
-[node name="GridContainer" type="GridContainer" parent="UI/BaseSelector/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-columns = 3
-
-[node name="Shortbread" type="Button" parent="UI/BaseSelector/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
-text = "Shortbread"
-
-[node name="Label" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Shortbread"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
-text = "1d6"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Shortbread"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Failure doesn't add fear"
-horizontal_alignment = 1
-
-[node name="Heart" type="Button" parent="UI/BaseSelector/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
-text = "Heart"
-
-[node name="Label" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Heart"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
-text = "2d6"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Heart"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Success: reduces fear
-Failure: doubles fear"
-horizontal_alignment = 1
-
-[node name="Square" type="Button" parent="UI/BaseSelector/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
-text = "Square"
-
-[node name="Label" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Square"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
-text = "3d6"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Square"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Fail ANY role it snaps"
-horizontal_alignment = 1
-
-[node name="Round" type="Button" parent="UI/BaseSelector/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
-text = "Round"
-
-[node name="Label" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Round"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
-text = "4d6"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Round"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Failure: Reroll 1 die"
-horizontal_alignment = 1
-
-[node name="Gingerbread" type="Button" parent="UI/BaseSelector/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
-text = "Gingerbread"
-
-[node name="Label" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Gingerbread"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
-text = "5d6"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Gingerbread"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Fail ANY role it snaps"
-horizontal_alignment = 1
-
-[node name="Skull" type="Button" parent="UI/BaseSelector/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 36
-text = "Skull"
-
-[node name="Label" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Skull"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 24
-text = "6d6"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="UI/BaseSelector/VBoxContainer/GridContainer/Skull"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Success: double score
-Failure: +2 fear instead of 1"
-horizontal_alignment = 1
-
-[node name="ToppingsSelector" type="Panel" parent="UI"]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_4xiap")
-fillings = ExtResource("6_w8jfd")
-toppings = ExtResource("7_a7fet")
-decorations = ExtResource("8_8m72m")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/ToppingsSelector"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 48
-text = "SELECT MODIFIERS"
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/ToppingsSelector/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Fillings" type="VBoxContainer" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Fillings +1d6"
-horizontal_alignment = 1
-
-[node name="Jam" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("6_w8jfd")
-text = "Jam"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Jam"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "High Score, +2 Fear"
-horizontal_alignment = 1
-
-[node name="Cream" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("6_w8jfd")
-text = "Cream"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Cream"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Moderate Score"
-horizontal_alignment = 1
-
-[node name="Custard" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("6_w8jfd")
-text = "Custard"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Custard"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "x2 Score but breaks on fail"
-horizontal_alignment = 1
-
-[node name="Marrow" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("6_w8jfd")
-text = "Marrow"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Marrow"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Removes Fear"
-horizontal_alignment = 1
-
-[node name="Toppings" type="VBoxContainer" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Toppings +1d6"
-horizontal_alignment = 1
-
-[node name="Sugar" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("7_a7fet")
-text = "Sugar Glaze"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Sugar"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Small Points"
-horizontal_alignment = 1
-
-[node name="Icing" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("7_a7fet")
-text = "Royal Icing"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Icing"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Big Points but cracks easily"
-horizontal_alignment = 1
-
-[node name="Frosting" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("7_a7fet")
-text = "Cursed Frosting"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Frosting"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Random Outcome"
-horizontal_alignment = 1
-
-[node name="Caramel" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("7_a7fet")
-text = "Burnt Caramel"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Caramel"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "+1 Fear but high score"
-horizontal_alignment = 1
-
-[node name="Decorations" type="VBoxContainer" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "Decorations +1d6"
-horizontal_alignment = 1
-
-[node name="Sprinkles" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("8_8m72m")
-text = "Sprinkles"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Sprinkles"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "+1 per success"
-horizontal_alignment = 1
-
-[node name="Tongue" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("8_8m72m")
-text = "Tongue"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Tongue"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Reduces fear on success"
-horizontal_alignment = 1
-
-[node name="Runes" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("8_8m72m")
-text = "Etched Runes"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Runes"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Reroll one failed die"
-horizontal_alignment = 1
-
-[node name="Eyes" type="Button" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-button_group = ExtResource("8_8m72m")
-text = "Candied Eyes"
-
-[node name="Label" type="Label" parent="UI/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Eyes"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Creeeepy"
-horizontal_alignment = 1
-
-[node name="Bake" type="Button" parent="UI/ToppingsSelector/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fiftr")
-theme_override_font_sizes/font_size = 16
-text = "BAKE A BISCUIT"
 
 [node name="ChatMessage" type="MarginContainer" parent="UI"]
 anchors_preset = 12
@@ -850,4 +296,22 @@ mouse_filter = 2
 stream = ExtResource("6_rgj8m")
 autoplay = true
 
-[node name="DiceWell" parent="." instance=ExtResource("1_x87qo")]
+[node name="OvenScene" parent="." instance=ExtResource("17_8m72m")]
+
+[node name="Camera3D" parent="OvenScene" index="8"]
+transform = Transform3D(-3.65107e-06, -0.939693, 0.342021, 1.13134e-08, 0.342021, 0.939693, -1, 3.43476e-06, -1.23811e-06, 3.8, 2, 0)
+
+[node name="Sprite3D" parent="OvenScene" index="15"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.09468, 0.763774, 0)
+
+[node name="MeshInstance3D" parent="OvenScene/Sprite3D" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_a7fet")
+
+[node name="Dice" parent="OvenScene/DiceWell" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.216031, 0.976387, 0, -0.976387, 0.216031, -0.255188, 1.38482, 0)
+
+[node name="CollisionShape3D" parent="OvenScene/DiceWell/Colliders/StaticBody3D4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.83099e-08, 0, 0.418881)
+
+[editable path="OvenScene"]
+[editable path="OvenScene/character_witch2"]

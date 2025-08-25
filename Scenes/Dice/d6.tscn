@@ -7,7 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://carg2uxrkvhks" path="res://Assets/Models/Dice/dice_inverted.png" id="4_112kq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_04fms"]
-friction = 0.15
+friction = 0.5
+bounce = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7d41"]
 size = Vector3(0.15, 0.15, 0.15)
@@ -28,8 +29,8 @@ shader_parameter/animation_speed = 1.0
 shader_parameter/animation_intensity = 0.2
 
 [node name="D6" type="RigidBody3D"]
+mass = 3.0
 physics_material_override = SubResource("PhysicsMaterial_04fms")
-gravity_scale = 8.0
 can_sleep = false
 linear_damp = 2.0
 angular_damp = 2.0
@@ -39,7 +40,7 @@ script = ExtResource("1_s5j61")
 shape = SubResource("BoxShape3D_g7d41")
 
 [node name="Mesh" parent="." instance=ExtResource("1_6fe33")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0)
 
 [node name="Dice" parent="Mesh" index="0"]
 material_override = SubResource("ShaderMaterial_ltpww")
@@ -86,5 +87,7 @@ target_position = Vector3(0, -0.1, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 
 [editable path="Mesh"]
