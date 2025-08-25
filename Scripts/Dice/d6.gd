@@ -12,14 +12,14 @@ func _ready() -> void:
 	roll()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not freeze:
 		# Check if die is settled on a face and nearly stopped
 		if linear_velocity.length() <= 0.01 and angular_velocity.length() <= 0.01:
 			# Check if any face is flat against the ground
 			var is_on_face: bool = false
 			for raycast: DieRaycast in ray_casts.get_children():
-				if raycast.is_colliding():
+				if raycast.is_colliding() and raycast.get_collision_normal() == Vector3.UP:
 					is_on_face = true
 					break
 
