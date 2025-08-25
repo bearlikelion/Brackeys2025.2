@@ -1,17 +1,32 @@
+class_name DiceScorer
 extends Node
 
+var reroll_fail: bool = false
+var success_die: int = 0
+
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
+@onready var dice_well: DiceWell = get_tree().get_first_node_in_group("DiceWell")
+
 
 func _ready() -> void:
-	pass
+	add_to_group("DiceScorer")
 
 
 func score_die(dice_type: String, dice_name: String, dice_face: int) -> void:
+	if dice_face >= 5:
+		success_die += 1
+
 	if dice_type == "base":
 		score_base_die(dice_name, dice_face)
 
 	if dice_type == "filling":
 		score_filling_die(dice_name, dice_face)
+
+	if dice_type == "topping":
+		score_topping_die(dice_name, dice_face)
+
+	if dice_type == "decoration":
+		score_decoration_die(dice_name, dice_face)
 
 
 func score_base_die(dice_name: String, dice_face: int) -> void:
@@ -39,7 +54,28 @@ func score_filling_die(dice_name: String, dice_face: int) -> void:
 		"Custard":
 			score_custard_filling(dice_face)
 		"Marrow":
-			pass
+			score_marrow_filling(dice_face)
+
+
+func score_topping_die(dice_name: String, dice_face: int) -> void:
+	match dice_name:
+		"Sugar":
+			score_sugar_topping(dice_face)
+		"Icing":
+			score_icing_topping(dice_face)
+		"Frosting":
+			score_frosting_topping(dice_face)
+		"Caramel":
+			score_caramel_topping(dice_face)
+
+
+func score_decoration_die(dice_name: String, dice_face: int) -> void:
+	match dice_name:
+		"Tongue":
+			score_tongue_decoration(dice_face)
+		"Eyes":
+			score_eyes_decoration(dice_face)
+
 
 ## BASE BISCUITS
 # Ignore Fear | Low Score
@@ -155,12 +191,16 @@ func score_jam_filling(dice_face: int) -> void:
 			game_manager.add_fear(4)
 		3:
 			game_manager.add_score(2)
+			game_manager.add_fear(2)
 		4:
 			game_manager.add_score(4)
+			game_manager.add_fear(2)
 		5:
 			game_manager.add_score(6)
+			game_manager.add_fear(2)
 		6:
 			game_manager.add_score(8)
+			game_manager.add_fear(2)
 
 
 # Stable, base scoring
@@ -169,7 +209,7 @@ func score_cream_filling(dice_face: int) -> void:
 		1:
 			game_manager.add_fear(1)
 		2:
-			game_manager.add_fear(2)
+			game_manager.add_fear(1)
 		3:
 			game_manager.add_score(1)
 		4:
@@ -178,19 +218,6 @@ func score_cream_filling(dice_face: int) -> void:
 			game_manager.add_score(3)
 		6:
 			game_manager.add_score(4)
-	match dice_face:
-		1:
-			game_manager.add_fear(2)
-		2:
-			game_manager.add_fear(4)
-		3:
-			game_manager.add_score(2)
-		4:
-			game_manager.add_score(4)
-		5:
-			game_manager.add_score(6)
-		6:
-			game_manager.add_score(8)
 
 
 # Success, doubles entire biscuit score, one failure it collapses
@@ -204,3 +231,145 @@ func score_custard_filling(dice_face: int) -> void:
 			game_manager.double_biscuit()
 		6:
 			game_manager.double_biscuit()
+
+
+# Success: -Fear | Failure: +2 Fear
+func score_marrow_filling(dice_face: int) -> void:
+	match dice_face:
+		1:
+			game_manager.add_fear(2)
+		2:
+			game_manager.add_fear(2)
+		3:
+			game_manager.add_fear(-1)
+		4:
+			game_manager.add_fear(-1)
+		5:
+			game_manager.add_fear(-2)
+		6:
+			game_manager.add_fear(-2)
+
+# Small score, no negative
+func score_sugar_topping(dice_face: int) -> void:
+	match dice_face:
+		3:
+			game_manager.add_score(1)
+		4:
+			game_manager.add_score(1)
+		5:
+			game_manager.add_score(2)
+		6:
+			game_manager.add_score(2)
+
+
+# Success: Bouns Points | Failure: Cracks (-Points) + Fear
+func score_icing_topping(dice_face: int) -> void:
+	match dice_face:
+		1:
+			game_manager.add_score(-1)
+			game_manager.add_fear(1)
+		2:
+			game_manager.add_score(-1)
+			game_manager.add_fear(1)
+		3:
+			game_manager.add_score(2)
+		4:
+			game_manager.add_score(2)
+		5:
+			game_manager.add_score(4)
+		6:
+			game_manager.add_score(4)
+
+
+# Low score for high points, high score is fear spike
+func score_frosting_topping(dice_face: int) -> void:
+	match dice_face:
+		1:
+			game_manager.add_score(6)
+		2:
+			game_manager.add_score(4)
+		3:
+			game_manager.add_score(2)
+			game_manager.add_fear(2)
+		4:
+			game_manager.add_fear(4)
+		5:
+			game_manager.add_fear(6)
+		6:
+			game_manager.add_fear(8)
+
+
+# High Score but always +1 Fear
+func score_caramel_topping(dice_face: int) -> void:
+	match dice_face:
+		1:
+			game_manager.add_fear(2)
+		2:
+			game_manager.add_fear(2)
+		3:
+			game_manager.add_score(2)
+			game_manager.add_fear(1)
+		4:
+			game_manager.add_score(2)
+			game_manager.add_fear(1)
+		5:
+			game_manager.add_score(4)
+			game_manager.add_fear(1)
+		6:
+			game_manager.add_score(4)
+			game_manager.add_fear(1)
+
+
+# +Points based on successful dice
+func score_sprinkles_decoration() -> void:
+	game_manager.add_score(success_die)
+
+
+# Success: +Reduce Fear | Fail: -Bonus Fear
+func score_tongue_decoration(dice_face: int) -> void:
+	match dice_face:
+		1:
+			game_manager.add_fear(2)
+		2:
+			game_manager.add_fear(4)
+		5:
+			game_manager.add_fear(-2)
+		6:
+			game_manager.add_fear(-4)
+
+
+# Reroll one failed die TODO
+func score_runes_decoration() -> void:
+	pass
+
+
+func score_eyes_decoration(dice_face: int) -> void:
+	var is_synergy: bool = false
+	if game_manager.type == "Gingerbread" or game_manager.type == "Skull":
+		is_synergy = true
+
+	match dice_face:
+		1:
+			game_manager.add_fear(1)
+		2:
+			game_manager.add_fear(2)
+		3:
+			if is_synergy:
+				game_manager.add_score(2)
+			else:
+				game_manager.add_score(1)
+		4:
+			if is_synergy:
+				game_manager.add_score(4)
+			else:
+				game_manager.add_score(2)
+		5:
+			if is_synergy:
+				game_manager.add_score(6)
+			else:
+				game_manager.add_score(3)
+		6:
+			if is_synergy:
+				game_manager.add_score(8)
+			else:
+				game_manager.add_score(4)

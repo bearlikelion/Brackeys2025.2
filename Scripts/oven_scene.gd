@@ -22,3 +22,4 @@ func _on_animation_finished(anim_name: String) -> void:
 	if anim_name == "open_oven":
 		print("View Table")
 		animation_player.play("view_table")
+		game_manager.new_round()

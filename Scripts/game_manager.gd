@@ -7,6 +7,8 @@ signal fear_increased()
 signal fear_decreased()
 signal biscuit_busted()
 
+var round: int = 0
+
 var fear: int = 0
 var total: int = 0
 var score: int = 0
@@ -27,7 +29,7 @@ var topping: String
 var decoration: String
 var filling_score: int = 0
 
-@onready var dice_scorer: Node = $DiceScorer
+@onready var dice_scorer: DiceScorer = $DiceScorer
 @onready var dice_well: DiceWell = $OvenScene/DiceWell
 
 @onready var type_label: Label = %TypeLabel
@@ -40,6 +42,7 @@ var filling_score: int = 0
 
 @onready var mutators_bar: VBoxContainer = %MutatorsBar
 @onready var chat_instructions: ChatInstructions = %ChatInstructions
+@onready var chat_message: MarginContainer = $UI/ChatMessage
 @onready var base_selector: BaseSelector :
 	set(value):
 		base_selector = value
@@ -59,9 +62,7 @@ func _ready() -> void:
 	dice_well.roll_result.connect(_on_roll_result)
 	dice_well.roll_finished.connect(_on_roll_finished)
 	chat_instructions.instructions_done.connect(_on_instructions_done)
-
-
-
+	new_round()
 
 
 func _input(event: InputEvent) -> void:
@@ -141,14 +142,19 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 		dice.append({"kind": "topping", "name": topping})
 
 	if _decoration != "":
-		decoration = _decoration
-		dice.append({"kind": "decoration", "name": decoration})
+		if _decoration != "Sprinkles" or _decoration != "Runes":
+			decoration = _decoration
+			dice.append({"kind": "decoration", "name": decoration})
+
+		if _decoration == "Runes":
+			dice_scorer.reroll_fail = true
 
 	print("NOW ROLL YOUR LUCK | DICE %s" % dice_to_roll)
 	roll_dice()
 
 
 func roll_dice() -> void:
+	chat_message.hide()
 	bust = false
 	dice_well.roll_dice(dice)
 	dice = []
@@ -175,10 +181,23 @@ func bust_biscuit() -> void:
 
 
 func double_biscuit() -> void:
+	print("2x SCORE!")
 	if not biscuit_broken:
 		add_score(score)
 
 
 func _on_roll_finished() -> void:
-	view_oven.emit()
+	if topping == "Sprinkles":
+		dice_scorer.score_sprinkles_decoration()
+
+	dice_scorer.reroll_fail = false
+	dice_scorer.success_die = 0
 	biscuit_broken = false
+	view_oven.emit()
+
+
+func new_round() -> void:
+	round += 1
+	chat_message.show()
+	base_selector.show()
+	chat_instructions.new_instructions()

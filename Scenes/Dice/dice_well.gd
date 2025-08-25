@@ -95,8 +95,6 @@ func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> vo
 	rolled_dice += 1
 	if rolled_dice == dice_to_roll:
 		dice_to_face()
-	else:
-		print("Rolled Dice: %s / %s" % [rolled_dice, dice_to_roll])
 
 	roll_result.emit(dice_face, dice_type, dice_name)
 

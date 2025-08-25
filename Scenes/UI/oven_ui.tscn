@@ -454,7 +454,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Sugar/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Small Points"
+text = "Small Points but Safe"
 horizontal_alignment = 1
 
 [node name="Icing" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
@@ -506,7 +506,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Frosting/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Random Outcome"
+text = "Low Roll for High Points"
 horizontal_alignment = 1
 
 [node name="Caramel" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
@@ -595,7 +595,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Tongue/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Reduces fear on success"
+text = "Reduces fear or adds extra"
 horizontal_alignment = 1
 
 [node name="Runes" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
@@ -647,7 +647,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Eyes/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Creeeepy"
+text = "Bonus on Gingerbread or Skull"
 horizontal_alignment = 1
 
 [node name="Bake" type="Button" parent="ToppingsSelector/VBoxContainer"]
