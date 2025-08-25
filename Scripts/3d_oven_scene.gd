@@ -5,7 +5,8 @@ extends Node3D
 
 
 func _ready() -> void:
-	game_manager.view_oven.connect(_on_view_oven)
+	if game_manager != null :
+		game_manager.view_oven.connect(_on_view_oven)
 
 
 func _on_view_oven() -> void:

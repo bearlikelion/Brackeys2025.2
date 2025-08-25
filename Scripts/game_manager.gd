@@ -38,20 +38,28 @@ var filling_score: int = 0
 
 @onready var mutators_bar: VBoxContainer = %MutatorsBar
 @onready var chat_instructions: ChatInstructions = %ChatInstructions
-@onready var base_selector: BaseSelector = %BaseSelector
-@onready var toppings_selector: ToppingsSelector = %ToppingsSelector
+@onready var base_selector: BaseSelector :
+	set(value):
+		base_selector = value
+		base_selector.base_selected.connect(_on_base_selected)
+
+
+@onready var toppings_selector: ToppingsSelector:
+	set(value):
+		toppings_selector = value
+		toppings_selector.filling_pressed.connect(_on_topping_pressed)
+		toppings_selector.topping_pressed.connect(_on_topping_pressed)
+		toppings_selector.decoration_pressed.connect(_on_topping_pressed)
+		toppings_selector.toppings_selected.connect(_on_toppings_selected)
 
 
 func _ready() -> void:
 	dice_well.roll_result.connect(_on_roll_result)
 	dice_well.roll_finished.connect(_on_roll_finished)
 	chat_instructions.instructions_done.connect(_on_instructions_done)
-	base_selector.base_selected.connect(_on_base_selected)
 
-	toppings_selector.filling_pressed.connect(_on_topping_pressed)
-	toppings_selector.topping_pressed.connect(_on_topping_pressed)
-	toppings_selector.decoration_pressed.connect(_on_topping_pressed)
-	toppings_selector.toppings_selected.connect(_on_toppings_selected)
+
+
 
 
 func _input(event: InputEvent) -> void:

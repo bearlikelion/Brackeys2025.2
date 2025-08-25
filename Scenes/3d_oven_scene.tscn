@@ -1,9 +1,16 @@
-[gd_scene load_steps=23 format=3 uid="uid://b614yacjdob64"]
+[gd_scene load_steps=35 format=3 uid="uid://b614yacjdob64"]
 
 [ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="1_hybjd"]
 [ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/3d_oven_scene.gd" id="1_mn46d"]
 [ext_resource type="Shader" uid="uid://b7w8vso1bv4mm" path="res://Shaders/oven_heat_schlieren.gdshader" id="2_52l15"]
 [ext_resource type="PackedScene" uid="uid://d0poxk80yd3ps" path="res://Assets/Models/Witch/character_witch.gltf" id="3_poiax"]
+[ext_resource type="Script" uid="uid://dhoqdlbqwk5nn" path="res://Scripts/base_selector.gd" id="4_wxl4b"]
+[ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="5_4rjkd"]
+[ext_resource type="Script" uid="uid://beovhj8ophdrq" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
+[ext_resource type="Script" uid="uid://cc8ijqj6wre6c" path="res://Scripts/toppings_selector.gd" id="6_x5r4b"]
+[ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="7_cuf8n"]
+[ext_resource type="ButtonGroup" uid="uid://dvl0w16ip6kic" path="res://Scenes/UI/Toppings/toppings.tres" id="8_6fgqh"]
+[ext_resource type="ButtonGroup" uid="uid://tsnshd513sfe" path="res://Scenes/UI/Toppings/decorations.tres" id="9_7og8u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk8vj"]
 albedo_color = Color(0.105424, 0.0422749, 0.00954492, 1)
@@ -188,36 +195,6 @@ tracks/12/keys = {
 "values": [Vector3(-1.22173, 1.5708, 3.3078e-08)]
 }
 
-[sub_resource type="Animation" id="Animation_hybjd"]
-resource_name = "view_oven"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 0.5),
-"update": 0,
-"values": [Vector3(-1.22173, 1.5708, 3.3078e-08), Vector3(0, 1.5708, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_kk8vj"]
-resource_name = "view_table"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 0.5),
-"update": 0,
-"values": [Vector3(0, 1.5708, 0), Vector3(-1.22173, 1.5708, 3.3078e-08)]
-}
-
 [sub_resource type="Animation" id="Animation_1sv68"]
 resource_name = "new_animation"
 length = 2.0
@@ -368,6 +345,36 @@ tracks/0/keys = {
 "values": [Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_hybjd"]
+resource_name = "view_oven"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector3(-1.22173, 1.5708, 3.3078e-08), Vector3(0, 1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kk8vj"]
+resource_name = "view_table"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(-1.22173, 1.5708, 3.3078e-08)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4cb8m"]
 _data = {
 &"RESET": SubResource("Animation_wvgpl"),
@@ -391,6 +398,23 @@ albedo_color = Color(0.157274, 0.157274, 0.157274, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pod84"]
 transparency = 1
 albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4rjkd"]
+size = Vector3(5.12, 0.1, 2.88)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x5r4b"]
+size = Vector3(2.65454, 0.1, 1.67383)
+
+[sub_resource type="QuadMesh" id="QuadMesh_4rjkd"]
+size = Vector2(5.12, 2.88)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x5r4b"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cuf8n"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_x5r4b")
 
 [node name="OvenScene" type="Node3D"]
 script = ExtResource("1_mn46d")
@@ -457,7 +481,7 @@ mesh = SubResource("QuadMesh_p1st1")
 skeleton = NodePath("../OvenDoor")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(4.44148e-08, -0.939693, 0.34202, 1.13133e-08, 0.34202, 0.939693, -1, -3.78668e-08, 2.58218e-08, 3.8, 2, 0)
+transform = Transform3D(-3.65107e-06, -0.939693, 0.342021, 1.13134e-08, 0.342021, 0.939693, -1, 3.43476e-06, -1.23811e-06, 3.8, 2, 0)
 doppler_tracking = 2
 current = true
 
@@ -518,6 +542,581 @@ surface_material_override/2 = SubResource("StandardMaterial3D_pod84")
 
 [node name="character_witchHat" parent="character_witch2/character_witch/character_witchHead" index="0"]
 visible = false
+
+[node name="Sprite3D" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.09468, 0.673444, 0)
+script = ExtResource("5_x5r4b")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(1280, 720)
+
+[node name="BaseSelector" type="Panel" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_wxl4b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sprite3D/SubViewport/BaseSelector"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 48
+text = "PICK YOUR BASE BISCUIT"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="Shortbread" type="Button" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 36
+text = "Shortbread"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Shortbread"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 24
+text = "1d6"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Shortbread"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Failure doesn't add fear"
+horizontal_alignment = 1
+
+[node name="Heart" type="Button" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 36
+text = "Heart"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Heart"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 24
+text = "2d6"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Heart"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Success: reduces fear
+Failure: doubles fear"
+horizontal_alignment = 1
+
+[node name="Square" type="Button" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 36
+text = "Square"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Square"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 24
+text = "3d6"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Square"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Fail ANY role it snaps"
+horizontal_alignment = 1
+
+[node name="Round" type="Button" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 36
+text = "Round"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Round"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 24
+text = "4d6"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Round"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Failure: Reroll 1 die"
+horizontal_alignment = 1
+
+[node name="Gingerbread" type="Button" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 36
+text = "Gingerbread"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Gingerbread"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 24
+text = "5d6"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Gingerbread"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Fail ANY role it snaps"
+horizontal_alignment = 1
+
+[node name="Skull" type="Button" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 36
+text = "Skull"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Skull"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 24
+text = "6d6"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Sprite3D/SubViewport/BaseSelector/VBoxContainer/GridContainer/Skull"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Success: double score
+Failure: +2 fear instead of 1"
+horizontal_alignment = 1
+
+[node name="ToppingsSelector" type="Panel" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_x5r4b")
+fillings = ExtResource("7_cuf8n")
+toppings = ExtResource("8_6fgqh")
+decorations = ExtResource("9_7og8u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sprite3D/SubViewport/ToppingsSelector"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 48
+text = "SELECT MODIFIERS"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Fillings" type="VBoxContainer" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Fillings +1d6"
+horizontal_alignment = 1
+
+[node name="Jam" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("7_cuf8n")
+text = "Jam"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Jam"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "High Score, +2 Fear"
+horizontal_alignment = 1
+
+[node name="Cream" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("7_cuf8n")
+text = "Cream"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Cream"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Moderate Score"
+horizontal_alignment = 1
+
+[node name="Custard" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("7_cuf8n")
+text = "Custard"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Custard"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "x2 Score but breaks on fail"
+horizontal_alignment = 1
+
+[node name="Marrow" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("7_cuf8n")
+text = "Marrow"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Marrow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Removes Fear"
+horizontal_alignment = 1
+
+[node name="Toppings" type="VBoxContainer" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Toppings +1d6"
+horizontal_alignment = 1
+
+[node name="Sugar" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("8_6fgqh")
+text = "Sugar Glaze"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Sugar"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Small Points"
+horizontal_alignment = 1
+
+[node name="Icing" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("8_6fgqh")
+text = "Royal Icing"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Icing"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Big Points but cracks easily"
+horizontal_alignment = 1
+
+[node name="Frosting" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("8_6fgqh")
+text = "Cursed Frosting"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Frosting"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Random Outcome"
+horizontal_alignment = 1
+
+[node name="Caramel" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("8_6fgqh")
+text = "Burnt Caramel"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Caramel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "+1 Fear but high score"
+horizontal_alignment = 1
+
+[node name="Decorations" type="VBoxContainer" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "Decorations +1d6"
+horizontal_alignment = 1
+
+[node name="Sprinkles" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("9_7og8u")
+text = "Sprinkles"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Sprinkles"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "+1 per success"
+horizontal_alignment = 1
+
+[node name="Tongue" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("9_7og8u")
+text = "Tongue"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Tongue"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Reduces fear on success"
+horizontal_alignment = 1
+
+[node name="Runes" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("9_7og8u")
+text = "Etched Runes"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Runes"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Reroll one failed die"
+horizontal_alignment = 1
+
+[node name="Eyes" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = ExtResource("9_7og8u")
+text = "Candied Eyes"
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Eyes"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Creeeepy"
+horizontal_alignment = 1
+
+[node name="Bake" type="Button" parent="Sprite3D/SubViewport/ToppingsSelector/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_4rjkd")
+theme_override_font_sizes/font_size = 16
+text = "BAKE A BISCUIT"
+
+[node name="Area3D" type="Area3D" parent="Sprite3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Area3D"]
+shape = SubResource("BoxShape3D_4rjkd")
+disabled = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Sprite3D/Area3D"]
+shape = SubResource("BoxShape3D_x5r4b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D"]
+transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, 0, -0.062, 0)
+mesh = SubResource("QuadMesh_4rjkd")
+surface_material_override/0 = SubResource("StandardMaterial3D_cuf8n")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 
