@@ -17,7 +17,7 @@
 [ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="6_w8jfd"]
 [ext_resource type="ButtonGroup" uid="uid://dvl0w16ip6kic" path="res://Scenes/UI/Toppings/toppings.tres" id="7_a7fet"]
 [ext_resource type="ButtonGroup" uid="uid://tsnshd513sfe" path="res://Scenes/UI/Toppings/decorations.tres" id="8_8m72m"]
-[ext_resource type="PackedScene" uid="uid://b614yacjdob64" path="res://Scenes/3d_oven_scene.tscn" id="17_8m72m"]
+[ext_resource type="PackedScene" uid="uid://dsagmk2myfcxm" path="res://Scenes/oven_scene.tscn" id="17_8m72m"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gtbs0"]
 viewport_path = NodePath("UI/SubViewport")
