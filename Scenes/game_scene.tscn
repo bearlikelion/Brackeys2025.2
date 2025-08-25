@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dn84qu6x3gkeb"]
+[gd_scene load_steps=26 format=3 uid="uid://dn84qu6x3gkeb"]
 
 [ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_manager.gd" id="1_6h5vk"]
 [ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="1_x87qo"]
@@ -12,16 +12,24 @@
 [ext_resource type="Script" uid="uid://dhoqdlbqwk5nn" path="res://Scripts/base_selector.gd" id="4_uscyt"]
 [ext_resource type="Shader" uid="uid://d4gge76unbuh4" path="res://Shaders/vingette.gdshader" id="5_2fmhe"]
 [ext_resource type="Script" uid="uid://cc8ijqj6wre6c" path="res://Scripts/toppings_selector.gd" id="5_4xiap"]
+[ext_resource type="Script" uid="uid://dc2l8bv5lwwxe" path="res://Scripts/dark_vignette.gd" id="5_gtbs0"]
 [ext_resource type="AudioStream" uid="uid://5fh4pyk3xdn" path="res://Assets/Audio/Music/333220__robster881__horror-ambience.ogg" id="6_rgj8m"]
 [ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="6_w8jfd"]
 [ext_resource type="ButtonGroup" uid="uid://dvl0w16ip6kic" path="res://Scenes/UI/Toppings/toppings.tres" id="7_a7fet"]
 [ext_resource type="ButtonGroup" uid="uid://tsnshd513sfe" path="res://Scenes/UI/Toppings/decorations.tres" id="8_8m72m"]
+[ext_resource type="PackedScene" uid="uid://b614yacjdob64" path="res://Scenes/3d_oven_scene.tscn" id="17_8m72m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ikfsv"]
 shader = ExtResource("4_rgj8m")
 shader_parameter/radius = 0.5
 shader_parameter/speed = 1.0
 shader_parameter/effect_color = Color(0.164736, 0.101794, 0.0158784, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dgvu"]
+shader = ExtResource("5_2fmhe")
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.42
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7iton"]
 bg_color = Color(0, 0, 0, 1)
@@ -30,12 +38,6 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(1, 0, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dgvu"]
-shader = ExtResource("5_2fmhe")
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.42
-shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rgj8m"]
 noise_type = 3
@@ -69,9 +71,9 @@ shader_parameter/color_bleed_quality = 5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ixah"]
 shader = ExtResource("4_1ixah")
-shader_parameter/brightnessMult = 4.0
+shader_parameter/brightnessMult = 0.8
 shader_parameter/wiggleMult = 0.0025
-shader_parameter/chromaticAberrationOffset = 0.0
+shader_parameter/chromaticAberrationOffset = 0.001
 
 [node name="GameManager" type="Node3D" groups=["GameManager"]]
 script = ExtResource("1_6h5vk")
@@ -82,8 +84,36 @@ script = ExtResource("2_a7fet")
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="OvenScene" parent="UI/SubViewportContainer/SubViewport" instance=ExtResource("17_8m72m")]
+
 [node name="DarkVignette" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_ikfsv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_gtbs0")
+
+[node name="Vignette" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_5dgvu")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -779,21 +809,6 @@ script = ExtResource("4_5dgvu")
 [node name="TalkSound" type="AudioStreamPlayer" parent="UI/ChatMessage/Panel/MarginContainer/ChatInstructions"]
 stream = ExtResource("4_ikfsv")
 volume_db = -10.0
-
-[node name="Vignette" type="CanvasLayer" parent="."]
-layer = 3
-visible = false
-
-[node name="Vignette" type="ColorRect" parent="Vignette"]
-material = SubResource("ShaderMaterial_5dgvu")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="CamcorderShader" type="CanvasLayer" parent="."]
 layer = 3

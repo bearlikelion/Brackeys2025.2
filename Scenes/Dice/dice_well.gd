@@ -4,6 +4,7 @@ extends Node
 const d_6 = preload("res://Scenes/Dice/d6.tscn")
 
 signal dice_rolled()
+signal roll_finished()
 signal roll_result(dice_face: int, dice_type: String, dice_name: String)
 
 @onready var roll_die_button: Button = $DebugUI/RollDie
@@ -11,7 +12,7 @@ signal roll_result(dice_face: int, dice_type: String, dice_name: String)
 
 
 func _ready() -> void:
-	roll_die_button.pressed.connect(roll_die)
+	roll_die_button.pressed.connect(roll_die.bind({"type": "base", "name": "Shortbread"}))
 
 
 func roll_die(die: Dictionary) -> void:
@@ -33,6 +34,9 @@ func roll_dice(dice: Array) -> void:
 	for dice_i: int in range(dice.size()):
 		roll_die(dice[dice_i])
 		await get_tree().create_timer(0.1).timeout
+
+	await get_tree().create_timer(1.5).timeout
+	roll_finished.emit()
 
 
 func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:

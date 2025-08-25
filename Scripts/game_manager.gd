@@ -1,6 +1,11 @@
 class_name GameManager
 extends Node3D
 
+signal view_oven()
+# signal view_table()
+signal fear_increased()
+signal fear_decreased()
+
 var fear: int = 0
 var total: int = 0
 var score: int = 0
@@ -39,6 +44,7 @@ var filling_score: int = 0
 
 func _ready() -> void:
 	dice_well.roll_result.connect(_on_roll_result)
+	dice_well.roll_finished.connect(_on_roll_finished)
 	chat_instructions.instructions_done.connect(_on_instructions_done)
 	base_selector.base_selected.connect(_on_base_selected)
 
@@ -64,6 +70,12 @@ func add_score(amount: int) -> void:
 
 
 func add_fear(amount: int) -> void:
+	if amount > 0:
+		fear_increased.emit()
+	else:
+		fear_decreased.emit()
+
+
 	fear += amount
 
 	if fear < 0:
@@ -140,3 +152,7 @@ func _on_topping_pressed(is_toggled: bool) -> void:
 		dice_to_roll -= 1
 
 	update_dice_count()
+
+
+func _on_roll_finished() -> void:
+	view_oven.emit()

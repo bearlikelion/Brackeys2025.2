@@ -77,10 +77,10 @@ func detect_face() -> void:
 				dissolve = true
 
 				if raycast.opposite_side == 1 or raycast.opposite_side == 2:
-					dice_material.set_shader_parameter("edgeColor", Color.WEB_PURPLE)
+					dice_material.set_shader_parameter("edgeColor", Color.REBECCA_PURPLE)
 				if raycast.opposite_side == 3 or raycast.opposite_side == 4:
-					dice_material.set_shader_parameter("edgeColor", Color.YELLOW)
+					dice_material.set_shader_parameter("edgeColor", Color.ORANGE_RED)
 				if raycast.opposite_side == 5 or raycast.opposite_side == 6:
-					dice_material.set_shader_parameter("edgeColor", Color.GREEN)
+					dice_material.set_shader_parameter("edgeColor", Color.DARK_GREEN)
 
 				break
