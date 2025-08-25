@@ -560,6 +560,8 @@ transform = Transform3D(-3.65107e-06, -0.939692, 0.34202, 1.13134e-08, 0.34202, 
 doppler_tracking = 2
 current = true
 
+[node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hybjd")
 

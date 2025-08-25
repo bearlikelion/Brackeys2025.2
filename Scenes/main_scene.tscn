@@ -21,7 +21,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 97.0
 grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
 text = "[shake rate=1.5]BAKE OR BREAK[/shake]
 "

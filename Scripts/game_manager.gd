@@ -5,6 +5,7 @@ signal view_oven()
 # signal view_table()
 signal fear_increased()
 signal fear_decreased()
+signal biscuit_busted()
 
 var fear: int = 0
 var total: int = 0
@@ -19,6 +20,7 @@ var cracked_biscuit: bool = false
 var enchanted_biscuit: bool = true
 
 var bust: bool = false
+var biscuit_broken: bool = false
 var type: String
 var filling: String
 var topping: String
@@ -68,13 +70,14 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
-	if not bust:
+	if not bust and not biscuit_broken:
 		dice_scorer.score_die(dice_type, dice_name, dice_face)
 
 
 func add_score(amount: int) -> void:
-	score += amount
-	score_label.text = "SCORE: %s" % str(score)
+	if not biscuit_broken:
+		score += amount
+		score_label.text = "SCORE: %s" % str(score)
 
 
 func add_fear(amount: int) -> void:
@@ -162,5 +165,20 @@ func _on_topping_pressed(is_toggled: bool) -> void:
 	update_dice_count()
 
 
+func bust_biscuit() -> void:
+	if not biscuit_broken:
+		biscuit_broken = true
+		bust = true
+		add_fear(3)
+		biscuit_busted.emit()
+		print("BISCUIT BUSTED! No more scoring this round.")
+
+
+func double_biscuit() -> void:
+	if not biscuit_broken:
+		add_score(score)
+
+
 func _on_roll_finished() -> void:
 	view_oven.emit()
+	biscuit_broken = false

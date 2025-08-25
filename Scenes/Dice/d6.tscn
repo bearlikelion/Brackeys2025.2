@@ -12,7 +12,7 @@ friction = 0.5
 bounce = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7d41"]
-size = Vector3(0.15, 0.15, 0.15)
+size = Vector3(0.25, 0.25, 0.25)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltpww"]
 render_priority = 0
@@ -33,6 +33,8 @@ shader_parameter/animation_intensity = 0.2
 mass = 3.0
 physics_material_override = SubResource("PhysicsMaterial_04fms")
 can_sleep = false
+contact_monitor = true
+max_contacts_reported = 10
 linear_damp = 2.0
 angular_damp = 2.0
 script = ExtResource("1_s5j61")
@@ -49,41 +51,42 @@ material_override = SubResource("ShaderMaterial_ltpww")
 [node name="RayCasts" type="Node3D" parent="."]
 
 [node name="RayCast1" type="RayCast3D" parent="RayCasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 target_position = Vector3(0, -0.1, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 6
 
 [node name="RayCast2" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.1)
 target_position = Vector3(0, -0.1, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 5
 
 [node name="RayCast3" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0.1, 0, 0)
 target_position = Vector3(0, -0.1, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 4
 
 [node name="RayCast4" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, 0, 0, 0)
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -0.1, 0, 0)
 target_position = Vector3(0, -0.1, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 3
 
 [node name="RayCast5" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0, 0)
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0, 0.1)
 target_position = Vector3(0, -0.1, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
 opposite_side = 2
 
 [node name="RayCast6" type="RayCast3D" parent="RayCasts"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.1, 0)
 target_position = Vector3(0, -0.1, 0)
 collision_mask = 2
 script = ExtResource("3_g7d41")
@@ -91,6 +94,7 @@ opposite_side = 1
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_112kq")
+volume_db = -20.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 

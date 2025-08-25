@@ -10,6 +10,9 @@ signal roll_finished()
 signal roll_result(dice_face: int, dice_type: String, dice_name: String)
 
 var last_dices :Array [D6]
+var dice_to_roll: int = 0
+var rolled_dice: int = 1
+
 @onready var dice: Node = $Dice
 
 
@@ -35,17 +38,23 @@ func roll_die(die: Dictionary) -> void:
 func roll_dice(dice: Array) -> void:
 	animation_player.play("dice_rool")
 	last_dices.clear()
+
+	var dice_to_roll = dice.size()
+	var rolled_dice = 0
+
 	for dice_i: int in range(dice.size()):
 		roll_die(dice[dice_i])
-		await get_tree().create_timer(randf_range(0.05,0.1)).timeout
+		await get_tree().create_timer(randf_range(0.05, 0.1)).timeout
 
-	await get_tree().create_timer(2.5).connect("timeout",dice_toface)
+	# await get_tree().create_timer(2.5).connect("timeout", dice_to_face)
 
-func dice_toface():
+
+func dice_to_face():
 	#var start_pos = get_viewport().size/2
 	animate_dice_to_grid()
 	await get_tree().create_timer(5.5).timeout
 	roll_finished.emit()
+
 
 func animate_dice_to_grid() -> void:
 	if not camera_3d:
@@ -82,8 +91,13 @@ func animate_dice_to_grid() -> void:
 		index += 1
 
 
-
 func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
+	rolled_dice += 1
+	if rolled_dice == dice_to_roll:
+		dice_to_face()
+	else:
+		print("Rolled Dice: %s" % rolled_dice)
+
 	roll_result.emit(dice_face, dice_type, dice_name)
 
 
