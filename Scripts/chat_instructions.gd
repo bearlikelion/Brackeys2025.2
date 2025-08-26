@@ -28,7 +28,7 @@ var dialogue_by_round = {
 		"A heart filled with jam, royal icing to finish",
 		"Square packed with custard, sealed by burnt caramel",
 		"Shortbread with marrow hidden, topped with cursed frosting",
-		"Gingerbread stuffed with cream, icing across their limbs",
+		"Gingerbread stuffed with custard, icing across their limbs",
 		"A skull with jam filling and caramel dripping through the cracks"
 	],
 	4: [ # Filling + Topping + Decoration
@@ -71,6 +71,7 @@ func _ready() -> void:
 	visible_ratio = 0.0
 	game_manager.biscuit_broken.connect(_on_biscuit_broken)
 	game_manager.biscuit_invalid.connect(_on_biscuit_invalid)
+	game_manager.game_over.connect(_on_game_over)
 
 
 func _physics_process(delta: float) -> void:
@@ -86,7 +87,7 @@ func _physics_process(delta: float) -> void:
 	elif not instructions_finished:
 		instructions_finished = true
 
-		if game_manager.biscuit_broke or not game_manager.valid_biscuit:
+		if game_manager.biscuit_broke or not game_manager.valid_biscuit or game_manager.player_died:
 			await get_tree().create_timer(2.0).timeout
 
 		instructions_done.emit()
@@ -169,3 +170,10 @@ func _on_biscuit_invalid() -> void:
 	]
 
 	say_message(invalid_message.pick_random())
+
+
+func _on_game_over() -> void:
+	game_manager.game_camera.view_witch()
+	await game_manager.game_camera.animation_player.animation_finished
+
+	say_message("GAME OVER, GOOD DAY, YOU DIED")

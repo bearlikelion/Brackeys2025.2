@@ -125,7 +125,7 @@ func round_three_rules(index: int) -> void:
 			rq_topping.append("Frosting")
 		4:
 			rq_type.append("Gingerbread")
-			rq_filling.append("Cream")
+			rq_filling.append("Custard")
 			rq_topping.append("Icing")
 		5:
 			rq_type.append("Skull")

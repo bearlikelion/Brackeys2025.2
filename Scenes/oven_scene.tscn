@@ -713,3 +713,5 @@ shadow_blur = 0.0
 distance_fade_enabled = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+
+[editable path="DiceWell"]

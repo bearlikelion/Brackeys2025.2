@@ -1,6 +1,7 @@
 class_name GameManager
 extends Node3D
 
+signal game_over()
 signal round_started()
 signal fear_increased()
 signal fear_decreased()
@@ -23,6 +24,7 @@ var biscuits_baked: int = 0
 var dice: Array = []
 
 var valid_biscuit: bool
+var player_died: bool = false
 var biscuit_broke: bool = false
 
 var type: String
@@ -94,8 +96,11 @@ func add_fear(amount: int) -> void:
 	else:
 		fear_decreased.emit()
 
-
 	fear += amount
+
+	if fear >= 50:
+		player_died = true
+		game_over.emit()
 
 	if fear < 0:
 		fear = 0
@@ -113,6 +118,8 @@ func update_dice_count() -> void:
 func _on_instructions_done() -> void:
 	if biscuit_broke or not valid_biscuit:
 		new_round()
+	elif player_died:
+		get_tree().change_scene_to_file("res://Scenes/main_scene.tscn")
 	else:
 		base_selector.show()
 
@@ -189,7 +196,7 @@ func break_biscuit() -> void:
 	if not biscuit_broke:
 		biscuit_broke = true
 		biscuit_broken.emit()
-		add_fear(5)
+		add_fear(dice_to_roll)
 		print("BISCUIT BROKEN! No more scoring this round.")
 
 
