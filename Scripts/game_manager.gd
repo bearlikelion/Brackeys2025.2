@@ -4,10 +4,13 @@ extends Node3D
 signal fear_increased()
 signal fear_decreased()
 signal biscuit_broken()
+signal biscuit_invalid()
 
 @export var obey_instructions: bool = true
 
 var round: int = 0
+var instruction_index: int = 0
+var instructions_round: int = 0
 
 var fear: int = 0
 var total: int = 0
@@ -18,6 +21,7 @@ var biscuits_baked: int = 0
 
 var dice: Array = []
 
+var valid_biscuit: bool
 var biscuit_broke: bool = false
 
 var type: String
@@ -157,8 +161,12 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 		if _decoration == "Runes":
 			dice_scorer.reroll_fail = true
 
-	print("NOW ROLL YOUR LUCK | DICE %s" % dice_to_roll)
-	roll_dice()
+	valid_biscuit = is_biscuit_valid(type, filling, topping, decoration)
+	if valid_biscuit:
+		print("NOW ROLL YOUR LUCK | DICE %s" % dice_to_roll)
+		roll_dice()
+	else:
+		invalid_biscuit()
 
 
 func roll_dice() -> void:
@@ -211,6 +219,11 @@ func new_round() -> void:
 		game_camera.view_table()
 		await game_camera.animation_player.animation_finished
 
+	rq_type = []
+	rq_filling = []
+	rq_topping = []
+	rq_decoration = []
+
 	round += 1
 	chat_message.show()
 	# base_selector.show()
@@ -218,13 +231,47 @@ func new_round() -> void:
 	chat_instructions.new_instructions()
 
 
-func set_instructions(round: int, instructions_index: int) -> void:
-	match round:
+func invalid_biscuit() -> void:
+	print("INVALID BISCUIT")
+	game_camera.view_witch()
+	biscuit_invalid.emit()
+	add_fear(round + 1)
+
+
+func is_biscuit_valid(_type: String, _filling: String, _topping: String, _decoration: String) -> bool:
+	if _type not in rq_type:
+		return false
+	if _filling not in rq_filling:
+		return false
+	if _topping not in rq_topping:
+		return false
+	if _decoration not in rq_decoration:
+		return false
+
+	# 1:1
+	if round == 1:
+		if instruction_index == 1 or instruction_index == 3:
+			if _topping != "" or _decoration != "":
+				return false
+		if instruction_index == 2:
+			if _filling != "" or _decoration != "":
+				return false
+
+	return true
+
+
+func set_instructions(_round: int, _instruction_index: int) -> void:
+	instructions_round = _round
+	instruction_index = _instruction_index
+	match instructions_round:
 		1:
-			match instructions_index:
+			match _instruction_index:
 				1:
-					pass
+					rq_type.append("Shortbread")
+					rq_filling.append(["Jam", "Cream", "Custard"])
 				2:
-					pass
+					rq_type.append("Heart")
+					rq_topping.append(["Sugar", "Caramel"])
 				3:
-					pass
+					rq_type.append("Square")
+					rq_filling.append("Cream")

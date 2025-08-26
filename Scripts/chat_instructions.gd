@@ -8,7 +8,7 @@ signal message_complete()
 
 var dialogue_by_round: Dictionary = {
 	1: [
-		"Let's start simple, a plain shortbread with something sweet.",
+		"Let's start simple, a plain shortbread with some sweet filling.",
 		"Bake me a heart biscuit… nothing fancy, just a little glaze.",
 		"A square will do, but dress it with cream so I know you care."
 	],
@@ -52,6 +52,7 @@ var instructions_finished: bool = false
 func _ready() -> void:
 	visible_ratio = 0.0
 	game_manager.biscuit_broken.connect(_on_biscuit_broken)
+	game_manager.biscuit_invalid.connect(_on_biscuit_invalid)
 	new_instructions()
 
 
@@ -119,3 +120,17 @@ func _on_biscuit_broken() -> void:
 	]
 
 	say_message(broken_messages.pick_random())
+
+
+func _on_biscuit_invalid() -> void:
+	await game_manager.game_camera.animation_player.animation_finished
+
+	var invalid_message: Array[String] = [
+		"That's not what I told you to make",
+		"Can you not follow my instructions?!",
+		"What did you think I asked for",
+		"Follow my directions or die",
+		"You did not listen to meeeeeeee"
+	]
+
+	say_message(invalid_message.pick_random())
