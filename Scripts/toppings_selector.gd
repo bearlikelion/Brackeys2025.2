@@ -16,6 +16,11 @@ var decoration: String
 
 @onready var bake: Button = %Bake
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
+@onready var filling_buttons: VBoxContainer = %FillingButtons
+@onready var topping_buttons: VBoxContainer = %ToppingButtons
+@onready var decoration_buttons: VBoxContainer = %DecorationButtons
+
+
 
 func _ready() -> void:
 	if game_manager != null :
@@ -31,6 +36,13 @@ func _ready() -> void:
 
 		for decoration_button: Button in decorations.get_buttons():
 			decoration_button.toggled.connect(_on_decoration_pressed)
+
+
+func show_toppings() -> void:
+	Utils.shuffle_buttons(filling_buttons)
+	Utils.shuffle_buttons(topping_buttons)
+	Utils.shuffle_buttons(decoration_buttons)
+	show()
 
 
 func _on_filling_pressed(toggled_on: bool) -> void:

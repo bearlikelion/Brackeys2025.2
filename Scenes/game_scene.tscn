@@ -311,11 +311,17 @@ autoplay = true
 
 [node name="OvenScene" parent="." instance=ExtResource("17_8m72m")]
 
+[node name="OvenDoor" parent="OvenScene/Oven" index="1"]
+transform = Transform3D(-3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0, 1, 0.34759, 1.00667, 0)
+
 [node name="GameCamera" parent="OvenScene" index="2"]
 transform = Transform3D(-3.65107e-06, -0.939692, 0.34202, 1.13134e-08, 0.34202, 0.939692, -1, 3.43475e-06, -1.23811e-06, 3.8, 2, 0)
 
 [node name="MeshInstance3D" parent="OvenScene/UIViewport" index="2"]
 surface_material_override/0 = SubResource("StandardMaterial3D_w8jfd")
+
+[node name="Witch" parent="OvenScene" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.6, 3.1)
 
 [node name="Head" parent="OvenScene/Witch" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_8m72m")

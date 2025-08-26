@@ -216,6 +216,33 @@ tracks/13/keys = {
 "values": [Vector3(3.8, 2, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_0elqv"]
+resource_name = "dice_rool"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [Vector3(-1.18673, 1.5708, 2.6444e-08), Vector3(-1.13278, 1.5708, 3.95726e-07)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameCamera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [Vector3(3.85446, 2.09635, 0), Vector3(4.12141, 2.48643, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_1sv68"]
 resource_name = "new_animation"
 length = 2.0
@@ -380,6 +407,21 @@ tracks/1/keys = {
 "values": [Vector3(3.5, 2.44, 0), Vector3(3.85446, 2.09635, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_52l15"]
+resource_name = "oven_to_baker"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_hybjd"]
 resource_name = "view_oven"
 length = 1.3
@@ -408,8 +450,8 @@ tracks/1/keys = {
 "values": [Vector3(3.85446, 2.09635, 0), Vector3(3.5, 2.44, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_0elqv"]
-resource_name = "dice_rool"
+[sub_resource type="Animation" id="Animation_f5trb"]
+resource_name = "table_to_baker"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -418,9 +460,9 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 2),
+"transitions": PackedFloat32Array(2, 2),
 "update": 0,
-"values": [Vector3(-1.18673, 1.5708, 2.6444e-08), Vector3(-1.13278, 1.5708, 3.95726e-07)]
+"values": [Vector3(-1.22173, 1.5708, 3.3078e-08), Vector3(0, 3.14159, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -430,24 +472,9 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(3.85446, 2.09635, 0), Vector3(4.12141, 2.48643, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_52l15"]
-resource_name = "oven_to_baker"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameCamera:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.966667),
-"transitions": PackedFloat32Array(2, 2),
-"update": 0,
-"values": [Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0)]
+"values": [Vector3(3.85446, 2.09635, 0), Vector3(3.5, 2.44, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_8xe52"]
@@ -490,33 +517,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(3.5, 2.44, 0), Vector3(3.85446, 2.09635, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_f5trb"]
-resource_name = "table_to_baker"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameCamera:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(2, 2),
-"update": 0,
-"values": [Vector3(-1.22173, 1.5708, 3.3078e-08), Vector3(0, 3.14159, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameCamera:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(3.85446, 2.09635, 0), Vector3(3.5, 2.44, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4cb8m"]
@@ -639,7 +639,7 @@ mesh = SubResource("QuadMesh_p1st1")
 skeleton = NodePath("../OvenDoor")
 
 [node name="GameCamera" type="Camera3D" parent="."]
-transform = Transform3D(-3.65108e-06, -0.939692, 0.34202, 1.13134e-08, 0.342021, 0.939692, -1, 3.43476e-06, -1.23811e-06, 3.8, 2, 0)
+transform = Transform3D(-3.65107e-06, -0.939692, 0.34202, 1.13134e-08, 0.342021, 0.939692, -1, 3.43475e-06, -1.23811e-06, 3.8, 2, 0)
 doppler_tracking = 2
 current = true
 script = ExtResource("3_8xe52")

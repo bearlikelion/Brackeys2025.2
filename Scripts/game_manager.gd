@@ -76,7 +76,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("roll_new"):
-		base_selector.show()
+		base_selector.show_bases()
 
 
 func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
@@ -121,7 +121,7 @@ func _on_instructions_done() -> void:
 	elif player_died:
 		get_tree().change_scene_to_file("res://Scenes/main_scene.tscn")
 	else:
-		base_selector.show()
+		base_selector.show_bases()
 
 
 func _on_base_selected(selected_base: String) -> void:
@@ -146,7 +146,7 @@ func _on_base_selected(selected_base: String) -> void:
 		dice.append({"kind": "base", "name": type})
 
 	type_label.text = "TYPE: %s" % selected_base
-	toppings_selector.show()
+	toppings_selector.show_toppings()
 	update_dice_count()
 
 

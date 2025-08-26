@@ -8,7 +8,7 @@ signal message_complete()
 
 var dialogue_by_round = {
 	1: [ # Fillings only
-		"Let's start simple: a shortbread with jam inside",
+		"Make it simple: a shortbread with jam inside",
 		"Bake me a heart, filled with cream, soft and sweet",
 		"A round biscuit with custard at its core",
 		"Square and steady, but hide marrow within",
@@ -39,21 +39,21 @@ var dialogue_by_round = {
 		"Gingerbread with jam, sugar glaze, and sprinkles to hide the cracks",
 		"Skull biscuit stuffed with cream, caramel glaze, and eyes in its sockets"
 	],
-	5: [ # Captor grows unhinged (still one of each)
-		"Give me a round one that bleeds jam, drips caramel, and watches with eyes",
-		"A heart, marrow inside, cursed frosting above, runes across its surface",
-		"Square biscuit, custard inside, royal icing on top, tongue to taste for me",
-		"Shortbread with cream, sugar glaze, and eyes that stare unblinking",
-		"Gingerbread, jam-filled, caramel dripping, sprinkles masking the fear",
-		"Bake me a skull with marrow, cursed frosting, and runes carved deep"
+	5: [ # Witch speaks in riddles, twisted logic required
+		"Round or short, filled with red that drips like truth, crown it sweet, and let it see.",
+		"A vessel of love, yet rotten inside, dress it bright, but mark it with secrets.",
+		"Four corners, yet no escape, soft within, gilded above, with a mouth to taste your lies.",
+		"Short and plain, creamy but never alone, let its glaze blind, and its eyes accuse.",
+		"Shaped like a man, but hollow of soul, let its insides bleed, its surface burn, its mask deceive.",
+		"A grinning face, marrow for thought, frost it cursed, etch it deep, and let it whisper back.",
 	],
-	6: [ # Final madness (nonsense but still 1+1+1)
-		"All shapes blur… fill them, frost them, decorate them, they all taste the same",
-		"A heart with custard, burnt caramel, and eyes that won’t close",
-		"Round biscuits, marrow at the core, cursed frosting, runes that whisper",
-		"Square, jam inside, sugar glaze above, a tongue that licks the air",
-		"Gingerbread with cream, royal icing, and sprinkles falling like ash",
-		"A skull, hollow with custard, caramel dripping, eyes staring forever"
+	6: [ # Final madness - the Witch unravels
+		"All biscuits are one… their shells lie, their fillings scream. Frost them. Mark them. Feed me.",
+		"Love is rot in sugar’s guise, choose a shape that once meant heart, and drown it in pale custard, fire, and watching eyes.",
+		"A circle? A hole? A mouth that feeds itself, fill it with marrow, curse its skin, let the runes speak backwards.",
+		"Four walls, no escape, sweet blood inside, glazed with lies, and a tongue that tastes your fear.",
+		"He once danced… now he crumbles, cream in his belly, royal crown upon his head, and ash-like sprinkles as snow.",
+		"Skull or chalice? I forget, stuff it with thought, let caramel weep, and eyes stare where no one looks.",
 	]
 }
 
