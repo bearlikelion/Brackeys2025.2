@@ -57,7 +57,6 @@ var dialogue_by_round = {
 	]
 }
 
-
 var typewriter_speed: float = 0.0
 var chars_per_second: float = 0.0
 var time_accumulator: float = 0.0

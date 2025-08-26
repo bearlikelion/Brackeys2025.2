@@ -104,6 +104,9 @@ func add_fear(amount: int) -> void:
 
 
 func update_dice_count() -> void:
+	if dice_to_roll < 0:
+		dice_to_roll = 0
+
 	dice_amount.text = "DICE TO ROLL: %s" % str(dice_to_roll)
 
 
@@ -178,7 +181,7 @@ func _on_topping_pressed(is_toggled: bool) -> void:
 		dice_to_roll += 1
 	else:
 		dice_to_roll -= 1
-
+#
 	update_dice_count()
 
 
@@ -223,6 +226,7 @@ func new_round() -> void:
 	# base_selector.show()
 	dice = []
 	dice_to_roll = 0
+	update_dice_count()
 
 	type = ""
 	filling = ""
