@@ -5,7 +5,7 @@ const d_6 = preload("res://Scenes/Dice/d6.tscn")
 
 signal dice_rolled()
 signal roll_finished()
-signal roll_result(dice_face: int, dice_type: String, dice_name: String)
+signal roll_result(dice_face: int, dice_type: String, dice_name: String, dice_position: Vector3)
 
 var last_dices :Array [D6]
 var dice_to_roll: int = 0
@@ -102,8 +102,15 @@ func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> vo
 	rolled_dice += 1
 	if rolled_dice == dice_to_roll:
 		dice_to_face()
-
-	roll_result.emit(dice_face, dice_type, dice_name)
+	
+	# Find the die that emitted this result to get its position
+	var dice_position: Vector3 = Vector3.ZERO
+	for die in last_dices:
+		if die and die.die_name == dice_name:
+			dice_position = die.global_position
+			break
+	
+	roll_result.emit(dice_face, dice_type, dice_name, dice_position)
 
 
 func clear_dice() -> void:

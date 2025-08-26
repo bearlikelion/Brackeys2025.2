@@ -79,8 +79,9 @@ func _input(event: InputEvent) -> void:
 		base_selector.show_bases()
 
 
-func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
+func _on_roll_result(dice_face: int, dice_type: String, dice_name: String, dice_position: Vector3) -> void:
 	if not biscuit_broke:
+		dice_scorer.last_die_position = dice_position
 		dice_scorer.score_die(dice_type, dice_name, dice_face)
 
 
@@ -88,6 +89,7 @@ func add_score(amount: int) -> void:
 	if not biscuit_broke:
 		score += amount
 		score_label.text = "SCORE: %s" % str(score)
+		dice_scorer.spawn_floating_number(amount, false)
 
 
 func add_fear(amount: int) -> void:
@@ -97,6 +99,7 @@ func add_fear(amount: int) -> void:
 		fear_decreased.emit()
 
 	fear += amount
+	dice_scorer.spawn_floating_number(amount, true)
 
 	if fear >= 50:
 		player_died = true
