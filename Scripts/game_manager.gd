@@ -29,14 +29,10 @@ var filling: String
 var topping: String
 var decoration: String
 
-var rq_type: Array
-var rq_filling: Array
-var rq_topping: Array
-var rq_decoration: Array
-
 var filling_score: int = 0
 
 @onready var dice_scorer: DiceScorer = $DiceScorer
+@onready var biscuit_validator: Node = $BiscuitValidator
 @onready var dice_well: DiceWell = $OvenScene/DiceWell
 
 @onready var type_label: Label = %TypeLabel
@@ -162,7 +158,7 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 		if _decoration == "Runes":
 			dice_scorer.reroll_fail = true
 
-	valid_biscuit = is_biscuit_valid(type, filling, topping, decoration)
+	valid_biscuit = biscuit_validator.is_biscuit_valid(type, filling, topping, decoration)
 	if valid_biscuit:
 		print("NOW ROLL YOUR LUCK | DICE %s" % dice_to_roll)
 		roll_dice()
@@ -217,11 +213,7 @@ func _on_roll_finished() -> void:
 
 func new_round() -> void:
 	round += 1
-	rq_type = []
-	rq_filling = []
-	rq_topping = []
-	rq_decoration = []
-
+	biscuit_validator.reset()
 	print("START ROUND: %s" % str(round))
 
 	if game_camera.looking_at != game_camera.Viewing.TABLE:
@@ -241,45 +233,3 @@ func invalid_biscuit() -> void:
 	game_camera.view_witch()
 	biscuit_invalid.emit()
 	add_fear(round + 1)
-
-
-func is_biscuit_valid(_type: String, _filling: String, _topping: String, _decoration: String) -> bool:
-	print("Submitted Biscuit: TYPE %s FILLING %s TOPPING %s DECORATION %s" % [_type, _filling, _topping, _decoration])
-	print("RQ Validation: TYPE %s FILLING %s TOPPING %s DECORATION %s" % [rq_type, rq_filling, rq_topping, rq_decoration])
-
-	if _type not in rq_type:
-		return false
-	if rq_filling.size() > 0 and _filling not in rq_filling:
-		return false
-	if rq_topping.size() > 0 and _topping not in rq_topping:
-		return false
-	if rq_decoration.size() > 0 and _decoration not in rq_decoration:
-		return false
-
-	# 1:1
-	if round == 1:
-		if instruction_index == 0 or instruction_index == 2:
-			if _topping != "" or _decoration != "":
-				return false
-		if instruction_index == 1:
-			if _filling != "" or _decoration != "":
-				return false
-
-	return true
-
-
-func set_instructions(_round: int, _instruction_index: int) -> void:
-	instructions_round = _round
-	instruction_index = _instruction_index
-	match instructions_round:
-		1:
-			match _instruction_index:
-				0:
-					rq_type.append("Shortbread")
-					rq_filling = ["Jam", "Cream", "Custard"]
-				1:
-					rq_type.append("Heart")
-					rq_topping = ["Sugar", "Caramel"]
-				2:
-					rq_type.append("Square")
-					rq_filling.append("Cream")

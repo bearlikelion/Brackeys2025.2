@@ -6,38 +6,57 @@ signal message_complete()
 
 @export var timer_to_speak: float = 2.0
 
-var dialogue_by_round: Dictionary = {
-	1: [
-		"Let's start simple, a plain shortbread with some sweet filling.",
-		"Bake me a heart biscuit… nothing fancy, just a little glaze.",
-		"A square will do, but dress it with cream so I know you care."
+var dialogue_by_round = {
+	1: [ # Fillings only
+		"Let's start simple: a shortbread with jam inside",
+		"Bake me a heart, filled with cream, soft and sweet",
+		"A round biscuit with custard at its core",
+		"Square and steady, but hide marrow within",
+		"Gingerbread person, give them a jam heart",
+		"Skull biscuits, cracked open and leaking cream"
 	],
-	2: [
-		"Now, something bolder… perhaps a round biscuit with jam filling.",
-		"A gingerbread person, but give them eyes, so they can see me.",
-		"Skull biscuits… drizzle them in sugar so they shine."
+	2: [ # Toppings only
+		"Now, coat a shortbread in sugar glaze",
+		"A heart with neat royal icing, to please me",
+		"Round biscuit dripping with cursed frosting",
+		"Square with burnt caramel, bitter and sharp",
+		"Gingerbread person glazed over in sugar",
+		"Skull glazed in black frosting, veins spreading"
 	],
-	3: [
-		"Mmm, I’m hungry for more layers. Add a topping, add a filling, don’t be shy.",
-		"Try something round again, but sweeter this time… and don’t let it crack.",
-		"Bake me a coffin-shaped one — no, wait… square, round, I don’t care, just add cream."
+	3: [ # Filling + Topping
+		"Round with cream inside and sugar glaze above",
+		"A heart filled with jam, royal icing to finish",
+		"Square packed with custard, sealed by burnt caramel",
+		"Shortbread with marrow hidden, topped with cursed frosting",
+		"Gingerbread stuffed with cream, icing across their limbs",
+		"A skull with jam filling and caramel dripping through the cracks"
 	],
-	4: [
-		"More. Bigger. Pile it higher. I want to taste the risk in every bite.",
-		"Why stop at one layer? Give me a filling, topping, and decoration, stack it all!",
-		"Give them eyes! I want them to stare back at me!"
+	4: [ # Filling + Topping + Decoration
+		"Round with jam, sugar glaze, and sprinkles on top",
+		"A heart with cream, royal icing, and runes etched deep",
+		"Shortbread hiding custard, cursed frosting above, eyes staring back",
+		"Square biscuit with marrow inside, burnt caramel, and a tongue laid across",
+		"Gingerbread with jam, sugar glaze, and sprinkles to hide the cracks",
+		"Skull biscuit stuffed with cream, caramel glaze, and eyes in its sockets"
 	],
-	5: [
-		"Don’t think just bake. Any shape, any flavor, so long as it bleeds sweetness.",
-		"Round, square, skull, does it matter? Just make it worthy of me.",
-		"Yes… yes… decorate them, ruin them, let the oven decide."
+	5: [ # Captor grows unhinged (still one of each)
+		"Give me a round one that bleeds jam, drips caramel, and watches with eyes",
+		"A heart, marrow inside, cursed frosting above, runes across its surface",
+		"Square biscuit, custard inside, royal icing on top, tongue to taste for me",
+		"Shortbread with cream, sugar glaze, and eyes that stare unblinking",
+		"Gingerbread, jam-filled, caramel dripping, sprinkles masking the fear",
+		"Bake me a skull with marrow, cursed frosting, and runes carved deep"
 	],
-	6: [
-		"All biscuits crumble in the end… feed me anything.",
-		"The shapes blur… shortbread, skull, gingerbread, they all taste the same now.",
-		"No recipe left, only hunger. Bake, or be baked."
+	6: [ # Final madness (nonsense but still 1+1+1)
+		"All shapes blur… fill them, frost them, decorate them, they all taste the same",
+		"A heart with custard, burnt caramel, and eyes that won’t close",
+		"Round biscuits, marrow at the core, cursed frosting, runes that whisper",
+		"Square, jam inside, sugar glaze above, a tongue that licks the air",
+		"Gingerbread with cream, royal icing, and sprinkles falling like ash",
+		"A skull, hollow with custard, caramel dripping, eyes staring forever"
 	]
 }
+
 
 var typewriter_speed: float = 0.0
 var chars_per_second: float = 0.0
@@ -87,7 +106,7 @@ func new_instructions() -> void:
 	var instructions_index: int = randi_range(0, instructions_count -1)
 	var instructions: String = dialogue_by_round[_round][instructions_index]
 
-	game_manager.set_instructions(_round, instructions_index)
+	game_manager.biscuit_validator.set_instructions(_round, instructions_index)
 	say_message(instructions)
 
 

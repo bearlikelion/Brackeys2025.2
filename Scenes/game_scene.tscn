@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://dn84qu6x3gkeb"]
+[gd_scene load_steps=30 format=3 uid="uid://dn84qu6x3gkeb"]
 
 [ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_manager.gd" id="1_6h5vk"]
 [ext_resource type="Script" uid="uid://c70ich6p4r7cl" path="res://Scripts/dice_scorer.gd" id="2_a7fet"]
 [ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="2_fiftr"]
+[ext_resource type="Script" uid="uid://rgjqowiggi6a" path="res://Scripts/biscuit_validator.gd" id="3_8m72m"]
 [ext_resource type="Shader" uid="uid://bw7fjsock0lut" path="res://Shaders/camcorder.gdshader" id="3_fiftr"]
 [ext_resource type="Shader" path="res://Shaders/screen_shake.gdshader" id="3_wywco"]
 [ext_resource type="Shader" uid="uid://bfvdcb4qd4kqv" path="res://Shaders/horror_canvas.gdshader" id="4_1ixah"]
@@ -99,6 +100,9 @@ script = ExtResource("1_6h5vk")
 
 [node name="DiceScorer" type="Node" parent="."]
 script = ExtResource("2_a7fet")
+
+[node name="BiscuitValidator" type="Node" parent="."]
+script = ExtResource("3_8m72m")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
