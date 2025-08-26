@@ -133,8 +133,18 @@ func _on_biscuit_broken() -> void:
 	var broken_messages: Array[String] = [
 		"How dare you break my biscuit!",
 		"I thought I told you no cracks!",
-		"Breaking before baking?!?!?",
-		"The oven hungers, i'll feed it you if you continue to fail me"
+		"Breaking before baking?!?",
+		"Pathetic. Even dough is stronger than you.",
+		"Do you think shattered crumbs will satisfy me?",
+		"The biscuit broke… perhaps your bones will hold better.",
+		"Every failure is a crack in YOUR skin, not the dough.",
+		"The heat is wasted… the hunger grows.",
+		"Did you drop it on purpose? Are you begging for punishment?",
+		"You disappoint the recipe… and me.",
+		"The tray weeps with your weakness.",
+		"Another broken batch? The oven whispers your name.",
+		"Flawed. Fragile. Foolish. Like you.",
+		"The biscuit crumbled… next, your will shall too."
 	]
 
 	say_message(broken_messages.pick_random())
@@ -144,11 +154,19 @@ func _on_biscuit_invalid() -> void:
 	await game_manager.game_camera.animation_player.animation_finished
 
 	var invalid_message: Array[String] = [
-		"That's not what I told you to make",
-		"Can you not follow my instructions?!",
-		"What did you think I asked for",
-		"Follow my directions or die",
-		"You did not listen to meeeeeeee"
+		"That's not what I told you to make.",
+		"Can you not follow simple instructions?!",
+		"What did you think I asked for?",
+		"Follow my directions… or die.",
+		"You did not listen to meeeeeeee!",
+		"The oven hungers… it will taste you if you disobey again.",
+		"Wrong. Wrong! Wrong! I gave you the recipe, and you spat on it!",
+		"Are you deaf, or just deliciously stupid?",
+		"What did you think I asked for, not… whatever THIS is.",
+		"Every mistake is another step closer to the oven.",
+		"Not what I asked for. Not what I wanted. Not what I’ll forgive.",
+		"The recipe rejects your defiance.",
+		"Defy me again, and I’ll frost your corpse instead."
 	]
 
 	say_message(invalid_message.pick_random())
