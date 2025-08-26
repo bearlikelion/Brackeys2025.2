@@ -10,8 +10,9 @@ var last_event_pos2D := Vector2()
 var last_event_time := -1.0
 var event_pos3D: Vector3
 
-@onready var node_viewport: SubViewport = $SubViewport
-@onready var node_quad: MeshInstance3D = $MeshInstance3D
+@export var node_viewport: SubViewport
+@export var node_quad: MeshInstance3D
+
 @onready var node_area: Area3D = $Area3D
 
 func _ready() -> void:

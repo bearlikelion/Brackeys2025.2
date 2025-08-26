@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://mr2l1a4mfaft" path="res://Assets/Fonts/ZOMBIE.TTF" id="1_6l7je"]
 [ext_resource type="Texture2D" uid="uid://b6rdg4nwvygjv" path="res://Assets/Images/logo.png" id="1_52fb6"]
-[ext_resource type="Script" uid="uid://do6lsl4yq0osi" path="res://Scenes/main_scene.gd" id="1_jv6wh"]
+[ext_resource type="Script" path="res://Scenes/main_scene.gd" id="1_jv6wh"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_jv6wh")

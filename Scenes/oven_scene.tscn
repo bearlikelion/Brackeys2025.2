@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b614yacjdob64"]
+[gd_scene load_steps=34 format=3 uid="uid://b614yacjdob64"]
 
 [ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="1_hybjd"]
 [ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/oven_scene.gd" id="1_mn46d"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://bo4dqp4e7mii0" path="res://Scripts/game_camera.gd" id="3_8xe52"]
 [ext_resource type="Texture2D" uid="uid://y017gpg7nqwd" path="res://Assets/Textures/Metals/metall003-new-nm.png" id="3_q8v73"]
 [ext_resource type="Script" uid="uid://beovhj8ophdrq" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
-[ext_resource type="PackedScene" uid="uid://bvnwrmfwdm0st" path="res://Scenes/UI/oven_ui.tscn" id="6_ifqwi"]
 [ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="7_ifqwi"]
 [ext_resource type="PackedScene" uid="uid://dwgk33h0g8ee0" path="res://Scenes/witch.tscn" id="8_8xe52"]
 
@@ -541,17 +540,6 @@ size = Vector3(5.12, 0.1, 2.88)
 [sub_resource type="BoxShape3D" id="BoxShape3D_x5r4b"]
 size = Vector3(2.65454, 0.1, 1.67383)
 
-[sub_resource type="QuadMesh" id="QuadMesh_4rjkd"]
-size = Vector2(4.864, 2.736)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_x5r4b"]
-viewport_path = NodePath("UIViewport/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cuf8n"]
-resource_local_to_scene = true
-transparency = 1
-albedo_texture = SubResource("ViewportTexture_x5r4b")
-
 [node name="OvenScene" type="Node3D"]
 script = ExtResource("1_mn46d")
 
@@ -625,11 +613,7 @@ light_energy = 16.0
 light_size = 0.507
 light_specular = 3.514
 shadow_enabled = true
-shadow_normal_bias = 0.0
-shadow_transmittance_bias = 2.601
 shadow_opacity = 0.93
-shadow_blur = 0.0
-distance_fade_enabled = true
 omni_range = 3.846
 
 [node name="OvenHeatShader" type="MeshInstance3D" parent="Oven"]
@@ -662,12 +646,6 @@ material = SubResource("StandardMaterial3D_e1l8n")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.09468, 0.673444, 0)
 script = ExtResource("5_x5r4b")
 
-[node name="SubViewport" type="SubViewport" parent="UIViewport"]
-transparent_bg = true
-size = Vector2i(1280, 720)
-
-[node name="Control" parent="UIViewport/SubViewport" instance=ExtResource("6_ifqwi")]
-
 [node name="Area3D" type="Area3D" parent="UIViewport"]
 collision_layer = 2
 collision_mask = 2
@@ -678,11 +656,6 @@ disabled = true
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="UIViewport/Area3D"]
 shape = SubResource("BoxShape3D_x5r4b")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="UIViewport"]
-transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -2.22772e-09, -0.0696518, 0.0509648)
-mesh = SubResource("QuadMesh_4rjkd")
-surface_material_override/0 = SubResource("StandardMaterial3D_cuf8n")
 
 [node name="DiceWell" parent="." instance=ExtResource("7_ifqwi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.14683, 0, 0)
