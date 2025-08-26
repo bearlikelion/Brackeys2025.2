@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwlp0t5niiqfl"
-path.s3tc="res://.godot/imported/Cookie_N.png-59279b43f9cafa082ec0c5bbdcd48c17.s3tc.ctex"
+uid="uid://bfhdc4rqau0rh"
+path.s3tc="res://.godot/imported/ShortBread_A.png-6e541d7f087729338a26094be9eec6ff.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Models/Cookies/Cookie_N.png"
-dest_files=["res://.godot/imported/Cookie_N.png-59279b43f9cafa082ec0c5bbdcd48c17.s3tc.ctex"]
+source_file="res://Assets/Models/Cookies/Materials/Textures/ShortBread_A.png"
+dest_files=["res://.godot/imported/ShortBread_A.png-6e541d7f087729338a26094be9eec6ff.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://Assets/Models/Cookies/Cookie_N.png"
+roughness/mode=0
+roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
