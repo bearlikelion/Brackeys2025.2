@@ -2,39 +2,58 @@ class_name ChatInstructions
 extends RichTextLabel
 
 signal instructions_done()
+signal message_complete()
 
 @export var timer_to_speak: float = 2.0
 
 var dialogue_by_round = {
-	1: [
-		"Let's start simple, a plain shortbread with something sweet.",
-		"Bake me a heart biscuit… nothing fancy, just a little glaze.",
-		"A square will do, but dress it with cream so I know you care."
+	1: [ # Fillings only
+		"Let's start simple: a shortbread with jam inside",
+		"Bake me a heart, filled with cream, soft and sweet",
+		"A round biscuit with custard at its core",
+		"Square and steady, but hide marrow within",
+		"Gingerbread person, give them a jam heart",
+		"Skull biscuits, cracked open and leaking cream"
 	],
-	2: [
-		"Now, something bolder… perhaps a round biscuit with jam filling.",
-		"A gingerbread person, but give them eyes, so they can see me.",
-		"Skull biscuits… drizzle them in sugar so they shine."
+	2: [ # Toppings only
+		"Now, coat a shortbread in sugar glaze",
+		"A heart with neat royal icing, to please me",
+		"Round biscuit dripping with cursed frosting",
+		"Square with burnt caramel, bitter and sharp",
+		"Gingerbread person glazed over in sugar",
+		"Skull glazed in black frosting, veins spreading"
 	],
-	3: [
-		"Mmm, I’m hungry for more layers. Add a topping, add a filling, don’t be shy.",
-		"Try something round again, but sweeter this time… and don’t let it crack.",
-		"Bake me a coffin-shaped one — no, wait… square, round, I don’t care, just add cream."
+	3: [ # Filling + Topping
+		"Round with cream inside and sugar glaze above",
+		"A heart filled with jam, royal icing to finish",
+		"Square packed with custard, sealed by burnt caramel",
+		"Shortbread with marrow hidden, topped with cursed frosting",
+		"Gingerbread stuffed with custard, icing across their limbs",
+		"A skull with jam filling and caramel dripping through the cracks"
 	],
-	4: [
-		"More. Bigger. Pile it higher. I want to taste the risk in every bite.",
-		"Why stop at one layer? Give me a filling, topping, and decoration, stack it all!",
-		"Give them eyes! I want them to stare back at me!"
+	4: [ # Filling + Topping + Decoration
+		"Round with jam, sugar glaze, and sprinkles on top",
+		"A heart with cream, royal icing, and runes etched deep",
+		"Shortbread hiding custard, cursed frosting above, eyes staring back",
+		"Square biscuit with marrow inside, burnt caramel, and a tongue laid across",
+		"Gingerbread with jam, sugar glaze, and sprinkles to hide the cracks",
+		"Skull biscuit stuffed with cream, caramel glaze, and eyes in its sockets"
 	],
-	5: [
-		"Don’t think just bake. Any shape, any flavor, so long as it bleeds sweetness.",
-		"Round, square, skull, does it matter? Just make it worthy of me.",
-		"Yes… yes… decorate them, ruin them, let the oven decide."
+	5: [ # Captor grows unhinged (still one of each)
+		"Give me a round one that bleeds jam, drips caramel, and watches with eyes",
+		"A heart, marrow inside, cursed frosting above, runes across its surface",
+		"Square biscuit, custard inside, royal icing on top, tongue to taste for me",
+		"Shortbread with cream, sugar glaze, and eyes that stare unblinking",
+		"Gingerbread, jam-filled, caramel dripping, sprinkles masking the fear",
+		"Bake me a skull with marrow, cursed frosting, and runes carved deep"
 	],
-	6: [
-		"All biscuits crumble in the end… feed me anything.",
-		"The shapes blur… shortbread, skull, gingerbread, they all taste the same now.",
-		"No recipe left, only hunger. Bake, or be baked."
+	6: [ # Final madness (nonsense but still 1+1+1)
+		"All shapes blur… fill them, frost them, decorate them, they all taste the same",
+		"A heart with custard, burnt caramel, and eyes that won’t close",
+		"Round biscuits, marrow at the core, cursed frosting, runes that whisper",
+		"Square, jam inside, sugar glaze above, a tongue that licks the air",
+		"Gingerbread with cream, royal icing, and sprinkles falling like ash",
+		"A skull, hollow with custard, caramel dripping, eyes staring forever"
 	]
 }
 
@@ -44,15 +63,19 @@ var time_accumulator: float = 0.0
 var instructions_finished: bool = false
 
 @onready var talk_sound: AudioStreamPlayer = $TalkSound
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 @onready var chat_message: MarginContainer = %ChatMessage
+@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
+
 
 func _ready() -> void:
-	pass
+	visible_ratio = 0.0
+	game_manager.biscuit_broken.connect(_on_biscuit_broken)
+	game_manager.biscuit_invalid.connect(_on_biscuit_invalid)
+	game_manager.game_over.connect(_on_game_over)
 
 
 func _physics_process(delta: float) -> void:
-	if visible_ratio < 1.0 and visible and chat_message.visible:
+	if visible_ratio < 1.0:
 		# Increment visible ratio based on typewriter speed
 		time_accumulator += delta
 		visible_ratio = min(1.0, time_accumulator * typewriter_speed)
@@ -63,18 +86,36 @@ func _physics_process(delta: float) -> void:
 			talk_sound.play()
 	elif not instructions_finished:
 		instructions_finished = true
+
+		if game_manager.biscuit_broke or not game_manager.valid_biscuit or game_manager.player_died:
+			await get_tree().create_timer(2.0).timeout
+
 		instructions_done.emit()
 
 
 func new_instructions() -> void:
 	text = ""
 
-	var round = game_manager.round
-	if round >= 7:
-		round = randi_range(1, 6)
+	var _round: int = game_manager.round
+	if _round >= 7:
+		_round = randi_range(1, 6)
+	if _round == 0: # HACK I AM TOO TIRED TO CARE
+		_round = 1
 
-	var instructions = dialogue_by_round[round].pick_random()
-	text = instructions
+	var instructions_count: int = dialogue_by_round[_round].size()
+	var instructions_index: int = randi_range(0, instructions_count -1)
+	var instructions: String = dialogue_by_round[_round][instructions_index]
+
+	game_manager.biscuit_validator.set_instructions(_round, instructions_index)
+	say_message(instructions)
+
+
+func say_message(message: String) -> void:
+	instructions_finished = false
+	chat_message.show()
+	show()
+
+	text = message
 	text.capitalize()
 
 	var total_chars: int = get_total_character_count()
@@ -84,3 +125,55 @@ func new_instructions() -> void:
 
 	visible_ratio = 0.0
 	time_accumulator = 0.0
+
+
+func _on_biscuit_broken() -> void:
+	await game_manager.game_camera.animation_player.animation_finished
+
+	var broken_messages: Array[String] = [
+		"How dare you break my biscuit!",
+		"I thought I told you no cracks!",
+		"Breaking before baking?!?",
+		"Pathetic. Even dough is stronger than you.",
+		"Do you think shattered crumbs will satisfy me?",
+		"The biscuit broke… perhaps your bones will hold better.",
+		"Every failure is a crack in YOUR skin, not the dough.",
+		"The heat is wasted… the hunger grows.",
+		"Did you drop it on purpose? Are you begging for punishment?",
+		"You disappoint the recipe… and me.",
+		"The tray weeps with your weakness.",
+		"Another broken batch? The oven whispers your name.",
+		"Flawed. Fragile. Foolish. Like you.",
+		"The biscuit crumbled… next, your will shall too."
+	]
+
+	say_message(broken_messages.pick_random())
+
+
+func _on_biscuit_invalid() -> void:
+	await game_manager.game_camera.animation_player.animation_finished
+
+	var invalid_message: Array[String] = [
+		"That's not what I told you to make.",
+		"Can you not follow simple instructions?!",
+		"What did you think I asked for?",
+		"Follow my directions… or die.",
+		"You did not listen to meeeeeeee!",
+		"The oven hungers… it will taste you if you disobey again.",
+		"Wrong. Wrong! Wrong! I gave you the recipe, and you spat on it!",
+		"Are you deaf, or just deliciously stupid?",
+		"What did you think I asked for, not… whatever THIS is.",
+		"Every mistake is another step closer to the oven.",
+		"Not what I asked for. Not what I wanted. Not what I’ll forgive.",
+		"The recipe rejects your defiance.",
+		"Defy me again, and I’ll frost your corpse instead."
+	]
+
+	say_message(invalid_message.pick_random())
+
+
+func _on_game_over() -> void:
+	game_manager.game_camera.view_witch()
+	await game_manager.game_camera.animation_player.animation_finished
+
+	say_message("GAME OVER, GOOD DAY, YOU DIED")

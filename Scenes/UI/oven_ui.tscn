@@ -17,6 +17,7 @@ mouse_filter = 2
 
 [node name="BaseSelector" type="Panel" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -312,8 +313,8 @@ theme_override_constants/separation = -1
 
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Fillings +1d6"
+theme_override_font_sizes/font_size = 36
+text = "Fillings"
 horizontal_alignment = 1
 
 [node name="Jam" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
@@ -427,8 +428,8 @@ theme_override_constants/separation = -1
 
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Toppings +1d6"
+theme_override_font_sizes/font_size = 36
+text = "Toppings"
 horizontal_alignment = 1
 
 [node name="Sugar" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
@@ -542,8 +543,8 @@ theme_override_constants/separation = -1
 
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Decorations +1d6"
+theme_override_font_sizes/font_size = 36
+text = "Decorations"
 horizontal_alignment = 1
 
 [node name="Sprinkles" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]

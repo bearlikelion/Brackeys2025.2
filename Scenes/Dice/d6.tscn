@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cdi2i5y5bgh66" path="res://Scripts/Dice/d6.gd" id="1_s5j61"]
 [ext_resource type="Shader" uid="uid://vg4wehnnqc4v" path="res://Shaders/3d_dissolve.gdshader" id="2_112kq"]
-[ext_resource type="Texture2D" uid="uid://brasrdvjwg1lq" path="res://Assets/Models/Dice/Untitled-2.png" id="2_hnbey"]
+[ext_resource type="Texture2D" uid="uid://brasrdvjwg1lq" path="res://Assets/Models/Dice/dice_red.png" id="2_hnbey"]
 [ext_resource type="Texture2D" uid="uid://d4f52v1c5rhar" path="res://Assets/Models/Dice/Dice3_normal.png" id="3_04fms"]
 [ext_resource type="Script" uid="uid://c8mqr5ve058h0" path="res://Scripts/Dice/die_raycast.gd" id="3_g7d41"]
 [ext_resource type="AudioStream" uid="uid://w8oikj00c158" path="res://Assets/Audio/SFX/558204__jakubpjp__gamemisc_dice-roll-on-wood_jaku5.ogg" id="6_112kq"]

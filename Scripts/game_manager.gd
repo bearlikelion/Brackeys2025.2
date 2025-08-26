@@ -1,13 +1,18 @@
 class_name GameManager
 extends Node3D
 
-signal view_oven()
-# signal view_table()
+signal game_over()
+signal round_started()
 signal fear_increased()
 signal fear_decreased()
-signal biscuit_busted()
+signal biscuit_broken()
+signal biscuit_invalid()
+
+@export var obey_instructions: bool = true
 
 var round: int = 0
+var instruction_index: int = 0
+var instructions_round: int = 0
 
 var fear: int = 0
 var total: int = 0
@@ -18,18 +23,19 @@ var biscuits_baked: int = 0
 
 var dice: Array = []
 
-var cracked_biscuit: bool = false
-var enchanted_biscuit: bool = true
+var valid_biscuit: bool
+var player_died: bool = false
+var biscuit_broke: bool = false
 
-var bust: bool = false
-var biscuit_broken: bool = false
 var type: String
 var filling: String
 var topping: String
 var decoration: String
+
 var filling_score: int = 0
 
 @onready var dice_scorer: DiceScorer = $DiceScorer
+@onready var biscuit_validator: Node = $BiscuitValidator
 @onready var dice_well: DiceWell = $OvenScene/DiceWell
 
 @onready var type_label: Label = %TypeLabel
@@ -43,6 +49,8 @@ var filling_score: int = 0
 @onready var mutators_bar: VBoxContainer = %MutatorsBar
 @onready var chat_instructions: ChatInstructions = %ChatInstructions
 @onready var chat_message: MarginContainer = %ChatMessage
+
+@onready var game_camera: GameCamera = get_tree().get_first_node_in_group("GameCamera")
 
 @onready var base_selector: BaseSelector :
 	set(value):
@@ -72,12 +80,12 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
-	if not bust and not biscuit_broken:
+	if not biscuit_broke:
 		dice_scorer.score_die(dice_type, dice_name, dice_face)
 
 
 func add_score(amount: int) -> void:
-	if not biscuit_broken:
+	if not biscuit_broke:
 		score += amount
 		score_label.text = "SCORE: %s" % str(score)
 
@@ -88,8 +96,11 @@ func add_fear(amount: int) -> void:
 	else:
 		fear_decreased.emit()
 
-
 	fear += amount
+
+	if fear >= 50:
+		player_died = true
+		game_over.emit()
 
 	if fear < 0:
 		fear = 0
@@ -98,11 +109,19 @@ func add_fear(amount: int) -> void:
 
 
 func update_dice_count() -> void:
+	if dice_to_roll < 0:
+		dice_to_roll = 0
+
 	dice_amount.text = "DICE TO ROLL: %s" % str(dice_to_roll)
 
 
 func _on_instructions_done() -> void:
-	base_selector.show()
+	if biscuit_broke or not valid_biscuit:
+		new_round()
+	elif player_died:
+		get_tree().change_scene_to_file("res://Scenes/main_scene.tscn")
+	else:
+		base_selector.show()
 
 
 func _on_base_selected(selected_base: String) -> void:
@@ -150,16 +169,17 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 		if _decoration == "Runes":
 			dice_scorer.reroll_fail = true
 
-	print("NOW ROLL YOUR LUCK | DICE %s" % dice_to_roll)
-	roll_dice()
+	valid_biscuit = biscuit_validator.is_biscuit_valid(type, filling, topping, decoration)
+	if valid_biscuit:
+		print("NOW ROLL YOUR LUCK | DICE %s" % dice_to_roll)
+		roll_dice()
+	else:
+		invalid_biscuit()
 
 
 func roll_dice() -> void:
 	chat_message.hide()
-	bust = false
 	dice_well.roll_dice(dice)
-	dice = []
-	dice_to_roll = 0
 	update_dice_count()
 
 
@@ -168,17 +188,16 @@ func _on_topping_pressed(is_toggled: bool) -> void:
 		dice_to_roll += 1
 	else:
 		dice_to_roll -= 1
-
+#
 	update_dice_count()
 
 
-func bust_biscuit() -> void:
-	if not biscuit_broken:
-		biscuit_broken = true
-		bust = true
-		add_fear(3)
-		biscuit_busted.emit()
-		print("BISCUIT BUSTED! No more scoring this round.")
+func break_biscuit() -> void:
+	if not biscuit_broke:
+		biscuit_broke = true
+		biscuit_broken.emit()
+		add_fear(dice_to_roll)
+		print("BISCUIT BROKEN! No more scoring this round.")
 
 
 func double_biscuit() -> void:
@@ -188,17 +207,48 @@ func double_biscuit() -> void:
 
 
 func _on_roll_finished() -> void:
+	print("Roll Finished")
 	if topping == "Sprinkles":
 		dice_scorer.score_sprinkles_decoration()
 
 	dice_scorer.reroll_fail = false
 	dice_scorer.success_die = 0
-	biscuit_broken = false
-	view_oven.emit()
+
+	if biscuit_broke:
+		game_camera.view_witch()
+	else:
+		game_camera.view_oven()
 
 
 func new_round() -> void:
 	round += 1
+	biscuit_validator.reset()
+	print("START ROUND: %s" % str(round))
+
+	if game_camera.looking_at != game_camera.Viewing.TABLE:
+		game_camera.view_table()
+		await game_camera.animation_player.animation_finished
+
 	chat_message.show()
-	base_selector.show()
+	# base_selector.show()
+	dice = []
+	dice_to_roll = 0
+	update_dice_count()
+
+	type = ""
+	filling = ""
+	topping = ""
+	decoration = ""
+
+	valid_biscuit = true
+	biscuit_broke = false
 	chat_instructions.new_instructions()
+	round_started.emit()
+
+
+func invalid_biscuit() -> void:
+	print("INVALID BISCUIT")
+	valid_biscuit = false
+	game_camera.view_witch()
+	biscuit_invalid.emit()
+	add_fear(round + 1)

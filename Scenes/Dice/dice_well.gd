@@ -2,8 +2,6 @@ class_name DiceWell
 extends Node3D
 
 const d_6 = preload("res://Scenes/Dice/d6.tscn")
-@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
-@onready var camera_3d: Camera3D = $"../Camera3D"
 
 signal dice_rolled()
 signal roll_finished()
@@ -14,10 +12,13 @@ var dice_to_roll: int = 0
 var rolled_dice: int = 1
 
 @onready var dice: Node = $Dice
-
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
+@onready var camera_3d: GameCamera = get_tree().get_first_node_in_group("GameCamera")
+@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 
 func _ready() -> void:
-	pass
+	game_manager.biscuit_broken.connect(_on_biscuit_broken)
+
 
 func roll_die(die: Dictionary) -> void:
 	var d6: D6 = d_6.instantiate()
@@ -35,25 +36,31 @@ func roll_die(die: Dictionary) -> void:
 	dice_rolled.emit()
 
 
-func roll_dice(dice: Array) -> void:
-	animation_player.play("dice_rool")
+func roll_dice(dice_array: Array) -> void:
+	animation_player.play("dice_roll")
 	last_dices.clear()
+	dice_array.shuffle()
 
-	dice_to_roll = dice.size()
+	dice_to_roll = dice_array.size()
 	rolled_dice = 0
 
-	for dice_i: int in range(dice.size()):
-		roll_die(dice[dice_i])
+	for dice_i: int in range(dice_array.size()):
+		roll_die(dice_array[dice_i])
 		await get_tree().create_timer(randf_range(0.05, 0.1)).timeout
 
 	# await get_tree().create_timer(2.5).connect("timeout", dice_to_face)
 
 
-func dice_to_face():
+func dice_to_face() -> void:
 	#var start_pos = get_viewport().size/2
+	if game_manager.biscuit_broke:
+		return
+
 	animate_dice_to_grid()
 	await get_tree().create_timer(5.5).timeout
-	roll_finished.emit()
+
+	if not game_manager.biscuit_broke:
+		roll_finished.emit()
 
 
 func animate_dice_to_grid() -> void:
@@ -69,12 +76,12 @@ func animate_dice_to_grid() -> void:
 	var half_grid: float = (grid_size - 1) / 2.0
 
 	var index: int = 0
-	var delay = 0.1
-	for dice in last_dices as Array[D6]:
-		if not dice:
+	var delay: float = 0.1
+	for _d6: D6 in last_dices as Array[D6]:
+		if not _d6:
 			continue
-		dice.freeze = true
-		var row: int = index / grid_size # need fixing
+		_d6.freeze = true
+		var row: int = int(index / grid_size) # need fixing
 		var col: int = index % grid_size # need fixing
 		var local_offset_x: float = (col - half_grid) * spacing
 		var local_offset_y: float = -(row - half_grid) * spacing
@@ -82,11 +89,11 @@ func animate_dice_to_grid() -> void:
 
 		var target_pos: Vector3 = camera_3d.global_transform * local_pos
 
-		get_tree().create_timer(3.5).connect("timeout", dice.set_deferred.bind("dissolve",true))
-		var tween := dice.create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
-		tween.tween_property(dice, "global_position", target_pos, 0.5).set_delay(delay)
-		var tween2 := dice.create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
-		tween2.tween_property(dice, "scale", dice.scale/5, 0.5).set_delay(delay)
+		get_tree().create_timer(3.5).connect("timeout", _d6.set_deferred.bind("dissolve",true))
+		var tween := _d6.create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
+		tween.tween_property(_d6, "global_position", target_pos, 0.5).set_delay(delay)
+		var tween2 := _d6.create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
+		tween2.tween_property(_d6, "scale", dice.scale/5, 0.5).set_delay(delay)
 		delay += 0.1 + (delay * 0.3)
 		index += 1
 
@@ -102,3 +109,7 @@ func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> vo
 func clear_dice() -> void:
 	for child: D6 in dice.get_children():
 		child.queue_free()
+
+
+func _on_biscuit_broken() -> void:
+	pass

@@ -150,10 +150,10 @@ func score_round(dice_face: int) -> void:
 func score_gingerbread(dice_face: int) -> void:
 	match dice_face:
 		1:
-			game_manager.bust_biscuit()
+			game_manager.break_biscuit()
 			game_manager.add_fear(1)
 		2:
-			game_manager.bust_biscuit()
+			game_manager.break_biscuit()
 			game_manager.add_fear(2)
 		3:
 			game_manager.add_score(1)
@@ -224,9 +224,9 @@ func score_cream_filling(dice_face: int) -> void:
 func score_custard_filling(dice_face: int) -> void:
 	match dice_face:
 		1:
-			game_manager.bust_biscuit()
+			game_manager.break_biscuit()
 		2:
-			game_manager.bust_biscuit()
+			game_manager.break_biscuit()
 		5:
 			game_manager.double_biscuit()
 		6:
