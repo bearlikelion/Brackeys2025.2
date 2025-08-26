@@ -9,6 +9,7 @@ var last_die_position: Vector3 = Vector3.ZERO
 
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 @onready var dice_well: DiceWell = get_tree().get_first_node_in_group("DiceWell")
+@onready var fct: Control = %FCT
 
 
 func _ready() -> void:
@@ -38,9 +39,11 @@ func spawn_floating_number(amount: int, is_fear: bool = false) -> void:
 
 	var target_pos: Vector2 = target_control.global_position + target_control.size / 2.0
 
+	print("Screen Pos: %s" % screen_pos)
+
 	# Create floating number
 	var floating_num: FloatingNumber = FLOATING_NUMBER.instantiate()
-	get_tree().current_scene.add_child(floating_num)
+	fct.add_child(floating_num)
 	floating_num.setup(screen_pos, target_pos, amount, is_fear)
 
 
