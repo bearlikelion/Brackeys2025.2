@@ -10,6 +10,7 @@ signal roll_result(dice_face: int, dice_type: String, dice_name: String, dice_po
 var last_dices :Array [D6]
 var dice_to_roll: int = 0
 var rolled_dice: int = 1
+var rolled_results: Array
 
 @onready var dice: Node = $Dice
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
@@ -39,6 +40,7 @@ func roll_die(die: Dictionary) -> void:
 func roll_dice(dice_array: Array) -> void:
 	animation_player.play("dice_roll")
 	last_dices.clear()
+	rolled_results.clear()
 	dice_array.shuffle()
 
 	dice_to_roll = dice_array.size()
@@ -57,10 +59,7 @@ func dice_to_face() -> void:
 		return
 
 	animate_dice_to_grid()
-	await get_tree().create_timer(5.5).timeout
-
-	if not game_manager.biscuit_broke:
-		roll_finished.emit()
+	score_dice()
 
 
 func animate_dice_to_grid() -> void:
@@ -102,15 +101,16 @@ func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> vo
 	rolled_dice += 1
 	if rolled_dice == dice_to_roll:
 		dice_to_face()
-	
+
 	# Find the die that emitted this result to get its position
-	var dice_position: Vector3 = Vector3.ZERO
-	for die in last_dices:
-		if die and die.die_name == dice_name:
-			dice_position = die.global_position
-			break
-	
-	roll_result.emit(dice_face, dice_type, dice_name, dice_position)
+	#var dice_position: Vector3 = Vector3.ZERO
+	#for die in last_dices:
+		#if die and die.die_name == dice_name:
+			#dice_position = die.global_position
+			#break
+
+	rolled_results.append([dice_face, dice_type, dice_name])
+	# roll_result.emit(dice_face, dice_type, dice_name, dice_position)
 
 
 func clear_dice() -> void:
@@ -120,3 +120,33 @@ func clear_dice() -> void:
 
 func _on_biscuit_broken() -> void:
 	pass
+
+
+func score_dice() -> void:
+	# Wait for dice to finish animating to grid
+	await get_tree().create_timer(1.5).timeout
+
+	# Score each die with a small delay between each
+	for i in range(rolled_results.size()):
+		var result: Array = rolled_results[i]
+		var dice_face: int = result[0]
+		var dice_type: String = result[1]
+		var dice_name: String = result[2]
+
+		# Find the die's current position in the grid
+		var dice_position: Vector3 = Vector3.ZERO
+		if i < last_dices.size() and last_dices[i]:
+			dice_position = last_dices[i].global_position
+
+		# Emit the result to trigger scoring
+		roll_result.emit(dice_face, dice_type, dice_name, dice_position)
+
+		# Small delay between scoring each die for visual effect
+		await get_tree().create_timer(randf_range(0.15, 0.33)).timeout
+
+	# Clear the results array for next roll
+	rolled_results.clear()
+
+	# Wait a bit then emit roll finished
+	await get_tree().create_timer(2.0).timeout
+	roll_finished.emit()

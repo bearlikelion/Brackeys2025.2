@@ -18,26 +18,26 @@ func _ready() -> void:
 func spawn_floating_number(amount: int, is_fear: bool = false) -> void:
 	if amount == 0:
 		return
-	
+
 	var camera: Camera3D = get_viewport().get_camera_3d()
 	if not camera:
 		return
-	
+
 	# Get die position in screen space
 	var screen_pos: Vector2 = camera.unproject_position(last_die_position)
-	
+
 	# Get target position (score or fear label)
 	var target_control: Control
 	if is_fear:
 		target_control = game_manager.fear_label
 	else:
 		target_control = game_manager.score_label
-	
+
 	if not target_control:
 		return
-	
+
 	var target_pos: Vector2 = target_control.global_position + target_control.size / 2.0
-	
+
 	# Create floating number
 	var floating_num: FloatingNumber = FLOATING_NUMBER.instantiate()
 	get_tree().current_scene.add_child(floating_num)
