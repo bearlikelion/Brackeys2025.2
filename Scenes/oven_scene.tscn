@@ -1,9 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://b614yacjdob64"]
+[gd_scene load_steps=28 format=3 uid="uid://b614yacjdob64"]
 
 [ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="1_hybjd"]
 [ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/oven_scene.gd" id="1_mn46d"]
 [ext_resource type="Shader" uid="uid://b7w8vso1bv4mm" path="res://Shaders/oven_heat_schlieren.gdshader" id="2_52l15"]
-[ext_resource type="PackedScene" uid="uid://d0poxk80yd3ps" path="res://Assets/Models/Witch/character_witch.gltf" id="3_poiax"]
 [ext_resource type="Script" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
 [ext_resource type="PackedScene" uid="uid://bvnwrmfwdm0st" path="res://Scenes/UI/oven_ui.tscn" id="6_ifqwi"]
 [ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="7_ifqwi"]
@@ -450,18 +449,6 @@ _data = {
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1l8n"]
 albedo_texture = ExtResource("1_hybjd")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_poiax"]
-albedo_color = Color(0.449945, 0.196558, 1.44392e-07, 1)
-emission_enabled = true
-emission_operator = 1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52l15"]
-albedo_color = Color(0.157274, 0.157274, 0.157274, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pod84"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_4rjkd"]
 size = Vector3(5.12, 0.1, 2.88)
 
@@ -591,24 +578,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.1, 0
 size = Vector3(3, 1, 2)
 material = SubResource("StandardMaterial3D_e1l8n")
 
-[node name="character_witch2" parent="." instance=ExtResource("3_poiax")]
-transform = Transform3D(-4, 0, 7.54979e-08, 0, 4, 0, -6.03983e-07, 0, -0.5, 3.8, -2.3, 3)
-
-[node name="character_witchArmLeft" parent="character_witch2/character_witch" index="0"]
-visible = false
-
-[node name="character_witchArmRight" parent="character_witch2/character_witch" index="1"]
-visible = false
-
-[node name="character_witchHead" parent="character_witch2/character_witch" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0536571, 0.703711, 0)
-surface_material_override/0 = SubResource("StandardMaterial3D_poiax")
-surface_material_override/1 = SubResource("StandardMaterial3D_52l15")
-surface_material_override/2 = SubResource("StandardMaterial3D_pod84")
-
-[node name="character_witchHat" parent="character_witch2/character_witch/character_witchHead" index="0"]
-visible = false
-
 [node name="Sprite3D" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.09468, 0.673444, 0)
 script = ExtResource("5_x5r4b")
@@ -639,5 +608,3 @@ surface_material_override/0 = SubResource("StandardMaterial3D_cuf8n")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.14683, 0, 0)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
-
-[editable path="character_witch2"]
