@@ -199,16 +199,14 @@ func _on_topping_pressed(is_toggled: bool) -> void:
 
 
 func break_biscuit() -> void:
-	if not biscuit_broke:
-		biscuit_broke = true
-		biscuit_broken.emit()
-		add_fear(dice_to_roll)
-		print("BISCUIT BROKEN! No more scoring this round.")
+	# This is now called by dice_well before scoring
+	# Individual dice scoring methods no longer call this
+	pass
 
 
 func double_biscuit() -> void:
 	print("2x SCORE!")
-	if not biscuit_broken:
+	if not biscuit_broke:
 		add_score(score)
 
 

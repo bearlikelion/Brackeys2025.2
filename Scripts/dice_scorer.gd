@@ -52,8 +52,6 @@ func spawn_floating_number(amount: int, is_fear: bool = false) -> void:
 
 	var target_pos: Vector2 = target_control.global_position + target_control.size / 2.0
 
-	print("Screen Pos: %s" % screen_pos)
-
 	# Create floating number
 	var floating_num: FloatingNumber = FLOATING_NUMBER.instantiate()
 	fct.add_child(floating_num)
@@ -202,10 +200,8 @@ func score_round(dice_face: int) -> void:
 func score_gingerbread(dice_face: int) -> void:
 	match dice_face:
 		1:
-			game_manager.break_biscuit()
 			game_manager.add_fear(1)
 		2:
-			game_manager.break_biscuit()
 			game_manager.add_fear(2)
 		3:
 			game_manager.add_score(1)
@@ -275,10 +271,6 @@ func score_cream_filling(dice_face: int) -> void:
 # Success, doubles entire biscuit score, one failure it collapses
 func score_custard_filling(dice_face: int) -> void:
 	match dice_face:
-		1:
-			game_manager.break_biscuit()
-		2:
-			game_manager.break_biscuit()
 		5:
 			game_manager.double_biscuit()
 		6:
