@@ -3,7 +3,7 @@ extends RichTextLabel
 
 signal instructions_done()
 
-@export var timer_to_speak: float = 1.5
+@export var timer_to_speak: float = 2.0
 
 var dialogue_by_round = {
 	1: [
@@ -32,7 +32,7 @@ var dialogue_by_round = {
 		"Yes… yes… decorate them, ruin them, let the oven decide."
 	],
 	6: [
-		"All biscuits crumble in the end… so feed me anything.",
+		"All biscuits crumble in the end… feed me anything.",
 		"The shapes blur… shortbread, skull, gingerbread, they all taste the same now.",
 		"No recipe left, only hunger. Bake, or be baked."
 	]
@@ -45,13 +45,14 @@ var instructions_finished: bool = false
 
 @onready var talk_sound: AudioStreamPlayer = $TalkSound
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
+@onready var chat_message: MarginContainer = %ChatMessage
 
 func _ready() -> void:
 	pass
 
 
 func _physics_process(delta: float) -> void:
-	if visible_ratio < 1.0:
+	if visible_ratio < 1.0 and visible and chat_message.visible:
 		# Increment visible ratio based on typewriter speed
 		time_accumulator += delta
 		visible_ratio = min(1.0, time_accumulator * typewriter_speed)
@@ -67,16 +68,19 @@ func _physics_process(delta: float) -> void:
 
 func new_instructions() -> void:
 	text = ""
+
 	var round = game_manager.round
 	if round >= 7:
-		round = randi_range(1, 7)
+		round = randi_range(1, 6)
 
-	var instructions = dialogue_by_round[game_manager.round].pick_random()
+	var instructions = dialogue_by_round[round].pick_random()
 	text = instructions
 	text.capitalize()
-	visible_ratio = 0.0
 
 	var total_chars: int = get_total_character_count()
 	if total_chars > 0:
 		chars_per_second = total_chars / timer_to_speak
 		typewriter_speed = 1.0 / total_chars * chars_per_second
+
+	visible_ratio = 0.0
+	time_accumulator = 0.0

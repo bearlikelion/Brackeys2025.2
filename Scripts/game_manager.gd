@@ -42,7 +42,8 @@ var filling_score: int = 0
 
 @onready var mutators_bar: VBoxContainer = %MutatorsBar
 @onready var chat_instructions: ChatInstructions = %ChatInstructions
-@onready var chat_message: MarginContainer = $UI/ChatMessage
+@onready var chat_message: MarginContainer = %ChatMessage
+
 @onready var base_selector: BaseSelector :
 	set(value):
 		base_selector = value
