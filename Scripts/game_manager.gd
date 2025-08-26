@@ -1,11 +1,11 @@
 class_name GameManager
 extends Node3D
 
-signal view_oven()
-# signal view_table()
 signal fear_increased()
 signal fear_decreased()
-signal biscuit_busted()
+signal biscuit_broken()
+
+@export var obey_instructions: bool = true
 
 var round: int = 0
 
@@ -18,15 +18,18 @@ var biscuits_baked: int = 0
 
 var dice: Array = []
 
-var cracked_biscuit: bool = false
-var enchanted_biscuit: bool = true
+var biscuit_broke: bool = false
 
-var bust: bool = false
-var biscuit_broken: bool = false
 var type: String
 var filling: String
 var topping: String
 var decoration: String
+
+var rq_type: Array[String]
+var rq_filling: Array[String]
+var rq_topping: Array[String]
+var rq_decoration: Array[String]
+
 var filling_score: int = 0
 
 @onready var dice_scorer: DiceScorer = $DiceScorer
@@ -43,6 +46,8 @@ var filling_score: int = 0
 @onready var mutators_bar: VBoxContainer = %MutatorsBar
 @onready var chat_instructions: ChatInstructions = %ChatInstructions
 @onready var chat_message: MarginContainer = %ChatMessage
+
+@onready var game_camera: GameCamera = get_tree().get_first_node_in_group("GameCamera")
 
 @onready var base_selector: BaseSelector :
 	set(value):
@@ -63,7 +68,6 @@ func _ready() -> void:
 	dice_well.roll_result.connect(_on_roll_result)
 	dice_well.roll_finished.connect(_on_roll_finished)
 	chat_instructions.instructions_done.connect(_on_instructions_done)
-	new_round()
 
 
 func _input(event: InputEvent) -> void:
@@ -72,12 +76,12 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
-	if not bust and not biscuit_broken:
+	if not biscuit_broke:
 		dice_scorer.score_die(dice_type, dice_name, dice_face)
 
 
 func add_score(amount: int) -> void:
-	if not biscuit_broken:
+	if not biscuit_broke:
 		score += amount
 		score_label.text = "SCORE: %s" % str(score)
 
@@ -102,7 +106,10 @@ func update_dice_count() -> void:
 
 
 func _on_instructions_done() -> void:
-	base_selector.show()
+	if biscuit_broke:
+		new_round()
+	else:
+		base_selector.show()
 
 
 func _on_base_selected(selected_base: String) -> void:
@@ -156,7 +163,6 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 
 func roll_dice() -> void:
 	chat_message.hide()
-	bust = false
 	dice_well.roll_dice(dice)
 	dice = []
 	dice_to_roll = 0
@@ -172,13 +178,12 @@ func _on_topping_pressed(is_toggled: bool) -> void:
 	update_dice_count()
 
 
-func bust_biscuit() -> void:
-	if not biscuit_broken:
-		biscuit_broken = true
-		bust = true
-		add_fear(3)
-		biscuit_busted.emit()
-		print("BISCUIT BUSTED! No more scoring this round.")
+func break_biscuit() -> void:
+	if not biscuit_broke:
+		biscuit_broke = true
+		biscuit_broken.emit()
+		add_fear(5)
+		print("BISCUIT BROKEN! No more scoring this round.")
 
 
 func double_biscuit() -> void:
@@ -188,17 +193,38 @@ func double_biscuit() -> void:
 
 
 func _on_roll_finished() -> void:
+	print("Roll Finished")
 	if topping == "Sprinkles":
 		dice_scorer.score_sprinkles_decoration()
 
 	dice_scorer.reroll_fail = false
 	dice_scorer.success_die = 0
-	biscuit_broken = false
-	view_oven.emit()
+
+	if biscuit_broke:
+		game_camera.view_witch()
+	else:
+		game_camera.view_oven()
 
 
 func new_round() -> void:
+	if game_camera.looking_at != game_camera.Viewing.TABLE:
+		game_camera.view_table()
+		await game_camera.animation_player.animation_finished
+
 	round += 1
 	chat_message.show()
-	base_selector.show()
+	# base_selector.show()
+	biscuit_broke = false
 	chat_instructions.new_instructions()
+
+
+func set_instructions(round: int, instructions_index: int) -> void:
+	match round:
+		1:
+			match instructions_index:
+				1:
+					pass
+				2:
+					pass
+				3:
+					pass

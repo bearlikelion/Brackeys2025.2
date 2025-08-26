@@ -2,10 +2,11 @@ class_name ChatInstructions
 extends RichTextLabel
 
 signal instructions_done()
+signal message_complete()
 
 @export var timer_to_speak: float = 2.0
 
-var dialogue_by_round = {
+var dialogue_by_round: Dictionary = {
 	1: [
 		"Let's start simple, a plain shortbread with something sweet.",
 		"Bake me a heart biscuit… nothing fancy, just a little glaze.",
@@ -44,15 +45,18 @@ var time_accumulator: float = 0.0
 var instructions_finished: bool = false
 
 @onready var talk_sound: AudioStreamPlayer = $TalkSound
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 @onready var chat_message: MarginContainer = %ChatMessage
+@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
+
 
 func _ready() -> void:
-	pass
+	visible_ratio = 0.0
+	game_manager.biscuit_broken.connect(_on_biscuit_broken)
+	new_instructions()
 
 
 func _physics_process(delta: float) -> void:
-	if visible_ratio < 1.0 and visible and chat_message.visible:
+	if visible_ratio < 1.0:
 		# Increment visible ratio based on typewriter speed
 		time_accumulator += delta
 		visible_ratio = min(1.0, time_accumulator * typewriter_speed)
@@ -63,18 +67,36 @@ func _physics_process(delta: float) -> void:
 			talk_sound.play()
 	elif not instructions_finished:
 		instructions_finished = true
+
+		if game_manager.biscuit_broke:
+			await get_tree().create_timer(2.0).timeout
+
 		instructions_done.emit()
 
 
 func new_instructions() -> void:
 	text = ""
 
-	var round = game_manager.round
-	if round >= 7:
-		round = randi_range(1, 6)
+	var _round: int = game_manager.round
+	if _round >= 7:
+		_round = randi_range(1, 6)
+	if _round == 0: # HACK I AM TOO TIRED TO CARE
+		_round = 1
 
-	var instructions = dialogue_by_round[round].pick_random()
-	text = instructions
+	var instructions_count: int = dialogue_by_round[_round].size()
+	var instructions_index: int = randi_range(0, instructions_count -1)
+	var instructions: String = dialogue_by_round[_round][instructions_index]
+
+	game_manager.set_instructions(_round, instructions_index)
+	say_message(instructions)
+
+
+func say_message(message: String) -> void:
+	instructions_finished = false
+	chat_message.show()
+	show()
+
+	text = message
 	text.capitalize()
 
 	var total_chars: int = get_total_character_count()
@@ -84,3 +106,16 @@ func new_instructions() -> void:
 
 	visible_ratio = 0.0
 	time_accumulator = 0.0
+
+
+func _on_biscuit_broken() -> void:
+	await game_manager.game_camera.animation_player.animation_finished
+
+	var broken_messages: Array[String] = [
+		"How dare you break my biscuit!",
+		"I thought I told you no cracks!",
+		"Breaking before baking?!?!?",
+		"The oven hungers, i'll feed it you if you continue to fail me"
+	]
+
+	say_message(broken_messages.pick_random())

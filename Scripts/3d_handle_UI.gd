@@ -48,7 +48,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			# If the event is a mouse/touch event, then we can ignore it here, because it will be
 			# handled via Physics Picking.
 			return
-	var direction = event
+	# var direction: InputEvent = event
 	node_viewport.push_input(event)
 
 

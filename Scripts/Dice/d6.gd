@@ -7,11 +7,12 @@ const DICE_YELLOW = preload("res://Assets/Models/Dice/dice_yellow.png")
 
 signal roll_result(face_number: int, type: String, die_name: String)
 
-var dice_power = 400
+var dice_power: int = 400
 var roll_strength: int = randi_range(1, 5)
 
 var die_name: String
 var kind: String
+var broken: bool = false
 var dissolve: bool = false
 var dissolve_value: float = 0.0
 var dice_material: ShaderMaterial
@@ -28,10 +29,12 @@ var angle_tolerance: float = 0.75
 @onready var ray_casts: Node = $RayCasts
 @onready var dice: MeshInstance3D = $Mesh/Cube2
 @onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 
 
 func _ready() -> void:
 	roll()
+	game_manager.biscuit_broken.connect(_on_biscuit_broken)
 	dice_material = dice.material_override.duplicate()
 	dice.material_override = dice_material
 
@@ -114,12 +117,13 @@ func detect_face() -> void:
 				roll_result.emit(raycast.opposite_side, kind, die_name)
 				# dissolve = true
 
-				if raycast.opposite_side == 1 or raycast.opposite_side == 2:
-					dice_material.set_shader_parameter("edgeColor", Color.REBECCA_PURPLE)
-				if raycast.opposite_side == 3 or raycast.opposite_side == 4:
-					dice_material.set_shader_parameter("edgeColor", Color.ORANGE_RED)
-				if raycast.opposite_side == 5 or raycast.opposite_side == 6:
-					dice_material.set_shader_parameter("edgeColor", Color.DARK_GREEN)
+				if not broken:
+					if raycast.opposite_side == 1 or raycast.opposite_side == 2:
+						dice_material.set_shader_parameter("edgeColor", Color.REBECCA_PURPLE)
+					if raycast.opposite_side == 3 or raycast.opposite_side == 4:
+						dice_material.set_shader_parameter("edgeColor", Color.ORANGE_RED)
+					if raycast.opposite_side == 5 or raycast.opposite_side == 6:
+						dice_material.set_shader_parameter("edgeColor", Color.DARK_GREEN)
 
 				break
 
@@ -160,3 +164,9 @@ func _on_body_entered(body: Node) -> void:
 			can_clack = false
 			audio_stream_player_3d.pitch_scale += randf_range(-0.33, 0.33)
 			audio_stream_player_3d.play()
+
+
+func _on_biscuit_broken() -> void:
+	dice_material.set_shader_parameter("edgeColor", Color.DARK_RED)
+	dissolve = true
+	broken = true

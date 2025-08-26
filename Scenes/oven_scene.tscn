@@ -1,10 +1,14 @@
-[gd_scene load_steps=32 format=3 uid="uid://b614yacjdob64"]
+[gd_scene load_steps=38 format=3 uid="uid://b614yacjdob64"]
 
 [ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="1_hybjd"]
 [ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/oven_scene.gd" id="1_mn46d"]
+[ext_resource type="Texture2D" uid="uid://bpxrliw0vg30q" path="res://Assets/Textures/Metals/metall001-new.png" id="2_0elqv"]
 [ext_resource type="Shader" uid="uid://b7w8vso1bv4mm" path="res://Shaders/oven_heat_schlieren.gdshader" id="2_52l15"]
+[ext_resource type="Texture2D" uid="uid://dgm02mgrj88xd" path="res://Assets/Textures/Metals/metall003-new.png" id="2_v1q3x"]
+[ext_resource type="Texture2D" uid="uid://45uww4cmse5c" path="res://Assets/Textures/Metals/metall001-new-nm.png" id="3_4elvc"]
 [ext_resource type="Script" uid="uid://bo4dqp4e7mii0" path="res://Scripts/game_camera.gd" id="3_8xe52"]
-[ext_resource type="Script" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
+[ext_resource type="Texture2D" uid="uid://y017gpg7nqwd" path="res://Assets/Textures/Metals/metall003-new-nm.png" id="3_q8v73"]
+[ext_resource type="Script" uid="uid://beovhj8ophdrq" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
 [ext_resource type="PackedScene" uid="uid://bvnwrmfwdm0st" path="res://Scenes/UI/oven_ui.tscn" id="6_ifqwi"]
 [ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="7_ifqwi"]
 [ext_resource type="PackedScene" uid="uid://dwgk33h0g8ee0" path="res://Scenes/witch.tscn" id="8_8xe52"]
@@ -13,7 +17,15 @@
 background_mode = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk8vj"]
-albedo_color = Color(0.105424, 0.0422749, 0.00954492, 1)
+albedo_color = Color(0.601223, 0.601223, 0.601223, 1)
+albedo_texture = ExtResource("2_0elqv")
+normal_enabled = true
+normal_texture = ExtResource("3_4elvc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0elqv"]
+albedo_texture = ExtResource("2_v1q3x")
+normal_enabled = true
+normal_texture = ExtResource("3_q8v73")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fo3s5"]
 albedo_color = Color(0.0264117, 0.00799411, 0.0588167, 1)
@@ -396,21 +408,6 @@ tracks/1/keys = {
 "values": [Vector3(3.85446, 2.09635, 0), Vector3(3.5, 2.44, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_52l15"]
-resource_name = "oven_to_baker"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameCamera:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.966667),
-"transitions": PackedFloat32Array(2, 2),
-"update": 0,
-"values": [Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_0elqv"]
 resource_name = "dice_rool"
 tracks/0/type = "value"
@@ -438,6 +435,21 @@ tracks/1/keys = {
 "values": [Vector3(3.85446, 2.09635, 0), Vector3(4.12141, 2.48643, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_52l15"]
+resource_name = "oven_to_baker"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_8xe52"]
 resource_name = "baker_to_oven"
 tracks/0/type = "value"
@@ -453,6 +465,33 @@ tracks/0/keys = {
 "values": [Vector3(0, 3.14159, 0), Vector3(0, 1.5708, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_v1q3x"]
+resource_name = "baker_to_table"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector3(0, 3.14159, 0), Vector3(-1.22173, 1.5708, 3.3078e-08)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameCamera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3.5, 2.44, 0), Vector3(3.85446, 2.09635, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_f5trb"]
 resource_name = "table_to_baker"
 tracks/0/type = "value"
@@ -463,7 +502,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 2),
+"transitions": PackedFloat32Array(2, 2),
 "update": 0,
 "values": [Vector3(-1.22173, 1.5708, 3.3078e-08), Vector3(0, 3.14159, 0)]
 }
@@ -483,13 +522,14 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4cb8m"]
 _data = {
 &"RESET": SubResource("Animation_wvgpl"),
-&"baker_to_oven": SubResource("Animation_8xe52"),
 &"dice_roll": SubResource("Animation_0elqv"),
 &"open_oven": SubResource("Animation_1sv68"),
-&"oven_to_baker": SubResource("Animation_52l15"),
 &"oven_to_table": SubResource("Animation_kk8vj"),
-&"table_to_baker": SubResource("Animation_f5trb"),
-&"table_to_oven": SubResource("Animation_hybjd")
+&"oven_to_witch": SubResource("Animation_52l15"),
+&"table_to_oven": SubResource("Animation_hybjd"),
+&"table_to_witch": SubResource("Animation_f5trb"),
+&"witch_to_oven": SubResource("Animation_8xe52"),
+&"witch_to_table": SubResource("Animation_v1q3x")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1l8n"]
@@ -515,16 +555,16 @@ albedo_texture = SubResource("ViewportTexture_x5r4b")
 [node name="OvenScene" type="Node3D"]
 script = ExtResource("1_mn46d")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-light_energy = 0.1
-shadow_enabled = true
-sky_mode = 1
-
 [node name="Environment" type="Node" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_hybjd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_energy = 0.1
+shadow_enabled = true
+sky_mode = 1
 
 [node name="Floor" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.89014, 0, 0)
@@ -556,6 +596,7 @@ material = SubResource("StandardMaterial3D_kk8vj")
 
 [node name="OvenTray" type="CSGBox3D" parent="Oven"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02558, 1.51948, 0)
+material_override = SubResource("StandardMaterial3D_0elqv")
 size = Vector3(2.29114, 0.12915, 2.49609)
 material = SubResource("StandardMaterial3D_fo3s5")
 
