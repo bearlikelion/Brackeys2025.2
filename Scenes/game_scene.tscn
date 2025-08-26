@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dn84qu6x3gkeb"]
+[gd_scene load_steps=32 format=3 uid="uid://dn84qu6x3gkeb"]
 
 [ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_manager.gd" id="1_6h5vk"]
 [ext_resource type="Script" uid="uid://c70ich6p4r7cl" path="res://Scripts/dice_scorer.gd" id="2_a7fet"]
@@ -13,15 +13,11 @@
 [ext_resource type="Script" uid="uid://dc2l8bv5lwwxe" path="res://Scripts/dark_vignette.gd" id="5_gtbs0"]
 [ext_resource type="AudioStream" uid="uid://5fh4pyk3xdn" path="res://Assets/Audio/Music/333220__robster881__horror-ambience.ogg" id="6_rgj8m"]
 [ext_resource type="Shader" uid="uid://byhpe7k6ik4n0" path="res://Shaders/wiggle_text.gdshader" id="12_8m72m"]
-[ext_resource type="PackedScene" uid="uid://dj57ur1cpilxp" path="res://Assets/Models/Cookies/RoundCookie.blend" id="15_817jg"]
 [ext_resource type="AudioStream" uid="uid://dygf68k0y45bt" path="res://Assets/Audio/SFX/655708__zott820__wet-crunching-1.ogg" id="15_a7fet"]
+[ext_resource type="PackedScene" uid="uid://bvnwrmfwdm0st" path="res://Scenes/UI/oven_ui.tscn" id="15_gtbs0"]
 [ext_resource type="Texture2D" uid="uid://c6mnpa2p1tnmd" path="res://Assets/Models/Witch/Witch_A.png" id="15_w8jfd"]
 [ext_resource type="Script" uid="uid://exsjg1lx4l31" path="res://Scripts/break_biscuit_sound.gd" id="16_a7fet"]
-[ext_resource type="Texture2D" uid="uid://ttb5vp2wjr4w" path="res://Assets/Models/Cookies/Cookie_A.png" id="16_vtwju"]
 [ext_resource type="PackedScene" uid="uid://b614yacjdob64" path="res://Scenes/oven_scene.tscn" id="17_8m72m"]
-[ext_resource type="Texture2D" uid="uid://bwlp0t5niiqfl" path="res://Assets/Models/Cookies/Cookie_N.png" id="17_fnr0w"]
-[ext_resource type="PackedScene" uid="uid://bqijeoqo16ohn" path="res://Assets/Models/Cookies/SquareCookie.blend" id="18_gqlrj"]
-[ext_resource type="Texture2D" uid="uid://bfhdc4rqau0rh" path="res://Assets/Models/Cookies/ShortBread_A.png" id="19_kiiqx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ldntv"]
 shader = ExtResource("3_wywco")
@@ -84,27 +80,16 @@ shader_parameter/color_bleed_quality = 5
 shader = ExtResource("12_8m72m")
 shader_parameter/wiggleMult = 0.005
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ldntv"]
-viewport_path = NodePath("UIViewport/SubViewport")
+[sub_resource type="QuadMesh" id="QuadMesh_8m72m"]
+size = Vector2(4.864, 2.736)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8jfd"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_x5r4b"]
+viewport_path = NodePath("OvenScene/UIViewport/OvenViewPort")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np3vi"]
 resource_local_to_scene = true
 transparency = 1
-albedo_texture = SubResource("ViewportTexture_ldntv")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m8c54"]
-albedo_texture = ExtResource("16_vtwju")
-normal_enabled = true
-normal_texture = ExtResource("17_fnr0w")
-uv1_scale = Vector3(0.53, 0.53, 0.53)
-uv1_offset = Vector3(-0.54, 0, 0.395)
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5q52j"]
-albedo_texture = ExtResource("19_kiiqx")
-normal_enabled = true
-normal_texture = ExtResource("17_fnr0w")
-uv1_triplanar = true
+albedo_texture = SubResource("ViewportTexture_x5r4b")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8m72m"]
 albedo_texture = ExtResource("15_w8jfd")
@@ -336,20 +321,16 @@ transform = Transform3D(-3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0, 1, 0.3475
 [node name="GameCamera" parent="OvenScene" index="2"]
 transform = Transform3D(-3.65107e-06, -0.939692, 0.34202, 1.13134e-08, 0.34202, 0.939692, -1, 3.43475e-06, -1.23811e-06, 3.8, 2, 0)
 
-[node name="MeshInstance3D" parent="OvenScene/UIViewport" index="2"]
-surface_material_override/0 = SubResource("StandardMaterial3D_w8jfd")
+[node name="OvenViewPort" type="SubViewport" parent="OvenScene/UIViewport" index="1"]
+transparent_bg = true
+size = Vector2i(1280, 720)
 
-[node name="RoundCookie" parent="OvenScene/UIViewport/MeshInstance3D" index="0" instance=ExtResource("15_817jg")]
-transform = Transform3D(0.318, -1.39002e-08, 6.07598e-16, 0, -1.39002e-08, -0.318, 1.39002e-08, 0.318, -1.39002e-08, -0.425, 0, 0)
+[node name="OvenUI" parent="OvenScene/UIViewport/OvenViewPort" instance=ExtResource("15_gtbs0")]
 
-[node name="CircleCookie" parent="OvenScene/UIViewport/MeshInstance3D/RoundCookie" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_m8c54")
-
-[node name="SquareCookie2" parent="OvenScene/UIViewport/MeshInstance3D" index="1" instance=ExtResource("18_gqlrj")]
-transform = Transform3D(0.3, -1.31134e-08, 5.73206e-16, 0, -1.31134e-08, -0.3, 1.31134e-08, 0.3, -1.31134e-08, 0.476969, 0, 0)
-
-[node name="SquareCookie" parent="OvenScene/UIViewport/MeshInstance3D/SquareCookie2" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_5q52j")
+[node name="GameUI" type="MeshInstance3D" parent="OvenScene/UIViewport" index="2"]
+transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -2.22772e-09, -0.0696518, 0.0509648)
+mesh = SubResource("QuadMesh_8m72m")
+surface_material_override/0 = SubResource("StandardMaterial3D_np3vi")
 
 [node name="Head" parent="OvenScene/Witch" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_8m72m")
@@ -381,7 +362,5 @@ volume_db = -15.0
 script = ExtResource("16_a7fet")
 
 [editable path="OvenScene"]
-[editable path="OvenScene/UIViewport/MeshInstance3D/RoundCookie"]
-[editable path="OvenScene/UIViewport/MeshInstance3D/SquareCookie2"]
 [editable path="OvenScene/DiceWell"]
 [editable path="OvenScene/Witch"]
