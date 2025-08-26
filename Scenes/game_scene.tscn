@@ -347,4 +347,5 @@ volume_db = -15.0
 script = ExtResource("16_a7fet")
 
 [editable path="OvenScene"]
+[editable path="OvenScene/DiceWell"]
 [editable path="OvenScene/Witch"]

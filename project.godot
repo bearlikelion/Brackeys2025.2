@@ -13,6 +13,7 @@ config_version=5
 config/name="Brackeys 2025.2"
 run/main_scene="uid://dfqu7qvu0ivul"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+boot_splash/fullsize=false
 boot_splash/image="uid://b6rdg4nwvygjv"
 config/icon="uid://b6rdg4nwvygjv"
 
