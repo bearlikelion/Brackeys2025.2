@@ -1,6 +1,7 @@
 class_name GameManager
 extends Node3D
 
+signal round_started()
 signal fear_increased()
 signal fear_decreased()
 signal biscuit_broken()
@@ -169,8 +170,6 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 func roll_dice() -> void:
 	chat_message.hide()
 	dice_well.roll_dice(dice)
-	dice = []
-	dice_to_roll = 0
 	update_dice_count()
 
 
@@ -222,9 +221,18 @@ func new_round() -> void:
 
 	chat_message.show()
 	# base_selector.show()
+	dice = []
+	dice_to_roll = 0
+
+	type = ""
+	filling = ""
+	topping = ""
+	decoration = ""
+
 	valid_biscuit = true
 	biscuit_broke = false
 	chat_instructions.new_instructions()
+	round_started.emit()
 
 
 func invalid_biscuit() -> void:

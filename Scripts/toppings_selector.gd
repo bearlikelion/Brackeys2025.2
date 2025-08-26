@@ -20,6 +20,7 @@ var decoration: String
 func _ready() -> void:
 	if game_manager != null :
 		game_manager.toppings_selector = self
+		game_manager.round_started.connect(_on_round_started)
 		bake.pressed.connect(_on_bake_pressed)
 
 		for filling_button: Button in fillings.get_buttons():
@@ -61,3 +62,9 @@ func _on_bake_pressed() -> void:
 		_decoration.button_pressed = false
 
 	toppings_selected.emit(filling, topping, decoration)
+
+
+func _on_round_started() -> void:
+	filling = ""
+	topping = ""
+	decoration = ""
