@@ -271,7 +271,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 visible_characters_behavior = 1
 script = ExtResource("4_5dgvu")
-timer_to_speak = null
 
 [node name="TalkSound" type="AudioStreamPlayer" parent="UI/ChatMessage/Panel/MarginContainer/ChatInstructions"]
 stream = ExtResource("4_ikfsv")

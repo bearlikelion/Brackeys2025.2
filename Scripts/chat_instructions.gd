@@ -53,7 +53,6 @@ func _ready() -> void:
 	visible_ratio = 0.0
 	game_manager.biscuit_broken.connect(_on_biscuit_broken)
 	game_manager.biscuit_invalid.connect(_on_biscuit_invalid)
-	new_instructions()
 
 
 func _physics_process(delta: float) -> void:
@@ -69,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	elif not instructions_finished:
 		instructions_finished = true
 
-		if game_manager.biscuit_broke:
+		if game_manager.biscuit_broke or not game_manager.valid_biscuit:
 			await get_tree().create_timer(2.0).timeout
 
 		instructions_done.emit()

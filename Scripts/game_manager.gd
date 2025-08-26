@@ -29,10 +29,10 @@ var filling: String
 var topping: String
 var decoration: String
 
-var rq_type: Array[String]
-var rq_filling: Array[String]
-var rq_topping: Array[String]
-var rq_decoration: Array[String]
+var rq_type: Array
+var rq_filling: Array
+var rq_topping: Array
+var rq_decoration: Array
 
 var filling_score: int = 0
 
@@ -72,6 +72,7 @@ func _ready() -> void:
 	dice_well.roll_result.connect(_on_roll_result)
 	dice_well.roll_finished.connect(_on_roll_finished)
 	chat_instructions.instructions_done.connect(_on_instructions_done)
+	new_round()
 
 
 func _input(event: InputEvent) -> void:
@@ -110,7 +111,7 @@ func update_dice_count() -> void:
 
 
 func _on_instructions_done() -> void:
-	if biscuit_broke:
+	if biscuit_broke or not valid_biscuit:
 		new_round()
 	else:
 		base_selector.show()
@@ -215,45 +216,52 @@ func _on_roll_finished() -> void:
 
 
 func new_round() -> void:
-	if game_camera.looking_at != game_camera.Viewing.TABLE:
-		game_camera.view_table()
-		await game_camera.animation_player.animation_finished
-
+	round += 1
 	rq_type = []
 	rq_filling = []
 	rq_topping = []
 	rq_decoration = []
 
-	round += 1
+	print("START ROUND: %s" % str(round))
+
+	if game_camera.looking_at != game_camera.Viewing.TABLE:
+		game_camera.view_table()
+		await game_camera.animation_player.animation_finished
+
 	chat_message.show()
 	# base_selector.show()
+	valid_biscuit = true
 	biscuit_broke = false
 	chat_instructions.new_instructions()
 
 
 func invalid_biscuit() -> void:
 	print("INVALID BISCUIT")
+	valid_biscuit = false
 	game_camera.view_witch()
 	biscuit_invalid.emit()
 	add_fear(round + 1)
 
 
 func is_biscuit_valid(_type: String, _filling: String, _topping: String, _decoration: String) -> bool:
+	print("Submitted Biscuit: TYPE %s FILLING %s TOPPING %s DECORATION %s" % [_type, _filling, _topping, _decoration])
+	print("RQ Validation: TYPE %s FILLING %s TOPPING %s DECORATION %s" % [rq_type, rq_filling, rq_topping, rq_decoration])
+
 	if _type not in rq_type:
 		return false
-	if _filling not in rq_filling:
+	if rq_filling.size() > 0 and _filling not in rq_filling:
 		return false
-	if _topping not in rq_topping:
+	if rq_topping.size() > 0 and _topping not in rq_topping:
 		return false
-	if _decoration not in rq_decoration:
+	if rq_decoration.size() > 0 and _decoration not in rq_decoration:
 		return false
 
 	# 1:1
 	if round == 1:
-		if instruction_index == 1 or instruction_index == 3:
+		if instruction_index == 0 or instruction_index == 2:
 			if _topping != "" or _decoration != "":
 				return false
-		if instruction_index == 2:
+		if instruction_index == 1:
 			if _filling != "" or _decoration != "":
 				return false
 
@@ -266,12 +274,12 @@ func set_instructions(_round: int, _instruction_index: int) -> void:
 	match instructions_round:
 		1:
 			match _instruction_index:
-				1:
+				0:
 					rq_type.append("Shortbread")
-					rq_filling.append(["Jam", "Cream", "Custard"])
-				2:
+					rq_filling = ["Jam", "Cream", "Custard"]
+				1:
 					rq_type.append("Heart")
-					rq_topping.append(["Sugar", "Caramel"])
-				3:
+					rq_topping = ["Sugar", "Caramel"]
+				2:
 					rq_type.append("Square")
 					rq_filling.append("Cream")
