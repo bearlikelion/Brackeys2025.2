@@ -1,6 +1,10 @@
 class_name D6
 extends RigidBody3D
 
+const DICE_GREEN = preload("res://Assets/Models/Dice/dice_green.png")
+const DICE_PURPLE = preload("res://Assets/Models/Dice/dice_purple.png")
+const DICE_YELLOW = preload("res://Assets/Models/Dice/dice_yellow.png")
+
 signal roll_result(face_number: int, type: String, die_name: String)
 
 var dice_power = 400
@@ -30,6 +34,14 @@ func _ready() -> void:
 	roll()
 	dice_material = dice.material_override.duplicate()
 	dice.material_override = dice_material
+
+	match kind:
+		"filling":
+			dice_material.set_shader_parameter("baseColorTexture", DICE_GREEN)
+		"topping":
+			dice_material.set_shader_parameter("baseColorTexture", DICE_YELLOW)
+		"decoration":
+			dice_material.set_shader_parameter("baseColorTexture", DICE_PURPLE)
 
 
 func _physics_process(delta: float) -> void:

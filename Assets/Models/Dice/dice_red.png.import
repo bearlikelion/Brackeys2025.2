@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brasrdvjwg1lq"
-path.s3tc="res://.godot/imported/Untitled-2.png-15e0efc72f9bdd07a2db25be0ee2a3a8.s3tc.ctex"
+path.s3tc="res://.godot/imported/dice_red.png-c467807d35b080e0cff505b376bc5afb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Models/Dice/Untitled-2.png"
-dest_files=["res://.godot/imported/Untitled-2.png-15e0efc72f9bdd07a2db25be0ee2a3a8.s3tc.ctex"]
+source_file="res://Assets/Models/Dice/dice_red.png"
+dest_files=["res://.godot/imported/dice_red.png-c467807d35b080e0cff505b376bc5afb.s3tc.ctex"]
 
 [params]
 

@@ -1,13 +1,16 @@
-[gd_scene load_steps=33 format=3 uid="uid://b614yacjdob64"]
+[gd_scene load_steps=32 format=3 uid="uid://b614yacjdob64"]
 
 [ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="1_hybjd"]
 [ext_resource type="Script" uid="uid://rndlieotpgb4" path="res://Scripts/oven_scene.gd" id="1_mn46d"]
 [ext_resource type="Shader" uid="uid://b7w8vso1bv4mm" path="res://Shaders/oven_heat_schlieren.gdshader" id="2_52l15"]
 [ext_resource type="Script" uid="uid://bo4dqp4e7mii0" path="res://Scripts/game_camera.gd" id="3_8xe52"]
-[ext_resource type="PackedScene" path="res://Assets/Models/Witch/character_witch.gltf" id="3_poiax"]
 [ext_resource type="Script" path="res://Scripts/3d_handle_UI.gd" id="5_x5r4b"]
 [ext_resource type="PackedScene" uid="uid://bvnwrmfwdm0st" path="res://Scenes/UI/oven_ui.tscn" id="6_ifqwi"]
 [ext_resource type="PackedScene" uid="uid://bqhqwc8kdgbeb" path="res://Scenes/Dice/dice_well.tscn" id="7_ifqwi"]
+[ext_resource type="PackedScene" uid="uid://dwgk33h0g8ee0" path="res://Scenes/witch.tscn" id="8_8xe52"]
+
+[sub_resource type="Environment" id="Environment_hybjd"]
+background_mode = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk8vj"]
 albedo_color = Color(0.105424, 0.0422749, 0.00954492, 1)
@@ -42,15 +45,12 @@ shader_parameter/chromatic_aberration = 0.003
 flip_faces = true
 size = Vector2(2, 3)
 
-[sub_resource type="Environment" id="Environment_hybjd"]
-background_mode = 1
-
 [sub_resource type="Animation" id="Animation_wvgpl"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OvenDoor:rotation:x")
+tracks/0/path = NodePath("Oven/OvenDoor:rotation:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -61,7 +61,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("OvenDoor:rotation:y")
+tracks/1/path = NodePath("Oven/OvenDoor:rotation:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -72,7 +72,7 @@ tracks/1/keys = {
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("OvenDoor:rotation:z")
+tracks/2/path = NodePath("Oven/OvenDoor:rotation:z")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -83,7 +83,7 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("OvenTray:position:x")
+tracks/3/path = NodePath("Oven/OvenTray:position:x")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -94,7 +94,7 @@ tracks/3/keys = {
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("OvenTray:position:y")
+tracks/4/path = NodePath("Oven/OvenTray:position:y")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -105,7 +105,7 @@ tracks/4/keys = {
 tracks/5/type = "bezier"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("OvenTray:position:z")
+tracks/5/path = NodePath("Oven/OvenTray:position:z")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -116,7 +116,7 @@ tracks/5/keys = {
 tracks/6/type = "bezier"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("OvenTray:rotation:x")
+tracks/6/path = NodePath("Oven/OvenTray:rotation:x")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -127,7 +127,7 @@ tracks/6/keys = {
 tracks/7/type = "bezier"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("OvenTray:rotation:y")
+tracks/7/path = NodePath("Oven/OvenTray:rotation:y")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -138,7 +138,7 @@ tracks/7/keys = {
 tracks/8/type = "bezier"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("OvenTray:rotation:z")
+tracks/8/path = NodePath("Oven/OvenTray:rotation:z")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -149,7 +149,7 @@ tracks/8/keys = {
 tracks/9/type = "bezier"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("OmniLight3D:light_energy")
+tracks/9/path = NodePath("Oven/OvenLight:light_energy")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -160,7 +160,7 @@ tracks/9/keys = {
 tracks/10/type = "bezier"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("OmniLight3D:light_size")
+tracks/10/path = NodePath("Oven/OvenLight:light_size")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -171,7 +171,7 @@ tracks/10/keys = {
 tracks/11/type = "bezier"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("OmniLight3D:light_specular")
+tracks/11/path = NodePath("Oven/OvenLight:light_specular")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -204,40 +204,13 @@ tracks/13/keys = {
 "values": [Vector3(3.8, 2, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_0elqv"]
-resource_name = "dice_rool"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameCamera:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 2),
-"update": 0,
-"values": [Vector3(-1.18673, 1.5708, 2.6444e-08), Vector3(-1.13278, 1.5708, 3.95726e-07)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameCamera:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 2),
-"update": 0,
-"values": [Vector3(3.85446, 2.09635, 0), Vector3(4.12141, 2.48643, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_1sv68"]
 resource_name = "new_animation"
 length = 2.0
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OvenDoor:rotation:x")
+tracks/0/path = NodePath("Oven/OvenDoor:rotation:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -248,7 +221,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("OvenDoor:rotation:y")
+tracks/1/path = NodePath("Oven/OvenDoor:rotation:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -259,7 +232,7 @@ tracks/1/keys = {
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("OvenDoor:rotation:z")
+tracks/2/path = NodePath("Oven/OvenDoor:rotation:z")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -270,7 +243,7 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("OvenTray:position:x")
+tracks/3/path = NodePath("Oven/OvenTray:position:x")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -281,7 +254,7 @@ tracks/3/keys = {
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("OvenTray:position:y")
+tracks/4/path = NodePath("Oven/OvenTray:position:y")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -292,7 +265,7 @@ tracks/4/keys = {
 tracks/5/type = "bezier"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("OvenTray:position:z")
+tracks/5/path = NodePath("Oven/OvenTray:position:z")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -303,7 +276,7 @@ tracks/5/keys = {
 tracks/6/type = "bezier"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("OvenTray:rotation:x")
+tracks/6/path = NodePath("Oven/OvenTray:rotation:x")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -314,7 +287,7 @@ tracks/6/keys = {
 tracks/7/type = "bezier"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("OvenTray:rotation:y")
+tracks/7/path = NodePath("Oven/OvenTray:rotation:y")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -325,7 +298,7 @@ tracks/7/keys = {
 tracks/8/type = "bezier"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("OvenTray:rotation:z")
+tracks/8/path = NodePath("Oven/OvenTray:rotation:z")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -336,7 +309,7 @@ tracks/8/keys = {
 tracks/9/type = "bezier"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("OmniLight3D:light_energy")
+tracks/9/path = NodePath("Oven/OvenLight:light_energy")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -347,7 +320,7 @@ tracks/9/keys = {
 tracks/10/type = "bezier"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("OmniLight3D:light_size")
+tracks/10/path = NodePath("Oven/OvenLight:light_size")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -358,56 +331,13 @@ tracks/10/keys = {
 tracks/11/type = "bezier"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("OmniLight3D:light_specular")
+tracks/11/path = NodePath("Oven/OvenLight:light_specular")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
 "points": PackedFloat32Array(3.514, -0.25, 0, 0.25, 0, 0.5, -0.25, 0, 0.25, 0, 0.5, -0.25, 0, 0.25, 0, 0.732, -0.25, 0, 0.25, 0, 3.514, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.6, 1, 1.2, 2)
-}
-
-[sub_resource type="Animation" id="Animation_52l15"]
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameCamera:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.8, 1.75, 1.95),
-"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
-"update": 0,
-"values": [Vector3(0, 1.5708, 0), Vector3(0, 1.73835, 0), Vector3(0, 1.51669, 0), Vector3(0, 2.64852, 0), Vector3(0, 3.14159, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_hybjd"]
-resource_name = "view_oven"
-length = 1.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameCamera:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.733333, 1),
-"transitions": PackedFloat32Array(0.5, -2, 2),
-"update": 0,
-"values": [Vector3(-1.22173, 1.5708, 3.3078e-08), Vector3(0.0349066, 1.5708, 0), Vector3(0, 1.5708, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameCamera:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(3.85446, 2.09635, 0), Vector3(3.5, 2.44, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_kk8vj"]
@@ -438,14 +368,128 @@ tracks/1/keys = {
 "values": [Vector3(3.5, 2.44, 0), Vector3(3.85446, 2.09635, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_hybjd"]
+resource_name = "view_oven"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.733333, 1),
+"transitions": PackedFloat32Array(0.5, -2, 2),
+"update": 0,
+"values": [Vector3(-1.22173, 1.5708, 3.3078e-08), Vector3(0.0349066, 1.5708, 0), Vector3(0, 1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameCamera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3.85446, 2.09635, 0), Vector3(3.5, 2.44, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_52l15"]
+resource_name = "oven_to_baker"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0elqv"]
+resource_name = "dice_rool"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [Vector3(-1.18673, 1.5708, 2.6444e-08), Vector3(-1.13278, 1.5708, 3.95726e-07)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameCamera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [Vector3(3.85446, 2.09635, 0), Vector3(4.12141, 2.48643, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8xe52"]
+resource_name = "baker_to_oven"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector3(0, 3.14159, 0), Vector3(0, 1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_f5trb"]
+resource_name = "table_to_baker"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameCamera:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [Vector3(-1.22173, 1.5708, 3.3078e-08), Vector3(0, 3.14159, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameCamera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3.85446, 2.09635, 0), Vector3(3.5, 2.44, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4cb8m"]
 _data = {
 &"RESET": SubResource("Animation_wvgpl"),
-&"dice_rool": SubResource("Animation_0elqv"),
+&"baker_to_oven": SubResource("Animation_8xe52"),
+&"dice_roll": SubResource("Animation_0elqv"),
 &"open_oven": SubResource("Animation_1sv68"),
-&"view_baker": SubResource("Animation_52l15"),
-&"view_oven": SubResource("Animation_hybjd"),
-&"view_table": SubResource("Animation_kk8vj")
+&"oven_to_baker": SubResource("Animation_52l15"),
+&"oven_to_table": SubResource("Animation_kk8vj"),
+&"table_to_baker": SubResource("Animation_f5trb"),
+&"table_to_oven": SubResource("Animation_hybjd")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1l8n"]
@@ -461,7 +505,7 @@ size = Vector3(2.65454, 0.1, 1.67383)
 size = Vector2(4.864, 2.736)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_x5r4b"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+viewport_path = NodePath("UIViewport/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cuf8n"]
 resource_local_to_scene = true
@@ -477,73 +521,63 @@ light_energy = 0.1
 shadow_enabled = true
 sky_mode = 1
 
-[node name="Floor" type="CSGBox3D" parent="."]
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_hybjd")
+
+[node name="Floor" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.89014, 0, 0)
 size = Vector3(17.7803, 1, 21)
 material = SubResource("StandardMaterial3D_kk8vj")
 
-[node name="OvenWall" type="CSGBox3D" parent="."]
+[node name="FrontWall" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64722, 2.00667, 0)
 size = Vector3(4.29443, 7.28735, 17)
 material = SubResource("StandardMaterial3D_kk8vj")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="OvenWall"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="Environment/FrontWall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18169, -0.117126, 0)
 operation = 2
 size = Vector3(2.59578, 1.76575, 2.50977)
 material = SubResource("StandardMaterial3D_kk8vj")
 
-[node name="OvenWall2" type="CSGBox3D" parent="."]
+[node name="LeftWall" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.35278, 2.00667, 10)
 size = Vector3(4.29443, 7.28735, 17)
 material = SubResource("StandardMaterial3D_kk8vj")
 
-[node name="OvenWall3" type="CSGBox3D" parent="."]
+[node name="RightWall" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.35278, 2.00667, -11)
 size = Vector3(4.29443, 7.28735, 17)
 material = SubResource("StandardMaterial3D_kk8vj")
 
-[node name="OvenTray" type="CSGBox3D" parent="."]
+[node name="Oven" type="Node" parent="."]
+
+[node name="OvenTray" type="CSGBox3D" parent="Oven"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02558, 1.51948, 0)
 size = Vector3(2.29114, 0.12915, 2.49609)
 material = SubResource("StandardMaterial3D_fo3s5")
 
-[node name="OvenDoor" type="Node3D" parent="."]
+[node name="OvenDoor" type="Node3D" parent="Oven"]
 transform = Transform3D(-3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0, 1, 0.34759, 1.00667, 0)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="OvenDoor"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="Oven/OvenDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.879929, -0.065705, 0)
 size = Vector3(1.73927, 0.12915, 2.49609)
 material = SubResource("StandardMaterial3D_fo3s5")
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="OvenDoor/CSGBox3D4"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="Oven/OvenDoor/CSGBox3D4"]
 operation = 2
 size = Vector3(1.46484, 0.366943, 2.28125)
 material = SubResource("StandardMaterial3D_fo3s5")
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="OvenDoor"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="Oven/OvenDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.879929, -0.065705, 0)
 size = Vector3(1.73927, 0.0488281, 2.49609)
 material = SubResource("StandardMaterial3D_uw635")
 
-[node name="OvenHeatShader" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.0850469, 3.51422e-07, 0.996377, 0.996377, -3.60316e-06, 0.0850469, 3.61999e-06, 1, -4.37114e-08, 0.262543, 2.00305, 0)
-material_override = SubResource("ShaderMaterial_awar5")
-mesh = SubResource("QuadMesh_p1st1")
-skeleton = NodePath("../OvenDoor")
-
-[node name="GameCamera" type="Camera3D" parent="."]
-transform = Transform3D(-3.65107e-06, -0.939692, 0.34202, 1.13134e-08, 0.34202, 0.939692, -1, 3.43475e-06, -1.23811e-06, 3.8, 2, 0)
-doppler_tracking = 2
-current = true
-script = ExtResource("3_8xe52")
-
-[node name="AudioListener3D" type="AudioListener3D" parent="GameCamera"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_hybjd")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OvenLight" type="OmniLight3D" parent="Oven"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169253, 1.96589, 0)
 light_color = Color(0.898039, 0.447059, 0, 1)
 light_energy = 16.0
@@ -557,11 +591,67 @@ shadow_blur = 0.0
 distance_fade_enabled = true
 omni_range = 3.846
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.66596, 1.45611, 5.28433)
+[node name="OvenHeatShader" type="MeshInstance3D" parent="Oven"]
+transform = Transform3D(-0.0850469, 3.51422e-07, 0.996377, 0.996377, -3.60316e-06, 0.0850469, 3.61999e-06, 1, -4.37114e-08, 0.262543, 2.00305, 0)
+material_override = SubResource("ShaderMaterial_awar5")
+mesh = SubResource("QuadMesh_p1st1")
+skeleton = NodePath("../OvenDoor")
+
+[node name="GameCamera" type="Camera3D" parent="."]
+transform = Transform3D(-3.65108e-06, -0.939692, 0.34202, 1.13134e-08, 0.342021, 0.939692, -1, 3.43476e-06, -1.23811e-06, 3.8, 2, 0)
+doppler_tracking = 2
+current = true
+script = ExtResource("3_8xe52")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="GameCamera"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_4cb8m")
+}
+playback_auto_capture_transition_type = 10
+
+[node name="IngredientTable" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.1, 0.1, 0)
+size = Vector3(3, 1, 2)
+material = SubResource("StandardMaterial3D_e1l8n")
+
+[node name="UIViewport" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.09468, 0.673444, 0)
+script = ExtResource("5_x5r4b")
+
+[node name="SubViewport" type="SubViewport" parent="UIViewport"]
+transparent_bg = true
+size = Vector2i(1280, 720)
+
+[node name="Control" parent="UIViewport/SubViewport" instance=ExtResource("6_ifqwi")]
+
+[node name="Area3D" type="Area3D" parent="UIViewport"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UIViewport/Area3D"]
+shape = SubResource("BoxShape3D_4rjkd")
+disabled = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="UIViewport/Area3D"]
+shape = SubResource("BoxShape3D_x5r4b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="UIViewport"]
+transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -2.22772e-09, -0.0696518, 0.0509648)
+mesh = SubResource("QuadMesh_4rjkd")
+surface_material_override/0 = SubResource("StandardMaterial3D_cuf8n")
+
+[node name="DiceWell" parent="." instance=ExtResource("7_ifqwi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.14683, 0, 0)
+
+[node name="Witch" parent="." instance=ExtResource("8_8xe52")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.1, 4.1)
+
+[node name="WitchRedLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.66596, 1.45611, 4.58433)
 light_color = Color(0.556863, 0.180392, 0.168627, 1)
-light_energy = 1.972
-light_size = 0.507
 light_specular = 3.514
 shadow_enabled = true
 shadow_normal_bias = 0.0
@@ -570,44 +660,15 @@ shadow_opacity = 0.93
 shadow_blur = 0.0
 distance_fade_enabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4cb8m")
-}
-playback_auto_capture_transition_type = 10
-
-[node name="IngredientTable2" type="CSGBox3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.1, 0.1, 0)
-size = Vector3(3, 1, 2)
-material = SubResource("StandardMaterial3D_e1l8n")
-
-[node name="Sprite3D" type="Node3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.09468, 0.673444, 0)
-script = ExtResource("5_x5r4b")
-
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
-transparent_bg = true
-size = Vector2i(1280, 720)
-
-[node name="Control" parent="Sprite3D/SubViewport" instance=ExtResource("6_ifqwi")]
-
-[node name="Area3D" type="Area3D" parent="Sprite3D"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Area3D"]
-shape = SubResource("BoxShape3D_4rjkd")
-disabled = true
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Sprite3D/Area3D"]
-shape = SubResource("BoxShape3D_x5r4b")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D"]
-transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -2.22772e-09, -0.0696518, 0.0509648)
-mesh = SubResource("QuadMesh_4rjkd")
-surface_material_override/0 = SubResource("StandardMaterial3D_cuf8n")
-
-[node name="DiceWell" parent="." instance=ExtResource("7_ifqwi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.14683, 0, 0)
+[node name="WitchNegativeLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.66596, 0.45611, 2.58433)
+light_color = Color(0.994108, 0.994108, 0.994108, 1)
+light_energy = 0.21
+shadow_enabled = true
+shadow_normal_bias = 0.0
+shadow_transmittance_bias = 2.601
+shadow_opacity = 0.93
+shadow_blur = 0.0
+distance_fade_enabled = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

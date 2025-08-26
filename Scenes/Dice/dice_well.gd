@@ -2,8 +2,6 @@ class_name DiceWell
 extends Node3D
 
 const d_6 = preload("res://Scenes/Dice/d6.tscn")
-@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
-@onready var camera_3d: Camera3D = $"../Camera3D"
 
 signal dice_rolled()
 signal roll_finished()
@@ -14,7 +12,8 @@ var dice_to_roll: int = 0
 var rolled_dice: int = 1
 
 @onready var dice: Node = $Dice
-
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
+@onready var camera_3d: Camera3D = get_tree().get_first_node_in_group("GameCamera")
 
 func _ready() -> void:
 	pass
@@ -36,8 +35,9 @@ func roll_die(die: Dictionary) -> void:
 
 
 func roll_dice(dice: Array) -> void:
-	animation_player.play("dice_rool")
+	animation_player.play("dice_roll")
 	last_dices.clear()
+	dice.shuffle()
 
 	dice_to_roll = dice.size()
 	rolled_dice = 0
