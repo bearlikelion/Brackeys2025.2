@@ -30,17 +30,18 @@ func is_biscuit_valid(_type: String, _filling: String, _topping: String, _decora
 		return false
 	if _topping != "" and _topping not in rq_topping:
 		return false
-	if _decoration != "" and _decoration not in rq_decoration:
+	if rq_decoration.size() > 0 and _decoration not in rq_decoration or rq_decoration.size() > 0 and _decoration == "":
 		return false
 
 	# round one
-	if game_manager.instructions_round == 1:
-		if _topping != "" or _decoration != "":
-			return false
-
-	if game_manager.instructions_round == 2:
-		if _filling != "" or _decoration != "":
-			return false
+	# TODO BETTER ROUND SPECIFIC DETECTION
+	#if game_manager.instructions_round == 1:
+		#if _topping != "" or _decoration != "":
+			#return false
+#
+	#if game_manager.instructions_round == 2:
+		#if _filling != "" or _decoration != "":
+			#return false
 
 	return true
 

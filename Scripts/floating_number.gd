@@ -64,6 +64,6 @@ func setup(from_pos: Vector2, to_pos: Vector2, value: int, is_fear_value: bool =
 		label.modulate = Color.GREEN if not is_fear else Color.PURPLE
 	elif amount < 0:
 		label.text = "%d" % amount
-		label.modulate = Color.RED if not is_fear else Color.GREEN
+		label.modulate = Color.RED if not is_fear else Color.YELLOW
 	else:
 		return  # Don't show anything for 0

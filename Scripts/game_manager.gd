@@ -128,7 +128,7 @@ func _on_instructions_done() -> void:
 
 
 func _on_base_selected(selected_base: String) -> void:
-	base_selector.hide()
+	base_selector.hide_bases()
 	type = selected_base
 
 	match type:
@@ -136,9 +136,9 @@ func _on_base_selected(selected_base: String) -> void:
 			dice_to_roll += 1
 		"Heart":
 			dice_to_roll += 2
-		"Square":
-			dice_to_roll += 3
 		"Round":
+			dice_to_roll += 3
+		"Square":
 			dice_to_roll += 4
 		"Gingerbread":
 			dice_to_roll += 5
@@ -149,12 +149,13 @@ func _on_base_selected(selected_base: String) -> void:
 		dice.append({"kind": "base", "name": type})
 
 	type_label.text = "TYPE: %s" % selected_base
+	await base_selector.bases_hidden
 	toppings_selector.show_toppings()
 	update_dice_count()
 
 
 func _on_toppings_selected(_filling: String, _topping: String, _decoration: String) -> void:
-	toppings_selector.hide()
+	toppings_selector.hide_toppings()
 
 	if _filling != "":
 		filling = _filling
@@ -171,6 +172,8 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 
 		if _decoration == "Runes":
 			dice_scorer.reroll_fail = true
+
+	await toppings_selector.toppings_hidden
 
 	valid_biscuit = biscuit_validator.is_biscuit_valid(type, filling, topping, decoration)
 	if valid_biscuit:

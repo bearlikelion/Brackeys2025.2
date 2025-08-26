@@ -9,6 +9,10 @@ signal filling_pressed(is_toggled: bool)
 signal topping_pressed(is_toggled: bool)
 signal decoration_pressed(is_toggled: bool)
 signal toppings_selected(filling: String, topping: String, decoration: String)
+signal toppings_hidden()
+
+var lerp_visible: bool = false
+var lerp_invisible: bool = false
 
 var filling: String
 var topping: String
@@ -38,11 +42,32 @@ func _ready() -> void:
 			decoration_button.toggled.connect(_on_decoration_pressed)
 
 
+func _process(delta: float) -> void:
+	if lerp_visible:
+		modulate.a = lerp(modulate.a, 1.0, 1.5 * delta)
+		if modulate.a == 1.0:
+			lerp_visible = false
+
+	if lerp_invisible:
+		modulate.a = lerp(modulate.a, 0.0, 1.5 * delta)
+		if modulate.a < 0.1:
+			lerp_invisible = false
+			toppings_hidden.emit()
+			hide()
+
+
 func show_toppings() -> void:
 	Utils.shuffle_buttons(filling_buttons)
 	Utils.shuffle_buttons(topping_buttons)
 	Utils.shuffle_buttons(decoration_buttons)
+	lerp_visible = true
+	modulate.a = 0.0
 	show()
+
+
+func hide_toppings() -> void:
+	lerp_invisible = true
+	lerp_visible = false
 
 
 func _on_filling_pressed(toggled_on: bool) -> void:
