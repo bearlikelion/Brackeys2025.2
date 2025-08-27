@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dn84qu6x3gkeb"]
+[gd_scene load_steps=32 format=3 uid="uid://dn84qu6x3gkeb"]
 
 [ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_manager.gd" id="1_6h5vk"]
 [ext_resource type="Script" uid="uid://c70ich6p4r7cl" path="res://Scripts/dice_scorer.gd" id="2_a7fet"]
@@ -13,25 +13,11 @@
 [ext_resource type="Script" uid="uid://dc2l8bv5lwwxe" path="res://Scripts/dark_vignette.gd" id="5_gtbs0"]
 [ext_resource type="AudioStream" uid="uid://5fh4pyk3xdn" path="res://Assets/Audio/Music/333220__robster881__horror-ambience.ogg" id="6_rgj8m"]
 [ext_resource type="Shader" uid="uid://byhpe7k6ik4n0" path="res://Shaders/wiggle_text.gdshader" id="12_8m72m"]
-[ext_resource type="PackedScene" uid="uid://dj57ur1cpilxp" path="res://Assets/Models/Cookies/RoundCookie.blend" id="15_817jg"]
 [ext_resource type="AudioStream" uid="uid://dygf68k0y45bt" path="res://Assets/Audio/SFX/655708__zott820__wet-crunching-1.ogg" id="15_a7fet"]
 [ext_resource type="PackedScene" uid="uid://bvnwrmfwdm0st" path="res://Scenes/UI/oven_ui.tscn" id="15_gtbs0"]
 [ext_resource type="Texture2D" uid="uid://c6mnpa2p1tnmd" path="res://Assets/Models/Witch/Witch_A.png" id="15_w8jfd"]
 [ext_resource type="Script" uid="uid://exsjg1lx4l31" path="res://Scripts/break_biscuit_sound.gd" id="16_a7fet"]
 [ext_resource type="PackedScene" uid="uid://b614yacjdob64" path="res://Scenes/oven_scene.tscn" id="17_8m72m"]
-[ext_resource type="PackedScene" uid="uid://ciombhwjv0wla" path="res://Assets/Models/Cookies/HeartCookie.blend" id="18_817jg"]
-[ext_resource type="PackedScene" uid="uid://bqijeoqo16ohn" path="res://Assets/Models/Cookies/SquareCookie.blend" id="18_gqlrj"]
-[ext_resource type="PackedScene" uid="uid://cn2glr70mjeau" path="res://Assets/Models/Cookies/SquareTopping.blend" id="18_uaga3"]
-[ext_resource type="PackedScene" uid="uid://dxnfrrcn4v1nf" path="res://Assets/Models/Cookies/SkullCookie.blend" id="19_vtwju"]
-[ext_resource type="Material" uid="uid://dukclutsxg2gx" path="res://Assets/Models/Cookies/Materials/shortbread_mat.tres" id="20_gqlrj"]
-[ext_resource type="PackedScene" uid="uid://802g2wvi2e8f" path="res://Assets/Models/Cookies/StarCookie.blend" id="20_vtwju"]
-[ext_resource type="PackedScene" uid="uid://0cwnixn7o85q" path="res://Assets/Models/Cookies/RoundTopping.blend" id="21_lafet"]
-[ext_resource type="Material" uid="uid://cyadg2yfx2rl" path="res://Assets/Models/Cookies/Materials/cookie_mat.tres" id="22_kiiqx"]
-[ext_resource type="PackedScene" uid="uid://c5tm76s7utkgm" path="res://Assets/Models/Cookies/HeartTopping.blend" id="23_juer4"]
-[ext_resource type="PackedScene" uid="uid://daied1p8h6pk" path="res://Assets/Models/Cookies/ManCookie.blend" id="23_kiiqx"]
-[ext_resource type="PackedScene" uid="uid://cni5iv82wo6kr" path="res://Assets/Models/Cookies/SkullTopping.blend" id="25_udify"]
-[ext_resource type="PackedScene" uid="uid://y6crlufbwrhg" path="res://Assets/Models/Cookies/StarTopping.blend" id="27_k2gex"]
-[ext_resource type="PackedScene" uid="uid://d201s3jlsdlr8" path="res://Assets/Models/Cookies/ManTopping.blend" id="29_obvom"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ldntv"]
 shader = ExtResource("3_wywco")
@@ -360,54 +346,6 @@ transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08,
 mesh = SubResource("QuadMesh_gtbs0")
 surface_material_override/0 = SubResource("StandardMaterial3D_np3vi")
 
-[node name="SquareCookie" parent="OvenScene/UIViewport" index="3" instance=ExtResource("18_gqlrj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, -0.0744064, 0.365339)
-
-[node name="SquareCookie" parent="OvenScene/UIViewport/SquareCookie" index="0"]
-surface_material_override/0 = ExtResource("20_gqlrj")
-
-[node name="SquareTopping2" parent="OvenScene/UIViewport/SquareCookie" instance=ExtResource("18_uaga3")]
-
-[node name="RoundCookie" parent="OvenScene/UIViewport" index="4" instance=ExtResource("15_817jg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59695e-08, -0.0744064, 0.365339)
-
-[node name="RoundCookie" parent="OvenScene/UIViewport/RoundCookie" index="0"]
-surface_material_override/0 = ExtResource("22_kiiqx")
-
-[node name="RoundTopping2" parent="OvenScene/UIViewport/RoundCookie" instance=ExtResource("21_lafet")]
-
-[node name="HeartCookie" parent="OvenScene/UIViewport" index="5" instance=ExtResource("18_817jg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -0.0744064, 0.365339)
-
-[node name="HeartCookie" parent="OvenScene/UIViewport/HeartCookie" index="0"]
-surface_material_override/0 = ExtResource("20_gqlrj")
-
-[node name="HeartTopping2" parent="OvenScene/UIViewport/HeartCookie" instance=ExtResource("23_juer4")]
-
-[node name="SkullCookie" parent="OvenScene/UIViewport" index="6" instance=ExtResource("19_vtwju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59695e-08, -0.074, -0.284661)
-
-[node name="SkullCookie" parent="OvenScene/UIViewport/SkullCookie" index="0"]
-surface_material_override/0 = ExtResource("20_gqlrj")
-
-[node name="SkullTopping2" parent="OvenScene/UIViewport/SkullCookie" instance=ExtResource("25_udify")]
-
-[node name="StarCookie" parent="OvenScene/UIViewport" index="7" instance=ExtResource("20_vtwju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, -0.074, -0.284661)
-
-[node name="StarCookie" parent="OvenScene/UIViewport/StarCookie" index="0"]
-surface_material_override/0 = ExtResource("22_kiiqx")
-
-[node name="StarTopping2" parent="OvenScene/UIViewport/StarCookie" instance=ExtResource("27_k2gex")]
-
-[node name="ManCookie" parent="OvenScene/UIViewport" index="8" instance=ExtResource("23_kiiqx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -0.074, -0.284661)
-
-[node name="ManCookie" parent="OvenScene/UIViewport/ManCookie" index="0"]
-surface_material_override/0 = ExtResource("22_kiiqx")
-
-[node name="ManTopping2" parent="OvenScene/UIViewport/ManCookie" instance=ExtResource("29_obvom")]
-
 [node name="Witch" parent="OvenScene" index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.6, 3.1)
 
@@ -441,11 +379,5 @@ volume_db = -15.0
 script = ExtResource("16_a7fet")
 
 [editable path="OvenScene"]
-[editable path="OvenScene/UIViewport/SquareCookie"]
-[editable path="OvenScene/UIViewport/RoundCookie"]
-[editable path="OvenScene/UIViewport/HeartCookie"]
-[editable path="OvenScene/UIViewport/SkullCookie"]
-[editable path="OvenScene/UIViewport/StarCookie"]
-[editable path="OvenScene/UIViewport/ManCookie"]
 [editable path="OvenScene/DiceWell"]
 [editable path="OvenScene/Witch"]
