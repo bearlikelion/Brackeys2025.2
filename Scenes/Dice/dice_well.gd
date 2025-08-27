@@ -53,7 +53,7 @@ func roll_dice(dice_array: Array) -> void:
 	has_etched_runes = false
 
 	# Check for Round base and Etched Runes
-	for die in dice_array:
+	for die: D6 in dice_array:
 		if die.has("name"):
 			if die.name == "Round" and die.kind == "base":
 				has_round_base = true
@@ -202,7 +202,7 @@ func handle_rerolls() -> void:
 		return
 
 	# Reroll up to the available amount
-	for i in failed_dice_indices:
+	for i: int in failed_dice_indices:
 		if rerolls_used >= rerolls_available:
 			break
 
@@ -260,7 +260,7 @@ func _on_reroll_result(dice_face: int, dice_type: String, dice_name: String, ind
 
 func check_for_breaking_dice() -> bool:
 	# Check if any dice will cause the biscuit to break
-	for result in rolled_results:
+	for result: Array in rolled_results:
 		var dice_face: int = result[0]
 		var dice_type: String = result[1]
 		var dice_name: String = result[2]

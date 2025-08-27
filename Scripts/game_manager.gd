@@ -51,6 +51,7 @@ var filling_score: int = 0
 @onready var chat_message: MarginContainer = %ChatMessage
 
 @onready var game_camera: GameCamera = get_tree().get_first_node_in_group("GameCamera")
+@onready var oven_scene: OvenScene = get_tree().get_first_node_in_group("OvenScene")
 
 @onready var base_selector: BaseSelector :
 	set(value):
@@ -149,8 +150,10 @@ func _on_base_selected(selected_base: String) -> void:
 		dice.append({"kind": "base", "name": type})
 
 	type_label.text = "TYPE: %s" % selected_base
+	oven_scene.add_biscuit(selected_base)
+
 	await base_selector.bases_hidden
-	toppings_selector.show_toppings()
+	# toppings_selector.show_toppings()
 	update_dice_count()
 
 

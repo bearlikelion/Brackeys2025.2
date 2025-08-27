@@ -6,7 +6,7 @@ signal message_complete()
 
 @export var timer_to_speak: float = 2.0
 
-var dialogue_by_round = {
+var dialogue_by_round: Dictionary = {
 	1: [ # Fillings only
 		"Make it simple: a shortbread with jam inside",
 		"Bake me a heart, filled with cream, soft and sweet",
