@@ -7,7 +7,7 @@ signal fear_increased()
 signal fear_decreased()
 signal biscuit_broken()
 signal biscuit_invalid()
-signal biscuit_placed()
+signal biscuit_placed(biscuit)
 
 @export var obey_instructions: bool = true
 
@@ -24,6 +24,7 @@ var biscuits_baked: int = 0
 
 var dice: Array = []
 
+var biscuit: Biscuit
 var valid_biscuit: bool
 var player_died: bool = false
 var biscuit_broke: bool = false
@@ -70,6 +71,7 @@ var filling_score: int = 0
 
 
 func _ready() -> void:
+	biscuit_placed.connect(_on_biscuit_placed)
 	dice_well.roll_result.connect(_on_roll_result)
 	dice_well.roll_finished.connect(_on_roll_finished)
 	chat_instructions.instructions_done.connect(_on_instructions_done)
@@ -153,8 +155,9 @@ func _on_base_selected(selected_base: String) -> void:
 	type_label.text = "TYPE: %s" % selected_base
 	oven_scene.add_biscuit(selected_base)
 
+	await biscuit_placed
 	await base_selector.bases_hidden
-	# toppings_selector.show_toppings()
+	toppings_selector.show_toppings()
 	update_dice_count()
 
 
@@ -178,6 +181,14 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 			dice_scorer.reroll_fail = true
 
 	await toppings_selector.toppings_hidden
+
+	if filling != "":
+		biscuit.add_filling()
+		await biscuit.filling_added
+
+	if topping != "":
+		biscuit.add_topping(topping)
+		await biscuit.topping_added
 
 	valid_biscuit = biscuit_validator.is_biscuit_valid(type, filling, topping, decoration)
 	if valid_biscuit:
@@ -227,6 +238,8 @@ func _on_roll_finished() -> void:
 	else:
 		game_camera.view_oven()
 
+	biscuit.queue_free()
+
 
 func new_round() -> void:
 	round += 1
@@ -248,6 +261,7 @@ func new_round() -> void:
 	topping = ""
 	decoration = ""
 
+	biscuit = null
 	valid_biscuit = true
 	biscuit_broke = false
 	chat_instructions.new_instructions()
@@ -259,4 +273,9 @@ func invalid_biscuit() -> void:
 	valid_biscuit = false
 	game_camera.view_witch()
 	biscuit_invalid.emit()
+	biscuit.queue_free()
 	add_fear(round + 1)
+
+
+func _on_biscuit_placed(new_biscuit: Biscuit) -> void:
+	biscuit = new_biscuit

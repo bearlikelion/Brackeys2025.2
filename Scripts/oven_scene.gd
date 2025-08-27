@@ -2,6 +2,11 @@ class_name OvenScene
 extends Node3D
 
 const SHORTBREAD = preload("res://Scenes/Biscuits/shortbread.tscn")
+const HEART = preload("res://Scenes/Biscuits/heart.tscn")
+const ROUND = preload("res://Scenes/Biscuits/round.tscn")
+const SQUARE = preload("res://Scenes/Biscuits/square.tscn")
+const GINGERBREAD = preload("res://Scenes/Biscuits/gingerbread.tscn")
+const SKULL = preload("res://Scenes/Biscuits/skull.tscn")
 
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -30,8 +35,17 @@ func add_biscuit(base_name: String) -> void:
 	match base_name:
 		"Shortbread":
 			new_biscuit = SHORTBREAD.instantiate()
+		"Heart":
+			new_biscuit = HEART.instantiate()
+		"Round":
+			new_biscuit = ROUND.instantiate()
+		"Square":
+			new_biscuit = SQUARE.instantiate()
+		"Gingerbread":
+			new_biscuit = GINGERBREAD.instantiate()
+		"Skull":
+			new_biscuit = SKULL.instantiate()
 
 	biscuit.add_child(new_biscuit)
-	new_biscuit.rotation.x = randf_range(-15.0, 15.0)
-	new_biscuit.rotation.z = randf_range(-15.0, 15.0)
+	new_biscuit.rotation_degrees = Vector3(randf_range(-15.0, 15.0), 0, randf_range(-15.0, 15.0))
 	new_biscuit.global_position = biscuit_spawn.position

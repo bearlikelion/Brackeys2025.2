@@ -19,12 +19,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if lerp_visible:
-		modulate.a = lerp(modulate.a, 1.0, 1.5 * delta)
+		modulate.a = lerp(modulate.a, 1.0, 1.0 * delta)
 		if modulate.a == 1.0:
 			lerp_visible = false
 
 	if lerp_invisible:
-		modulate.a = lerp(modulate.a, 0.0, 1.5 * delta)
+		modulate.a = lerp(modulate.a, 0.0, 1.0 * delta)
 		if modulate.a < 0.1:
 			lerp_invisible = false
 			bases_hidden.emit()

@@ -53,7 +53,7 @@ func roll_dice(dice_array: Array) -> void:
 	has_etched_runes = false
 
 	# Check for Round base and Etched Runes
-	for die: D6 in dice_array:
+	for die: Dictionary in dice_array:
 		if die.has("name"):
 			if die.name == "Round" and die.kind == "base":
 				has_round_base = true

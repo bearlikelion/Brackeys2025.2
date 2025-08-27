@@ -332,6 +332,7 @@ transform = Transform3D(-3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0, 1, 0.3475
 transform = Transform3D(-3.65107e-06, -0.939692, 0.34202, 1.13134e-08, 0.34202, 0.939692, -1, 3.43475e-06, -1.23811e-06, 3.8, 2, 0)
 
 [node name="UIViewport" parent="OvenScene" index="5" node_paths=PackedStringArray("node_viewport", "node_quad")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.09468, 0.873444, 0)
 node_viewport = NodePath("OvenViewPort")
 node_quad = NodePath("GameUI")
 
