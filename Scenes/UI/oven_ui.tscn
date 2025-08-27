@@ -54,7 +54,7 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0.199722, 0.0819015, 1.20327e-08, 1)
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "[shake rate=3.0 level=50 connected=5]PICK YOUR BASE BISCUIT[/shake]
+text = "[shake rate=1.5 level=50 connected=5]P I C K    Y O U R    B I S C U I T[/shake]
 "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -131,38 +131,6 @@ text = "Success: reduces fear
 Failure: doubles fear"
 horizontal_alignment = 1
 
-[node name="Square" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 35
-text = "Square"
-
-[node name="MarginContainer" type="MarginContainer" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 25
-
-[node name="Label" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 30
-text = "3d6"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-text = "Fail ANY role it snaps"
-horizontal_alignment = 1
-
 [node name="Round" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -186,13 +154,45 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 30
-text = "4d6"
+text = "3d6"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Round/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Failure: Reroll 1 die"
+horizontal_alignment = 1
+
+[node name="Square" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 35
+text = "Square"
+
+[node name="MarginContainer" type="MarginContainer" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 25
+
+[node name="Label" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "4d6"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Bonus points on 4s"
 horizontal_alignment = 1
 
 [node name="Gingerbread" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
@@ -290,6 +290,7 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="Label2" type="RichTextLabel" parent="ToppingsSelector/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.199722, 0.0819015, 1.20327e-08, 1)
@@ -317,7 +318,12 @@ theme_override_font_sizes/font_size = 36
 text = "Fillings"
 horizontal_alignment = 1
 
-[node name="Jam" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+[node name="FillingButtons" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Jam" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 35
@@ -325,7 +331,7 @@ toggle_mode = true
 button_group = ExtResource("4_5ejn6")
 text = "Jam"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Jam"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Jam"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -337,13 +343,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Jam/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Jam/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "High Score, +2 Fear"
 horizontal_alignment = 1
 
-[node name="Cream" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+[node name="Cream" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 35
@@ -351,7 +357,7 @@ toggle_mode = true
 button_group = ExtResource("4_5ejn6")
 text = "Cream"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Cream"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Cream"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -363,13 +369,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Cream/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Cream/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Moderate Score"
 horizontal_alignment = 1
 
-[node name="Custard" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+[node name="Custard" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 35
@@ -377,7 +383,7 @@ toggle_mode = true
 button_group = ExtResource("4_5ejn6")
 text = "Custard"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Custard"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Custard"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -389,13 +395,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Custard/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Custard/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "x2 Score but breaks on fail"
 horizontal_alignment = 1
 
-[node name="Marrow" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+[node name="Marrow" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 35
@@ -403,7 +409,7 @@ toggle_mode = true
 button_group = ExtResource("4_5ejn6")
 text = "Marrow"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Marrow"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Marrow"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -415,7 +421,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/Marrow/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Marrow/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Removes Fear"
@@ -432,7 +438,12 @@ theme_override_font_sizes/font_size = 36
 text = "Toppings"
 horizontal_alignment = 1
 
-[node name="Sugar" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+[node name="ToppingButtons" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sugar" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -440,7 +451,7 @@ toggle_mode = true
 button_group = ExtResource("5_1qx3m")
 text = "Sugar Glaze"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Sugar"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Sugar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -452,13 +463,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Sugar/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Sugar/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Small Points but Safe"
 horizontal_alignment = 1
 
-[node name="Icing" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+[node name="Icing" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -466,7 +477,7 @@ toggle_mode = true
 button_group = ExtResource("5_1qx3m")
 text = "Royal Icing"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Icing"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Icing"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -478,13 +489,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Icing/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Icing/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Big Points but cracks easily"
 horizontal_alignment = 1
 
-[node name="Frosting" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+[node name="Frosting" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -492,7 +503,7 @@ toggle_mode = true
 button_group = ExtResource("5_1qx3m")
 text = "Cursed Frosting"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Frosting"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Frosting"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -504,13 +515,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Frosting/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Frosting/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Low Roll for High Points"
 horizontal_alignment = 1
 
-[node name="Caramel" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+[node name="Caramel" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -518,7 +529,7 @@ toggle_mode = true
 button_group = ExtResource("5_1qx3m")
 text = "Burnt Caramel"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Caramel"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Caramel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -530,7 +541,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/Caramel/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Caramel/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "+1 Fear but high score"
@@ -547,7 +558,12 @@ theme_override_font_sizes/font_size = 36
 text = "Decorations"
 horizontal_alignment = 1
 
-[node name="Sprinkles" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+[node name="DecorationButtons" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sprinkles" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -555,7 +571,7 @@ toggle_mode = true
 button_group = ExtResource("6_1u3so")
 text = "Sprinkles"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Sprinkles"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Sprinkles"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -567,13 +583,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Sprinkles/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Sprinkles/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "+1 per success"
 horizontal_alignment = 1
 
-[node name="Tongue" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+[node name="Tongue" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -581,7 +597,7 @@ toggle_mode = true
 button_group = ExtResource("6_1u3so")
 text = "Tongue"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Tongue"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Tongue"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -593,13 +609,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Tongue/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Tongue/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Reduces fear or adds extra"
 horizontal_alignment = 1
 
-[node name="Runes" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+[node name="Runes" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -607,7 +623,7 @@ toggle_mode = true
 button_group = ExtResource("6_1u3so")
 text = "Etched Runes"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Runes"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Runes"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -619,13 +635,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Runes/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Runes/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Reroll one failed die"
 horizontal_alignment = 1
 
-[node name="Eyes" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+[node name="Eyes" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -633,7 +649,7 @@ toggle_mode = true
 button_group = ExtResource("6_1u3so")
 text = "Candied Eyes"
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Eyes"]
+[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Eyes"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -645,7 +661,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/Eyes/MarginContainer"]
+[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Eyes/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Bonus on Gingerbread or Skull"

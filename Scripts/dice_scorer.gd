@@ -1,15 +1,65 @@
 class_name DiceScorer
 extends Node
 
+const FLOATING_NUMBER = preload("res://Scenes/UI/floating_number.tscn")
+
 var reroll_fail: bool = false
 var success_die: int = 0
+var last_die_position: Vector3 = Vector3.ZERO
 
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 @onready var dice_well: DiceWell = get_tree().get_first_node_in_group("DiceWell")
+@onready var fct: Control = %FCT
 
 
 func _ready() -> void:
 	add_to_group("DiceScorer")
+	game_manager.round_started.connect(_on_round_started)
+
+
+func spawn_floating_number(amount: int, is_fear: bool = false) -> void:
+	if amount == 0:
+		return
+
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	if not camera:
+		return
+
+	var screen_pos: Vector2
+
+	# Check if we have a valid die position
+	if last_die_position == Vector3.ZERO:
+		# No die position - wait for camera animation if needed
+		if game_manager.game_camera.animation_player.is_playing():
+			await game_manager.game_camera.animation_player.animation_finished
+
+		# Use center of screen as starting position
+		var viewport: Viewport = get_viewport()
+		screen_pos = viewport.get_visible_rect().size / 2.0
+	else:
+		# Get die position in screen space
+		screen_pos = camera.unproject_position(last_die_position)
+
+	# Get target position (score or fear label)
+	var target_control: Control
+	if is_fear:
+		target_control = game_manager.fear_label
+	else:
+		target_control = game_manager.score_label
+
+	if not target_control:
+		return
+
+	var target_pos: Vector2 = target_control.global_position + target_control.size / 2.0
+
+	# Create floating number
+	var floating_num: FloatingNumber = FLOATING_NUMBER.instantiate()
+	fct.add_child(floating_num)
+	floating_num.setup(screen_pos, target_pos, amount, is_fear)
+
+
+func _on_round_started() -> void:
+	last_die_position = Vector3.ZERO
 
 
 func score_die(dice_type: String, dice_name: String, dice_face: int) -> void:
@@ -35,10 +85,10 @@ func score_base_die(dice_name: String, dice_face: int) -> void:
 			score_shortbread(dice_face)
 		"Heart":
 			score_heart(dice_face)
-		"Square":
-			score_square(dice_face)
 		"Round":
 			score_round(dice_face)
+		"Square":
+			score_square(dice_face)
 		"Gingerbread":
 			score_gingerbread(dice_face)
 		"Skull":
@@ -122,11 +172,11 @@ func score_square(dice_face: int) -> void:
 		3:
 			game_manager.add_score(1)
 		4:
-			game_manager.add_score(2)
-		5:
-			game_manager.add_score(6)
-		6:
 			game_manager.add_score(8)
+		5:
+			game_manager.add_score(4)
+		6:
+			game_manager.add_score(6)
 
 
 # On Failure, TODO reroll one failed die
@@ -150,10 +200,8 @@ func score_round(dice_face: int) -> void:
 func score_gingerbread(dice_face: int) -> void:
 	match dice_face:
 		1:
-			game_manager.break_biscuit()
 			game_manager.add_fear(1)
 		2:
-			game_manager.break_biscuit()
 			game_manager.add_fear(2)
 		3:
 			game_manager.add_score(1)
@@ -223,10 +271,6 @@ func score_cream_filling(dice_face: int) -> void:
 # Success, doubles entire biscuit score, one failure it collapses
 func score_custard_filling(dice_face: int) -> void:
 	match dice_face:
-		1:
-			game_manager.break_biscuit()
-		2:
-			game_manager.break_biscuit()
 		5:
 			game_manager.double_biscuit()
 		6:

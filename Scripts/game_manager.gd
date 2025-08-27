@@ -76,11 +76,12 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("roll_new"):
-		base_selector.show()
+		base_selector.show_bases()
 
 
-func _on_roll_result(dice_face: int, dice_type: String, dice_name: String) -> void:
+func _on_roll_result(dice_face: int, dice_type: String, dice_name: String, dice_position: Vector3) -> void:
 	if not biscuit_broke:
+		dice_scorer.last_die_position = dice_position
 		dice_scorer.score_die(dice_type, dice_name, dice_face)
 
 
@@ -88,6 +89,7 @@ func add_score(amount: int) -> void:
 	if not biscuit_broke:
 		score += amount
 		score_label.text = "SCORE: %s" % str(score)
+		dice_scorer.spawn_floating_number(amount, false)
 
 
 func add_fear(amount: int) -> void:
@@ -97,6 +99,7 @@ func add_fear(amount: int) -> void:
 		fear_decreased.emit()
 
 	fear += amount
+	dice_scorer.spawn_floating_number(amount, true)
 
 	if fear >= 50:
 		player_died = true
@@ -121,11 +124,11 @@ func _on_instructions_done() -> void:
 	elif player_died:
 		get_tree().change_scene_to_file("res://Scenes/main_scene.tscn")
 	else:
-		base_selector.show()
+		base_selector.show_bases()
 
 
 func _on_base_selected(selected_base: String) -> void:
-	base_selector.hide()
+	base_selector.hide_bases()
 	type = selected_base
 
 	match type:
@@ -133,9 +136,9 @@ func _on_base_selected(selected_base: String) -> void:
 			dice_to_roll += 1
 		"Heart":
 			dice_to_roll += 2
-		"Square":
-			dice_to_roll += 3
 		"Round":
+			dice_to_roll += 3
+		"Square":
 			dice_to_roll += 4
 		"Gingerbread":
 			dice_to_roll += 5
@@ -146,12 +149,13 @@ func _on_base_selected(selected_base: String) -> void:
 		dice.append({"kind": "base", "name": type})
 
 	type_label.text = "TYPE: %s" % selected_base
-	toppings_selector.show()
+	await base_selector.bases_hidden
+	toppings_selector.show_toppings()
 	update_dice_count()
 
 
 func _on_toppings_selected(_filling: String, _topping: String, _decoration: String) -> void:
-	toppings_selector.hide()
+	toppings_selector.hide_toppings()
 
 	if _filling != "":
 		filling = _filling
@@ -168,6 +172,8 @@ func _on_toppings_selected(_filling: String, _topping: String, _decoration: Stri
 
 		if _decoration == "Runes":
 			dice_scorer.reroll_fail = true
+
+	await toppings_selector.toppings_hidden
 
 	valid_biscuit = biscuit_validator.is_biscuit_valid(type, filling, topping, decoration)
 	if valid_biscuit:
@@ -193,16 +199,14 @@ func _on_topping_pressed(is_toggled: bool) -> void:
 
 
 func break_biscuit() -> void:
-	if not biscuit_broke:
-		biscuit_broke = true
-		biscuit_broken.emit()
-		add_fear(dice_to_roll)
-		print("BISCUIT BROKEN! No more scoring this round.")
+	# This is now called by dice_well before scoring
+	# Individual dice scoring methods no longer call this
+	pass
 
 
 func double_biscuit() -> void:
 	print("2x SCORE!")
-	if not biscuit_broken:
+	if not biscuit_broke:
 		add_score(score)
 
 
