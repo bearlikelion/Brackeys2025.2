@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cn2glr70mjeau"
-path="res://.godot/imported/SquareTopping.blend-02dc6ce50f6639fa07633e48eea1c230.scn"
+uid="uid://c5tm76s7utkgm"
+path="res://.godot/imported/HeartTopping.blend-5447b00ed2fb62ee2c02d64d6d264691.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Cookies/SquareTopping.blend"
-dest_files=["res://.godot/imported/SquareTopping.blend-02dc6ce50f6639fa07633e48eea1c230.scn"]
+source_file="res://Assets/Models/Cookies/HeartTopping.blend"
+dest_files=["res://.godot/imported/HeartTopping.blend-5447b00ed2fb62ee2c02d64d6d264691.scn"]
 
 [params]
 
