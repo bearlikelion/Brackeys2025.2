@@ -2,14 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://cshgibmcxbw1u" path="res://Assets/Models/Witch/Witch.blend" id="1_61xru"]
 [ext_resource type="Material" uid="uid://cku6i4b4rkusm" path="res://Assets/Models/Witch/witch_material.tres" id="2_rrl02"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_61xru"]
-albedo_color = Color(8.12206e-08, 0.0881585, 0.00038889, 1)
+[ext_resource type="Material" uid="uid://2h8muyg3aeyw" path="res://Assets/Models/Witch/eye_material.tres" id="3_rrl02"]
 
 [node name="Witch" instance=ExtResource("1_61xru")]
 
 [node name="Head" parent="." index="0"]
-material_override = SubResource("StandardMaterial3D_61xru")
+surface_material_override/0 = ExtResource("2_rrl02")
 
 [node name="TTeeth" parent="." index="1"]
 material_override = ExtResource("2_rrl02")
@@ -18,7 +16,7 @@ material_override = ExtResource("2_rrl02")
 material_override = ExtResource("2_rrl02")
 
 [node name="Eyes" parent="." index="3"]
-material_override = ExtResource("2_rrl02")
+material_override = ExtResource("3_rrl02")
 
 [node name="Hair_000" parent="." index="4"]
 material_override = ExtResource("2_rrl02")

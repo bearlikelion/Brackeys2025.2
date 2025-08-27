@@ -1,6 +1,10 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cku6i4b4rkusm"]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cku6i4b4rkusm"]
 
 [ext_resource type="Texture2D" uid="uid://c6mnpa2p1tnmd" path="res://Assets/Models/Witch/Witch_A.png" id="1_eap2e"]
+[ext_resource type="Texture2D" uid="uid://bgxrq1spanqib" path="res://Assets/Models/Witch/WitchSkin_N.png" id="2_soqjh"]
 
 [resource]
 albedo_texture = ExtResource("1_eap2e")
+normal_enabled = true
+normal_scale = 0.1
+normal_texture = ExtResource("2_soqjh")
