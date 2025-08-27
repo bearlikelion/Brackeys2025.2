@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dml8yrt1nuynh"]
+
+[ext_resource type="Texture2D" uid="uid://lyf6ugd4sy34" path="res://Assets/Models/Witch/EyeHairMole_A.png" id="1_pq0e6"]
+
+[resource]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("1_pq0e6")
+anisotropy_enabled = true
+anisotropy = 1.0

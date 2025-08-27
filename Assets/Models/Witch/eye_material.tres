@@ -6,10 +6,11 @@
 
 [resource]
 albedo_texture = ExtResource("1_xelmi")
-metallic = 1.0
-metallic_specular = 1.0
-metallic_texture = ExtResource("2_vus6d")
-roughness_texture = ExtResource("2_vus6d")
 normal_enabled = true
-normal_scale = 0.1
+normal_scale = 0.42
 normal_texture = ExtResource("3_44wdy")
+clearcoat_enabled = true
+clearcoat = 0.08
+clearcoat_roughness = 0.42
+clearcoat_texture = ExtResource("2_vus6d")
+anisotropy = 1.0
