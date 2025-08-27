@@ -15,6 +15,7 @@ var dissolve_value: float = 1.5
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 
 func _ready() -> void:
+	body_entered.connect(_on_body_entered)
 	topping_mesh = topping.get_child(0)
 	topping_material = topping_mesh.material_override.duplicate()
 	topping_mesh.material_override = topping_material
@@ -53,3 +54,10 @@ func add_topping(topping: String) -> void:
 			topping_material.set_shader_parameter("baseColor", Color.SADDLE_BROWN)
 
 	is_spreading = true
+
+
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("tray") or body.get_parent().is_in_group("tray"):
+		reparent(body)
+	if body is D6 :
+		body.apply_central_force((body.global_position-global_position).normalized()*50)

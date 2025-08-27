@@ -34,6 +34,7 @@ var angle_tolerance: float = 0.75
 
 func _ready() -> void:
 	roll()
+	connect("body_entered",_on_body_entered)
 	game_manager.biscuit_broken.connect(_on_biscuit_broken)
 	dice_material = dice.material_override.duplicate()
 	dice.material_override = dice_material
