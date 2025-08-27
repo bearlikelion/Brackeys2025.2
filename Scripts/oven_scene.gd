@@ -32,4 +32,6 @@ func add_biscuit(base_name: String) -> void:
 			new_biscuit = SHORTBREAD.instantiate()
 
 	biscuit.add_child(new_biscuit)
+	new_biscuit.rotation.x = randf_range(-15.0, 15.0)
+	new_biscuit.rotation.z = randf_range(-15.0, 15.0)
 	new_biscuit.global_position = biscuit_spawn.position

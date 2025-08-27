@@ -7,6 +7,7 @@ signal fear_increased()
 signal fear_decreased()
 signal biscuit_broken()
 signal biscuit_invalid()
+signal biscuit_placed()
 
 @export var obey_instructions: bool = true
 
