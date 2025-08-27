@@ -11,6 +11,9 @@ var last_dices :Array [D6]
 var dice_to_roll: int = 0
 var rolled_dice: int = 1
 var rolled_results: Array
+var rerolls_available: int = 0
+var has_round_base: bool = false
+var has_etched_runes: bool = false
 
 @onready var dice: Node = $Dice
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
@@ -45,6 +48,19 @@ func roll_dice(dice_array: Array) -> void:
 
 	dice_to_roll = dice_array.size()
 	rolled_dice = 0
+	rerolls_available = 0
+	has_round_base = false
+	has_etched_runes = false
+
+	# Check for Round base and Etched Runes
+	for die in dice_array:
+		if die.has("name"):
+			if die.name == "Round" and die.kind == "base":
+				has_round_base = true
+				rerolls_available += 1
+			elif die.name == "Runes" and die.kind == "decoration":
+				has_etched_runes = true
+				rerolls_available += 1
 
 	for dice_i: int in range(dice_array.size()):
 		roll_die(dice_array[dice_i])
@@ -57,6 +73,10 @@ func dice_to_face() -> void:
 	#var start_pos = get_viewport().size/2
 	if game_manager.biscuit_broke:
 		return
+
+	# Check for rerolls before animating to grid
+	if rerolls_available > 0:
+		await handle_rerolls()
 
 	animate_dice_to_grid()
 	score_dice()
@@ -161,6 +181,81 @@ func score_dice() -> void:
 	# Wait a bit then emit roll finished
 	await get_tree().create_timer(2.0).timeout
 	roll_finished.emit()
+
+
+func handle_rerolls() -> void:
+	var failed_dice_indices: Array = []
+	var rerolls_used: int = 0
+
+	print("Checking for rerolls (Available: %d)" % rerolls_available)
+
+	# Find all failed dice (1 or 2)
+	for i in range(rolled_results.size()):
+		var result: Array = rolled_results[i]
+		var dice_face: int = result[0]
+
+		if dice_face <= 2:
+			failed_dice_indices.append(i)
+
+	if failed_dice_indices.size() == 0:
+		print("No failed dice to reroll")
+		return
+
+	# Reroll up to the available amount
+	for i in failed_dice_indices:
+		if rerolls_used >= rerolls_available:
+			break
+
+		var result: Array = rolled_results[i]
+		var dice_type: String = result[1]
+		var dice_name: String = result[2]
+
+		# Find the corresponding die
+		var die_to_reroll: D6 = null
+		for die in last_dices:
+			if die and die.die_name == dice_name:
+				die_to_reroll = die
+				break
+
+		if die_to_reroll:
+			die_to_reroll.dissolve = true
+
+			print("REROLLING: %s (was %d)" % [dice_name, result[0]])
+
+			# Wait for dissolve animation
+			await get_tree().create_timer(1.0).timeout
+
+			# Create new die at the same position
+			var d6: D6 = d_6.instantiate()
+			d6.position = Vector3.ZERO
+			d6.kind = dice_type
+			d6.die_name = dice_name
+			d6.roll_result.connect(_on_reroll_result.bind(i))
+
+			# Remove old die and add new one
+			die_to_reroll.queue_free()
+			var index: int = last_dices.find(die_to_reroll)
+			if index >= 0:
+				last_dices[index] = d6
+			dice.add_child(d6)
+
+			# Roll the new die
+			d6.roll()
+
+			# Wait for the reroll to settle
+			await get_tree().create_timer(3.0).timeout
+
+			rerolls_used += 1
+
+	if rerolls_used > 0:
+		print("Used %d reroll(s)" % rerolls_used)
+
+
+func _on_reroll_result(dice_face: int, dice_type: String, dice_name: String, index: int) -> void:
+	# Update the result in rolled_results
+	if index < rolled_results.size():
+		rolled_results[index] = [dice_face, dice_type, dice_name]
+		print("Reroll result: %s = %d" % [dice_name, dice_face])
 
 
 func check_for_breaking_dice() -> bool:

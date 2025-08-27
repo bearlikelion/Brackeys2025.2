@@ -44,7 +44,7 @@ var dialogue_by_round = {
 		"A vessel of love, yet rotten inside, dress it bright, but mark it with secrets.",
 		"Four corners, yet no escape, soft within, gilded above, with a mouth to taste your lies.",
 		"Short and plain, creamy but never alone, let its glaze blind, and its eyes accuse.",
-		"Shaped like a man, but hollow of soul, let its insides bleed, its surface burn, its mask deceive.",
+		"Shaped like a man, but hollow of soul, let its insides bleed, its surface burn, and its tongue speak.",
 		"A grinning face, marrow for thought, frost it cursed, etch it deep, and let it whisper back.",
 	],
 	6: [ # Final madness - the Witch unravels

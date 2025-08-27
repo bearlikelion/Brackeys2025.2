@@ -201,7 +201,7 @@ func round_five_rules(index: int) -> void:
 			rq_type.append("Gingerbread")
 			rq_filling = ["Jam", "Marrow"]
 			rq_topping = ["Caramel", "Frosting"]
-			rq_decoration.append("Sprinkles")
+			rq_decoration.append("Tongue")
 		5:
 			rq_type.append("Skull")
 			rq_filling = ["Marrow", "Custard"]
