@@ -7,7 +7,7 @@
 
 [node name="Witch" instance=ExtResource("1_61xru")]
 
-[node name="Head" parent="." index="0"]
+[node name="Witch" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_rrl02")
 
 [node name="TTeeth" parent="." index="1"]
