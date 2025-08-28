@@ -1,50 +1,92 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwgk33h0g8ee0"]
+[gd_scene load_steps=7 format=3 uid="uid://dwgk33h0g8ee0"]
 
 [ext_resource type="PackedScene" uid="uid://cshgibmcxbw1u" path="res://Assets/Models/Witch/Witch.blend" id="1_61xru"]
 [ext_resource type="Material" uid="uid://cku6i4b4rkusm" path="res://Assets/Models/Witch/witch_material.tres" id="2_rrl02"]
-[ext_resource type="Texture2D" uid="uid://b5imt5taoxp4b" path="res://Assets/Models/Witch/Clothes_A.png" id="3_hjh8c"]
 [ext_resource type="Material" uid="uid://2h8muyg3aeyw" path="res://Assets/Models/Witch/eye_material.tres" id="3_rrl02"]
+[ext_resource type="Material" uid="uid://c3glosc3g4fc1" path="res://Assets/Models/Witch/arms_material.tres" id="3_un8x1"]
 [ext_resource type="Material" uid="uid://dml8yrt1nuynh" path="res://Assets/Models/Witch/eyelashes_moles_material.tres" id="4_d6wki"]
-[ext_resource type="Texture2D" uid="uid://buqdefr6egf7i" path="res://Assets/Models/Witch/Clothes_N.png" id="4_p42pi"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whpry"]
-albedo_texture = ExtResource("3_hjh8c")
-metallic_specular = 0.0
-normal_enabled = true
-normal_texture = ExtResource("4_p42pi")
+[ext_resource type="Material" uid="uid://b07t6jhgdhgmo" path="res://Assets/Models/Witch/clothes_material.tres" id="4_hjh8c"]
 
 [node name="Witch" instance=ExtResource("1_61xru")]
 
-[node name="Witch" parent="." index="0"]
+[node name="Skeleton3D" parent="Witch" index="0"]
+bones/1/rotation = Quaternion(-0.396747, -0.0314742, -0.0887485, 0.913085)
+bones/2/rotation = Quaternion(-0.0474627, 0.0175773, -0.14939, 0.987482)
+bones/3/rotation = Quaternion(0.0491046, 0.00947206, -0.0813881, 0.995427)
+bones/4/rotation = Quaternion(0.107204, 0.00619573, 0.147315, 0.983243)
+bones/5/rotation = Quaternion(0.0303641, 0.0194754, 0.106311, 0.993679)
+bones/6/rotation = Quaternion(-0.161679, 0.00764833, 0.162137, 0.973403)
+bones/8/rotation = Quaternion(-0.051628, -2.2437e-09, -9.20831e-09, 0.998666)
+bones/13/rotation = Quaternion(0.872694, 0.128384, 0.109275, -0.458237)
+bones/14/rotation = Quaternion(-0.0832356, -0.149337, 0.940447, -0.293818)
+bones/15/rotation = Quaternion(0.380892, 0.144543, 0.514294, 0.754672)
+bones/16/rotation = Quaternion(0.141826, -0.0581877, 0.75234, 0.640691)
+bones/17/rotation = Quaternion(0.635777, 0.286648, -0.186324, 0.692028)
+bones/19/rotation = Quaternion(0.126074, 0.301047, -0.614284, 0.718423)
+bones/20/rotation = Quaternion(0.359577, -0.0849526, -0.175516, 0.912514)
+bones/21/rotation = Quaternion(-0.509447, -0.143841, -0.453004, 0.717329)
+bones/23/rotation = Quaternion(0.380393, -0.284586, -0.247055, 0.844557)
+bones/24/rotation = Quaternion(-0.54947, 0.317244, 0.00700538, 0.77291)
+bones/25/rotation = Quaternion(-0.35178, 0.397099, -0.222906, 0.817848)
+bones/27/rotation = Quaternion(0.463858, -0.197577, -0.127236, 0.854172)
+bones/28/rotation = Quaternion(-0.621019, 0.224153, -0.0004718, 0.75106)
+bones/29/rotation = Quaternion(-0.329446, 0.348677, -0.236292, 0.845018)
+bones/31/rotation = Quaternion(0.48826, -0.0604261, 0.0179921, 0.870418)
+bones/32/rotation = Quaternion(-0.596485, 0.16797, -0.0164458, 0.784679)
+bones/33/rotation = Quaternion(-0.388861, 0.310125, -0.310488, 0.810066)
+bones/35/rotation = Quaternion(0.527238, 0.0343237, 0.194071, 0.826546)
+bones/36/rotation = Quaternion(-0.615341, 0.131751, -0.0938124, 0.77149)
+bones/37/rotation = Quaternion(-0.386389, 0.273278, -0.298845, 0.828682)
+bones/38/rotation = Quaternion(0.872694, -0.128384, -0.109275, -0.458237)
+bones/39/rotation = Quaternion(0.0832357, -0.149337, 0.940447, 0.293818)
+bones/40/rotation = Quaternion(0.373175, -0.165676, -0.490152, 0.770093)
+bones/41/rotation = Quaternion(0.12543, 0.0538309, -0.811507, 0.568178)
+bones/42/rotation = Quaternion(0.669931, -0.242168, 0.243202, 0.658332)
+bones/43/rotation = Quaternion(0.0384202, -0.0851858, 0.936296, -0.33855)
+bones/44/rotation = Quaternion(0.126074, -0.301047, 0.614284, 0.718423)
+bones/45/rotation = Quaternion(0.359577, 0.0849526, 0.175516, 0.912514)
+bones/46/rotation = Quaternion(-0.509447, 0.143841, 0.453004, 0.717329)
+bones/48/rotation = Quaternion(0.442106, 0.35287, 0.252341, 0.785079)
+bones/49/rotation = Quaternion(-0.473537, -0.273182, 0.00647078, 0.837313)
+bones/50/rotation = Quaternion(-0.254501, -0.381488, 0.208368, 0.863874)
+bones/52/rotation = Quaternion(0.539738, 0.248106, 0.132869, 0.793393)
+bones/53/rotation = Quaternion(-0.542493, -0.189249, 0.0113956, 0.818386)
+bones/54/rotation = Quaternion(-0.227794, -0.34587, 0.220578, 0.883079)
+bones/56/rotation = Quaternion(0.575753, 0.0904301, -0.0063024, 0.812583)
+bones/57/rotation = Quaternion(-0.51139, -0.13957, 0.0208478, 0.847683)
+bones/58/rotation = Quaternion(-0.290484, -0.319639, 0.291201, 0.853611)
+bones/60/rotation = Quaternion(0.616768, -0.0226667, -0.17615, 0.766847)
+bones/61/rotation = Quaternion(-0.529095, -0.110465, 0.0961195, 0.835833)
+bones/62/rotation = Quaternion(-0.290299, -0.29031, 0.271272, 0.870551)
+
+[node name="Body" parent="Witch/Skeleton3D" index="0"]
 surface_material_override/0 = ExtResource("2_rrl02")
-surface_material_override/2 = SubResource("StandardMaterial3D_whpry")
+surface_material_override/1 = ExtResource("3_un8x1")
+surface_material_override/2 = ExtResource("4_hjh8c")
 
-[node name="TTeeth" parent="." index="1"]
-material_override = ExtResource("2_rrl02")
+[node name="BTeeth" parent="Witch/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("2_rrl02")
 
-[node name="BTeeth" parent="." index="2"]
-material_override = ExtResource("2_rrl02")
+[node name="Eye_L" parent="Witch/Skeleton3D" index="2"]
+surface_material_override/0 = ExtResource("3_rrl02")
 
-[node name="Eyes" parent="." index="3"]
-material_override = ExtResource("3_rrl02")
+[node name="Eye_R" parent="Witch/Skeleton3D" index="3"]
+surface_material_override/0 = ExtResource("3_rrl02")
 
-[node name="Eyelashes" parent="." index="4"]
+[node name="Eyebrows" parent="Witch/Skeleton3D" index="4"]
 surface_material_override/0 = ExtResource("4_d6wki")
 
-[node name="Eyebrows" parent="." index="5"]
+[node name="Eyelashes" parent="Witch/Skeleton3D" index="5"]
 surface_material_override/0 = ExtResource("4_d6wki")
 
-[node name="Moles" parent="." index="6"]
+[node name="Hair" parent="Witch/Skeleton3D" index="6"]
+surface_material_override/0 = ExtResource("2_rrl02")
+
+[node name="Moles" parent="Witch/Skeleton3D" index="7"]
 surface_material_override/0 = ExtResource("4_d6wki")
 
-[node name="Hair_000" parent="." index="7"]
-material_override = ExtResource("2_rrl02")
+[node name="TTeeth" parent="Witch/Skeleton3D" index="8"]
+surface_material_override/0 = ExtResource("2_rrl02")
 
-[node name="Hair_001" parent="." index="8"]
-material_override = ExtResource("2_rrl02")
-
-[node name="Hair_002" parent="." index="9"]
-material_override = ExtResource("2_rrl02")
-
-[node name="Hair" parent="." index="10"]
-material_override = ExtResource("2_rrl02")
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "Idle"
