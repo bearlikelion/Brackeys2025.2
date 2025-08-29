@@ -231,7 +231,7 @@ func handle_rerolls() -> void:
 		return
 
 	# Dissolve all failed dice at once
-	for reroll_data in dice_to_reroll:
+	for reroll_data: Dictionary in dice_to_reroll:
 		var die: D6 = reroll_data["die"]
 		die.dissolve = true
 		print("REROLLING: %s (was %d)" % [reroll_data["name"], reroll_data["old_value"]])
@@ -241,7 +241,7 @@ func handle_rerolls() -> void:
 
 	# Create and roll all new dice at once
 	var new_dice: Array = []
-	for reroll_data in dice_to_reroll:
+	for reroll_data: Dictionary in dice_to_reroll:
 		var old_die: D6 = reroll_data["die"]
 		var index: int = reroll_data["index"]
 

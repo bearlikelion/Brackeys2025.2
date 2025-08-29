@@ -91,7 +91,6 @@ func _ready() -> void:
 
 	score_progress.max_value = max_score
 	fear_progress.max_value = max_fear
-
 	new_round()
 
 
@@ -148,22 +147,28 @@ func update_dice_count() -> void:
 
 
 func _on_instructions_done() -> void:
-	if biscuit_broke or not valid_biscuit:
+	# Did player win?
+	if score >= max_score and not player_won:
+		player_won = true
+		victory.emit()
+		return
+
+	# Is player dead?
+	if fear >= max_fear and not player_died:
+		player_died = true
+		game_over.emit()
+		return
+
+	if not valid_biscuit or chat_instructions.playing_cutscene:
+		if chat_instructions.playing_cutscene:
+			chat_instructions.playing_cutscene = false
 		new_round()
-	elif player_died:
-		# SHOW GAME OVER
-		get_tree().change_scene_to_file("res://Scenes/main_scene.tscn")
-	elif player_won:
-		print("SHOW STATISTICS")
-		# SHOW VICTORY
-		# SCORE
-		# BISCUITS BAKED
-		# TIME PLAYED
-		# PLAY AGAIN?!
-	else:
-		if game_camera.looking_at != game_camera.Viewing.TABLE:
-			game_camera.view_table()
-			await game_camera.animation_player.animation_finished
+
+	if game_camera.looking_at != game_camera.Viewing.TABLE:
+		game_camera.view_table()
+		await game_camera.animation_player.animation_finished
+
+	if not base_selector.visible:
 		base_selector.show_bases()
 
 
@@ -275,8 +280,34 @@ func _on_roll_finished() -> void:
 		biscuit.apply_central_force(((witch.global_position + (Vector3.UP * 5)) - biscuit.global_position).normalized() * 400)
 		biscuit.apply_torque(Vector3(randf(),randf(),randf()))
 	else:
-		game_camera.view_oven()
-		await get_tree().create_timer(0.63).timeout
+		if score_progress.value / score_progress.max_value >= 0.33 and not cutscene_1:
+			cutscene_1 = true
+			print("Play cutscene 1")
+			if game_camera.looking_at != game_camera.Viewing.WITCH:
+				game_camera.view_witch()
+				await game_camera.animation_player.animation_finished
+			chat_instructions.cutscene_1()
+
+		elif score_progress.value / score_progress.max_value >= 0.66 and not cutscene_2:
+			cutscene_2 = true
+			print("Play cutscene 2")
+			if game_camera.looking_at != game_camera.Viewing.WITCH:
+				game_camera.view_witch()
+				await game_camera.animation_player.animation_finished
+			chat_instructions.cutscene_2()
+
+		elif fear_progress.value / fear_progress.max_value >= 0.5 and not cutscene_fear:
+			cutscene_fear = true
+			print("Play fear cutscene")
+			if game_camera.looking_at != game_camera.Viewing.WITCH:
+				game_camera.view_witch()
+				await game_camera.animation_player.animation_finished
+			chat_instructions.cutscene_fear()
+
+		else:
+			game_camera.view_oven()
+			await get_tree().create_timer(0.63).timeout
+
 		var tray: CSGBox3D = get_tree().get_first_node_in_group("tray")
 		var force_direction: Vector3 = ((tray.global_position + (Vector3.UP * 20)) - biscuit.global_position).normalized()
 		force_direction.z += randf_range(-0.05, 0.05)
@@ -285,49 +316,17 @@ func _on_roll_finished() -> void:
 		#var tween = biscuit.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		#tween.tween_property(biscuit,"global_position",tray.global_position,2).set_delay(2)
 
-	if score_progress.value / score_progress.max_value >= 0.33 and not cutscene_1:
-		cutscene_1 = true
-		print("Play cutscene 1")
-		if game_camera.looking_at != game_camera.Viewing.WITCH:
-			game_camera.view_witch()
-			await game_camera.animation_player.animation_finished
-		chat_instructions.cutscene_1()
-
-	if score_progress.value / score_progress.max_value >= 0.66 and not cutscene_2:
-		cutscene_2 = true
-		print("Play cutscene 2")
-		if game_camera.looking_at != game_camera.Viewing.WITCH:
-			game_camera.view_witch()
-			await game_camera.animation_player.animation_finished
-		chat_instructions.cutscene_2()
-
-	if fear_progress.value / fear_progress.max_value >= 0.5 and not cutscene_fear:
-		cutscene_fear = true
-		print("Play fear cutscene")
-		if game_camera.looking_at != game_camera.Viewing.WITCH:
-			game_camera.view_witch()
-			await game_camera.animation_player.animation_finished
-		chat_instructions.cutscene_fear()
-
 	#biscuit.queue_free()
 
 
 func new_round() -> void:
-	# Did player win?
-	if score >= max_score:
-		player_won = true
-		victory.emit()
-		return
-
-	# Is player dead?
-	if fear >= max_fear:
-		player_died = true
-		game_over.emit()
-		return
-
 	round += 1
 	biscuit_validator.reset()
 	print("START ROUND: %s" % str(round))
+
+	if game_camera.looking_at != game_camera.Viewing.TABLE:
+		game_camera.view_table()
+		await game_camera.animation_player.animation_finished
 
 	chat_message.show()
 	# base_selector.show()
@@ -345,6 +344,10 @@ func new_round() -> void:
 	biscuit_broke = false
 	chat_instructions.new_instructions()
 	round_started.emit()
+
+	await chat_instructions.instructions_done
+	if not base_selector.visible:
+		base_selector.show_bases()
 
 
 func invalid_biscuit() -> void:

@@ -97,10 +97,6 @@ func _physics_process(delta: float) -> void:
 
 		instructions_done.emit()
 
-		if playing_cutscene:
-			playing_cutscene = false
-			new_instructions()
-
 
 func new_instructions() -> void:
 	text = ""
@@ -190,7 +186,7 @@ func _on_game_over() -> void:
 
 func cutscene_1() -> void:
 	playing_cutscene = true
-	var quips = [
+	var quips: Array[String] = [
 		"Ah, a crumb of progress. Don't choke on it",
 		"You think a third of the way means you're clever? The oven laughs louder than you",
 		"Mmm… the scent of hope. Almost as sweet as burnt sugar",
@@ -205,7 +201,7 @@ func cutscene_1() -> void:
 
 func cutscene_2() -> void:
 	playing_cutscene = true
-	var quips = [
+	var quips: Array[String] = [
 		"No, no, no! You weren’t supposed to get this far",
 		"Half-burned and half-gone… I’ll scorch the rest of you",
 		"The dough squirms in your hands, but it was meant for me!",
@@ -221,7 +217,7 @@ func cutscene_2() -> void:
 
 func cutscene_fear() -> void:
 	playing_cutscene = true
-	var quips = [
+	var quips: Array[String] = [
 		"Half-broken already… how much longer until you crumble?",
 		"I can smell the fear baking off you… sweeter than sugar",
 		"Only halfway gone? I thought you'd break faster",
@@ -237,7 +233,7 @@ func cutscene_fear() -> void:
 
 func _on_victory() -> void:
 	playing_cutscene = true
-	var victory = [
+	var victory: Array[String] = [
 		"NO! The last crumb is MINE!",
 		"Run, but the oven's fire will follow you into the dark",
 		"Freedom? There is no freedom. Only hunger eternal!",
