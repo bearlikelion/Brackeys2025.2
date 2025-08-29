@@ -54,7 +54,7 @@ var dialogue_by_round: Dictionary = {
 	],
 	6: [ # Final madness
 		"All shapes blur together, fill them, top them, decorate them, they all taste the same",
-		"Square heart, a filling with C and a topping made from something sweet",
+		"Square heart, a filling with C, and a topping made from something sweet",
 		"Circle shape, leaking bone juice, that’s shivering cold",
 		"A person or star, filled with whatever, that’s burnt or has a crown",
 	]

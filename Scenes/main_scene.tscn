@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfqu7qvu0ivul"]
+[gd_scene load_steps=5 format=3 uid="uid://dfqu7qvu0ivul"]
 
 [ext_resource type="FontFile" uid="uid://mr2l1a4mfaft" path="res://Assets/Fonts/ZOMBIE.TTF" id="1_6l7je"]
 [ext_resource type="Texture2D" uid="uid://b6rdg4nwvygjv" path="res://Assets/Images/logo.png" id="1_52fb6"]
 [ext_resource type="Script" uid="uid://do6lsl4yq0osi" path="res://Scripts/main_scene.gd" id="1_jv6wh"]
+[ext_resource type="Texture2D" uid="uid://bg1lwixyrj58g" path="res://Assets/Images/cutscene_bg.jpg" id="2_x6ack"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_jv6wh")
@@ -15,49 +16,46 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="RichTextLabel" parent="Control"]
+[node name="TextureRect" type="TextureRect" parent="Control"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 97.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_x6ack")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="RichTextLabel" parent="Control/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
 text = "[shake rate=1.5]BAKE OR BREAK[/shake]
 "
+fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -350.0
-offset_top = -259.0
-offset_right = 350.0
-offset_bottom = 259.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
 texture = ExtResource("1_52fb6")
+expand_mode = 3
 
-[node name="StartButton" type="Button" parent="Control"]
+[node name="StartButton" type="Button" parent="Control/VBoxContainer"]
 custom_minimum_size = Vector2(350, 100)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -8.0
-offset_right = 4.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
 theme_override_fonts/font = ExtResource("1_6l7je")
 theme_override_font_sizes/font_size = 32
 text = "BAKE TO SURVIVE"
 
-[connection signal="pressed" from="Control/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
