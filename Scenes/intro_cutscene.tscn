@@ -1,0 +1,206 @@
+[gd_scene load_steps=19 format=3 uid="uid://cg5bs2fy0sh0"]
+
+[ext_resource type="Script" uid="uid://ctmqqv07qjp84" path="res://Scripts/intro_cutscene.gd" id="1_udjhp"]
+[ext_resource type="Shader" uid="uid://bw7fjsock0lut" path="res://Shaders/camcorder.gdshader" id="2_5ptd1"]
+[ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="2_7xvtf"]
+[ext_resource type="Texture2D" uid="uid://bg1lwixyrj58g" path="res://Assets/Images/cutscene_bg.jpg" id="2_do3jr"]
+[ext_resource type="Shader" uid="uid://byhpe7k6ik4n0" path="res://Shaders/wiggle_text.gdshader" id="3_qqj5d"]
+[ext_resource type="Shader" uid="uid://r27skblhwo44" path="res://Shaders/dark_vignette.gdshader" id="5_1mw3s"]
+[ext_resource type="Script" uid="uid://dc2l8bv5lwwxe" path="res://Scripts/dark_vignette.gd" id="6_acu4y"]
+[ext_resource type="Shader" uid="uid://d4gge76unbuh4" path="res://Shaders/vingette.gdshader" id="7_t1x57"]
+[ext_resource type="AudioStream" uid="uid://de5bua46361f8" path="res://Assets/Audio/SFX/360601__cabled_mess__typewriter-snippet-03.wav" id="9_qqj5d"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_726jo"]
+noise_type = 3
+frequency = 0.1436
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fmhe"]
+width = 1024
+height = 1204
+noise = SubResource("FastNoiseLite_726jo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pqicb"]
+shader = ExtResource("2_5ptd1")
+shader_parameter/color_bleed_enabled = true
+shader_parameter/chromatic_abberation_enabled = true
+shader_parameter/film_grain_enabled = true
+shader_parameter/sharpness_enabled = true
+shader_parameter/chromatic_abberation_seperation = 0.016
+shader_parameter/chromatic_abberation_intensity = 2.0
+shader_parameter/chromatic_abberation_blur_strength = 1.0
+shader_parameter/film_grain_noise = SubResource("NoiseTexture2D_2fmhe")
+shader_parameter/film_grain_intensity = 1.0
+shader_parameter/grain_size = 2.0
+shader_parameter/darkness_clamp = 0.28
+shader_parameter/sharpness_size = 2.0
+shader_parameter/sharpness_intensity = 0.7
+shader_parameter/color_bleed_seperation = 0.02
+shader_parameter/color_bleed_intensity = 0.2
+shader_parameter/anti_bleed_intensity = 1.8
+shader_parameter/color_bleed_blur_strength = 1.0
+shader_parameter/color_bleed_quality = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygb1w"]
+shader = ExtResource("3_qqj5d")
+shader_parameter/wiggleMult = 0.005
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hd1p2"]
+shader = ExtResource("5_1mw3s")
+shader_parameter/radius = 0.5
+shader_parameter/speed = 1.0
+shader_parameter/effect_color = Color(0.164736, 0.101794, 0.0158784, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dmj0s"]
+shader = ExtResource("7_t1x57")
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.42
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qn3m"]
+bg_color = Color(0, 0, 0, 0.784314)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.580392, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.490196)
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="Theme" id="Theme_5r7xd"]
+default_font = ExtResource("2_7xvtf")
+default_font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_2quxm"]
+font = ExtResource("2_7xvtf")
+font_size = 18
+font_color = Color(0.823529, 0.823529, 0.823529, 1)
+
+[node name="IntroCutscene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_udjhp")
+
+[node name="CamcorderShader" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="Camcorder" type="ColorRect" parent="CamcorderShader"]
+material = SubResource("ShaderMaterial_pqicb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WiggleText" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="WiggleText" type="ColorRect" parent="WiggleText"]
+material = SubResource("ShaderMaterial_ygb1w")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackgroundImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_do3jr")
+expand_mode = 3
+
+[node name="DarkVignette" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_hd1p2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_acu4y")
+
+[node name="Vignette" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_dmj0s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DialogueBox" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -225.0
+offset_right = 400.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8qn3m")
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_5r7xd")
+bbcode_enabled = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="ContinuePrompt" type="Label" parent="DialogueBox"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -35.0
+offset_right = -20.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Click to continue..."
+label_settings = SubResource("LabelSettings_2quxm")
+horizontal_alignment = 2
+
+[node name="TypingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_qqj5d")
+volume_db = -10.0

@@ -30,7 +30,7 @@ func _on_animation_finished(anim_name: String) -> void:
 
 
 func add_biscuit(base_name: String) -> void:
-	var new_biscuit = RigidBody3D
+	var new_biscuit: Biscuit
 
 	match base_name:
 		"Shortbread":

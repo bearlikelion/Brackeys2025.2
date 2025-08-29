@@ -41,8 +41,8 @@ func add_filling() -> void:
 	filling_added.emit()
 
 
-func add_topping(topping: String) -> void:
-	match topping:
+func add_topping(selected_topping: String) -> void:
+	match selected_topping:
 		"Sugar":
 			topping_material.set_shader_parameter("baseColor", Color.WHITE)
 		"Icing":

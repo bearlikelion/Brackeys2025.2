@@ -2,7 +2,6 @@ class_name ChatInstructions
 extends RichTextLabel
 
 signal instructions_done()
-signal message_complete()
 
 @export var timer_to_speak: float = 2.0
 
