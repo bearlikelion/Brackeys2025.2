@@ -5,6 +5,8 @@ signal instructions_done()
 
 @export var timer_to_speak: float = 2.0
 
+var playing_cutscene: bool = false
+
 # BASE: Shortbread, Heart, Round, Gingerbread, Square, Skull
 # FILLINGS: Jam, Cream, Custard, Marrrow
 # TOPPINGS: Sugar, Icing, Frosting, Caramel
@@ -22,7 +24,7 @@ var dialogue_by_round: Dictionary = {
 	2: [ # Filling + Topping
 		"Now, fill a shortbread with custard topped with sugar and decorated with anything",
 		"Create a creamy heart with royal icing decorated as you choose",
-		"Round biscuit filled with marrow and curse its topping decorated anyway",
+		"Round biscuit filled with marrow and curse its topping decorated any way",
 		"Fill a squared shape with jam and topped with burnt caramel with any decoration",
 		"A gingerbread stuffed with cream and glazed with sugar, decorated however you like",
 		"A skull of jam and cursed frosting with any decoration",
@@ -88,10 +90,15 @@ func _physics_process(delta: float) -> void:
 	elif not instructions_finished:
 		instructions_finished = true
 
-		if game_manager.biscuit_broke or not game_manager.valid_biscuit or game_manager.player_died:
+		if game_manager.biscuit_broke or not game_manager.valid_biscuit or \
+		 game_manager.player_died or playing_cutscene:
 			await get_tree().create_timer(2.0).timeout
 
 		instructions_done.emit()
+
+		if playing_cutscene:
+			playing_cutscene = false
+			new_instructions()
 
 
 func new_instructions() -> void:
@@ -178,3 +185,18 @@ func _on_game_over() -> void:
 	await game_manager.game_camera.animation_player.animation_finished
 
 	say_message("GAME OVER, GOOD DAY, YOU DIED")
+
+
+func cutscene_1() -> void:
+	playing_cutscene = true
+	var quips = [
+		"Ah, a crumb of progress. Don't choke on it.",
+		"You think a third of the way means you're clever? The oven laughs louder than you.",
+		"Mmm… the scent of hope. Almost as sweet as burnt sugar.",
+		"One step closer, but you still belong to my kitchen.",
+		"Even the weakest dough rises eventually…",
+		"A third free? That's like half-baked bread. Useless.",
+		"Careful. Freedom smells delicious, but it's poison if undercooked.",
+	]
+
+	say_message(quips.pick_random())

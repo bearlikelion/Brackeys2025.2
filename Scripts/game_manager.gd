@@ -38,6 +38,10 @@ var decoration: String
 
 var filling_score: int = 0
 
+var cutscene_1: bool = false
+var cutscene_2: bool = false
+var cutscene_fear: bool = false
+
 @onready var dice_scorer: DiceScorer = $DiceScorer
 @onready var biscuit_validator: Node = $BiscuitValidator
 @onready var dice_well: DiceWell = $OvenScene/DiceWell
@@ -85,8 +89,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("roll_new"):
-		base_selector.show_bases()
+	if Engine.is_editor_hint():
+		if event.is_action_pressed("roll_new"):
+			base_selector.show_bases()
 
 
 func _on_roll_result(dice_face: int, dice_type: String, dice_name: String, dice_position: Vector3) -> void:
@@ -141,6 +146,9 @@ func _on_instructions_done() -> void:
 	elif player_died:
 		get_tree().change_scene_to_file("res://Scenes/main_scene.tscn")
 	else:
+		if game_camera.looking_at != game_camera.Viewing.TABLE:
+			game_camera.view_table()
+			await game_camera.animation_player.animation_finished
 		base_selector.show_bases()
 
 
@@ -261,6 +269,20 @@ func _on_roll_finished() -> void:
 		#var tween = biscuit.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		#tween.tween_property(biscuit,"global_position",tray.global_position,2).set_delay(2)
 
+	if score_progress.value / score_progress.max_value >= 0.33 and not cutscene_1:
+		cutscene_1 = true
+		print("Play cutscene 1")
+		game_camera.view_witch()
+		await game_camera.animation_player.animation_finished
+		chat_instructions.cutscene_1()
+
+	if score_progress.value / score_progress.max_value >= 0.66 and not cutscene_2:
+		cutscene_2 = true
+		print("Play cutscene 2")
+
+	if fear_progress.value / fear_progress.max_value >= 0.5 and not cutscene_fear:
+		cutscene_fear = true
+		print("Play fear cutscene")
 
 	#biscuit.queue_free()
 
@@ -281,10 +303,6 @@ func new_round() -> void:
 	round += 1
 	biscuit_validator.reset()
 	print("START ROUND: %s" % str(round))
-
-	if game_camera.looking_at != game_camera.Viewing.TABLE:
-		game_camera.view_table()
-		await game_camera.animation_player.animation_finished
 
 	chat_message.show()
 	# base_selector.show()

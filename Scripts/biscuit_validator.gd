@@ -1,6 +1,8 @@
 class_name BiscuitValidator
 extends Node
 
+@export var any_biscuit: bool = false
+
 var rq_type: Array
 var rq_filling: Array
 var rq_topping: Array
@@ -23,6 +25,9 @@ func reset() -> void:
 func is_biscuit_valid(_type: String, _filling: String, _topping: String, _decoration: String) -> bool:
 	print("Submitted Biscuit: TYPE %s FILLING %s TOPPING %s DECORATION %s" % [_type, _filling, _topping, _decoration])
 	print("RQ Validation: TYPE %s FILLING %s TOPPING %s DECORATION %s" % [rq_type, rq_filling, rq_topping, rq_decoration])
+
+	if any_biscuit:
+		return true
 
 	if _type not in rq_type:
 		return false
@@ -223,7 +228,7 @@ func round_six_rules(index: int) -> void:
 			rq_topping = ["Caramel", "Sugar", "Icing", "Frosting"]
 		2:
 			rq_type = ["Round", "Skull"]
-			rq_filling.append("Marrow")
+			rq_filling = ["Cream", "Marrow"]
 			rq_topping = ["Icing", "Frosting"]
 		3:
 			rq_type = ["Gingerbread", "Shortbread"]
