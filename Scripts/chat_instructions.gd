@@ -75,6 +75,7 @@ func _ready() -> void:
 	game_manager.biscuit_broken.connect(_on_biscuit_broken)
 	game_manager.biscuit_invalid.connect(_on_biscuit_invalid)
 	game_manager.game_over.connect(_on_game_over)
+	game_manager.victory.connect(_on_victory)
 
 
 func _physics_process(delta: float) -> void:
@@ -142,17 +143,17 @@ func _on_biscuit_broken() -> void:
 		"How dare you break my biscuit!",
 		"I thought I told you no cracks!",
 		"Breaking before baking?!?",
-		"Pathetic. Even dough is stronger than you.",
+		"Pathetic. Even dough is stronger than you",
 		"Do you think shattered crumbs will satisfy me?",
-		"The biscuit broke… perhaps your bones will hold better.",
-		"Every failure is a crack in YOUR skin, not the dough.",
-		"The heat is wasted… the hunger grows.",
+		"The biscuit broke… perhaps your bones will hold better",
+		"Every failure is a crack in YOUR skin, not the dough",
+		"The heat is wasted… the hunger grows",
 		"Did you drop it on purpose? Are you begging for punishment?",
-		"You disappoint the recipe… and me.",
-		"The tray weeps with your weakness.",
-		"Another broken batch? The oven whispers your name.",
-		"Flawed. Fragile. Foolish. Like you.",
-		"The biscuit crumbled… next, your will shall too."
+		"You disappoint the recipe… and me",
+		"The tray weeps with your weakness",
+		"Another broken batch? The oven whispers your name",
+		"Flawed. Fragile. Foolish. Like you",
+		"The biscuit crumbled… next, your will shall too"
 	]
 
 	say_message(broken_messages.pick_random())
@@ -162,19 +163,19 @@ func _on_biscuit_invalid() -> void:
 	await game_manager.game_camera.animation_player.animation_finished
 
 	var invalid_message: Array[String] = [
-		"That's not what I told you to make.",
+		"That's not what I told you to make",
 		"Can you not follow simple instructions?!",
 		"What did you think I asked for?",
-		"Follow my directions… or die.",
+		"Follow my directions… or die",
 		"You did not listen to meeeeeeee!",
-		"The oven hungers… it will taste you if you disobey again.",
+		"The oven hungers… it will taste you if you disobey again",
 		"Wrong. Wrong! Wrong! I gave you the recipe, and you spat on it!",
 		"Are you deaf, or just deliciously stupid?",
-		"What did you think I asked for, not… whatever THIS is.",
-		"Every mistake is another step closer to the oven.",
-		"Not what I asked for. Not what I wanted. Not what I’ll forgive.",
-		"The recipe rejects your defiance.",
-		"Defy me again, and I’ll frost your corpse instead."
+		"What did you think I asked for, not… whatever THIS is",
+		"Every mistake is another step closer to the oven",
+		"Not what I asked for. Not what I wanted. Not what I’ll forgive",
+		"The recipe rejects your defiance",
+		"Defy me again, and I’ll frost your corpse instead"
 	]
 
 	say_message(invalid_message.pick_random())
@@ -190,13 +191,58 @@ func _on_game_over() -> void:
 func cutscene_1() -> void:
 	playing_cutscene = true
 	var quips = [
-		"Ah, a crumb of progress. Don't choke on it.",
-		"You think a third of the way means you're clever? The oven laughs louder than you.",
-		"Mmm… the scent of hope. Almost as sweet as burnt sugar.",
-		"One step closer, but you still belong to my kitchen.",
+		"Ah, a crumb of progress. Don't choke on it",
+		"You think a third of the way means you're clever? The oven laughs louder than you",
+		"Mmm… the scent of hope. Almost as sweet as burnt sugar",
+		"One step closer, but you still belong to my kitchen",
 		"Even the weakest dough rises eventually…",
-		"A third free? That's like half-baked bread. Useless.",
-		"Careful. Freedom smells delicious, but it's poison if undercooked.",
+		"A third free? That's like half-baked bread. Useless",
+		"Careful. Freedom smells delicious, but it's poison if undercooked",
 	]
 
 	say_message(quips.pick_random())
+
+
+func cutscene_2() -> void:
+	playing_cutscene = true
+	var quips = [
+		"No, no, no! You weren’t supposed to get this far",
+		"Half-burned and half-gone… I’ll scorch the rest of you",
+		"The dough squirms in your hands, but it was meant for me!",
+		"Two-thirds free? Then two-thirds of you must die",
+		"The oven grows restless. It wants more than biscuits now…",
+		"You will never taste freedom. Only ash",
+		"Why won’t you break like the others did?",
+		"Careful, little baker. Every step forward costs you flesh",
+	]
+
+	say_message(quips.pick_random())
+
+
+func cutscene_fear() -> void:
+	playing_cutscene = true
+	var quips = [
+		"Half-broken already… how much longer until you crumble?",
+		"I can smell the fear baking off you… sweeter than sugar",
+		"Only halfway gone? I thought you'd break faster",
+		"The oven doesn't just cook biscuits, it roasts your soul",
+		"Your hands shake like dough that refuses to rise",
+		"Every mistake feeds me, and you're starting to look delicious",
+		"You're halfway done… not with the biscuits, with yourself",
+		"Keep trembling, little baker. It seasons the marrow nicely",
+	]
+
+	say_message(quips.pick_random())
+
+
+func _on_victory() -> void:
+	playing_cutscene = true
+	var victory = [
+		"NO! The last crumb is MINE!",
+		"Run, but the oven's fire will follow you into the dark",
+		"Freedom? There is no freedom. Only hunger eternal!",
+		"The kitchen collapses, the recipe burns, and still you run! COWARD!",
+		"Leave, then. But you'll always taste of me",
+	]
+
+	say_message(victory.pick_random())
