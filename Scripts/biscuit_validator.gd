@@ -77,66 +77,78 @@ func round_one_rules(index: int) -> void:
 			rq_type.append("Round")
 			rq_filling.append("Custard")
 		3:
-			rq_type.append("Square")
+			rq_type.append("Gingerbread")
 			rq_filling.append("Marrow")
 		4:
-			rq_type.append("Gingerbread")
+			rq_type.append("Square")
 			rq_filling.append("Jam")
 		5:
 			rq_type.append("Skull")
-			rq_filling.append("Cream")
+			rq_filling.append("Marrow")
 
 
-# Toppings only
+# Fillings + Toppings
 func round_two_rules(index: int) -> void:
 	match index:
 		0:
 			rq_type.append("Shortbread")
+			rq_filling.append("Custard")
 			rq_topping.append("Sugar")
 		1:
 			rq_type.append("Heart")
+			rq_filling.append("Cream")
 			rq_topping.append("Icing")
 		2:
 			rq_type.append("Round")
+			rq_filling.append("Marrow")
 			rq_topping.append("Frosting")
 		3:
 			rq_type.append("Square")
+			rq_type.append("Jam")
 			rq_topping.append("Caramel")
 		4:
 			rq_type.append("Gingerbread")
+			rq_type.append("Cream")
 			rq_topping.append("Sugar")
 		5:
 			rq_type.append("Skull")
+			rq_type.append("Jam")
 			rq_topping.append("Frosting")
 
 
-# Filling + Topping
+# Filling + Topping + Decoration
 func round_three_rules(index: int) -> void:
 	match index:
 		0:
-			rq_type.append("Round")
+			rq_type.append("Shortbread")
 			rq_filling.append("Cream")
 			rq_topping.append("Sugar")
+			rq_decoration.append("Sprinkles")
 		1:
 			rq_type.append("Heart")
-			rq_filling.append("Jam")
-			rq_topping.append("Icing")
-		2:
-			rq_type.append("Square")
 			rq_filling.append("Custard")
-			rq_topping.append("Caramel")
-		3:
-			rq_type.append("Shortbread")
+			rq_topping.append("Icing")
+			rq_decoration.append("Sprinkles")
+		2:
+			rq_type.append("Round")
 			rq_filling.append("Marrow")
 			rq_topping.append("Frosting")
-		4:
-			rq_type.append("Gingerbread")
-			rq_filling.append("Custard")
-			rq_topping.append("Icing")
-		5:
-			rq_type.append("Skull")
+			rq_decoration.append("Runes")
+		3:
+			rq_type.append("Square")
 			rq_filling.append("Jam")
 			rq_topping.append("Caramel")
+			rq_decoration.append("Tongue")
+		4:
+			rq_type.append("Gingerbread")
+			rq_filling.append("Cream")
+			rq_topping.append("Sugar")
+			rq_decoration.append("Eyes")
+		5:
+			rq_type.append("Skull")
+			rq_filling.append("Custard")
+			rq_topping.append("Frosting")
+			rq_decoration.append("Eyes")
 
 
 # Filling + Topping + Decoration
@@ -144,34 +156,28 @@ func round_four_rules(index: int) -> void:
 	match index:
 		0:
 			rq_type.append("Round")
-			rq_filling.append("Jam")
-			rq_topping.append("Sugar")
-			rq_decoration.append("Sprinkles")
+			rq_filling = ["Jam", "Cream"]
+			rq_topping = ["Sugar", "Caramel"]
 		1:
-			rq_type.append("Heart")
-			rq_filling.append("Cream")
-			rq_topping.append("Icing")
-			rq_decoration.append("Runes")
-		2:
 			rq_type.append("Shortbread")
-			rq_filling.append("Custard")
-			rq_topping.append("Frosting")
-			rq_decoration.append("Eyes")
+			rq_filling = ["Custard", "Marrow"]
+			rq_topping = ["Icing", "Caramel"]
+		2:
+			rq_type.append("Heart")
+			rq_filling = ["Jam", "Cream"]
+			rq_topping = ["Frosting", "Sugar"]
 		3:
-			rq_type.append("Square")
-			rq_filling.append("Marrow")
-			rq_topping.append("Caramel")
-			rq_decoration.append("Tongue")
-		4:
 			rq_type.append("Gingerbread")
-			rq_filling.append("Jam")
-			rq_topping.append("Sugar")
-			rq_decoration.append("Sprinkles")
+			rq_filling = ["Marrow", "Custard"]
+			rq_topping = ["Sugar", "Caramel"]
+		4:
+			rq_type.append("Square")
+			rq_filling = ["Jam", "Cream"]
+			rq_topping = ["Icing", "Frosting"]
 		5:
 			rq_type.append("Skull")
-			rq_filling.append("Cream")
-			rq_topping.append("Caramel")
-			rq_decoration.append("Eyes")
+			rq_filling = ["Jam", "Marrow"]
+			rq_topping = ["Sugar", "Caramel"]
 
 
 # Riddles
@@ -179,34 +185,29 @@ func round_five_rules(index: int) -> void:
 	match index:
 		0:
 			rq_type = ["Round", "Shortbread"]
-			rq_filling.append("Jam")
-			rq_topping = ["Sugar", "Icing"]
+			rq_filling = ["Jam", "Cream"]
+			rq_topping = ["Sugar", "Caramel"]
 			rq_decoration.append("Eyes")
 		1:
-			rq_type.append("Heart")
-			rq_filling = ["Custard", "Marrow"]
-			rq_topping = ["Icing", "Sugar"]
+			rq_type = ["Heart", "Skull"]
+			rq_filling.append("Marrow")
+			rq_topping = ["Frosting", "Caramel"]
 			rq_decoration.append("Runes")
 		2:
 			rq_type.append("Square")
-			rq_filling = ["Custard", "Jam"]
-			rq_topping = ["Icing", "Caramel"]
+			rq_filling = ["Custard", "Cream"]
+			rq_topping = ["Icing", "Frosting"]
 			rq_decoration.append("Tongue")
 		3:
-			rq_type.append("Shortbread")
-			rq_filling.append("Cream")
+			rq_type = ["Gingerbread", "Skull"]
+			rq_filling.append("Jam")
 			rq_topping = ["Sugar", "Icing"]
 			rq_decoration.append("Eyes")
 		4:
-			rq_type.append("Gingerbread")
+			rq_type = ["Round", "Square"]
 			rq_filling = ["Jam", "Marrow"]
-			rq_topping = ["Caramel", "Frosting"]
-			rq_decoration.append("Tongue")
-		5:
-			rq_type.append("Skull")
-			rq_filling = ["Marrow", "Custard"]
-			rq_topping.append("Frosting")
-			rq_decoration.append("Runes")
+			rq_topping = ["Caramel", "Frosting", "Icing", "Sugar"]
+			rq_decoration.append("Sprinkles")
 
 
 # Unraveling
@@ -214,31 +215,17 @@ func round_six_rules(index: int) -> void:
 	match index:
 		0:
 			rq_type = ["Shortbread", "Heart", "Square", "Round", "Gingerbread", "Skull"]
-			rq_filling = ["Jam", "Marrow"]
-			rq_topping = ["Frosting", "Caramel"]
-			rq_decoration = ["Etched Runes", "Sprinkles"]
+			rq_filling = ["Jam", "Marrow", "Cream", "Custard"]
+			rq_topping = ["Frosting", "Caramel", "Sugar", "Icing"]
 		1:
-			rq_type = ["Heart", "Round"]
-			rq_filling.append("Custard")
-			rq_topping.append("Caramel")
-			rq_decoration.append("Eyes")
+			rq_type = ["Square", "Heart"]
+			rq_filling = ["Custard", "Cream"]
+			rq_topping = ["Caramel", "Sugar", "Icing", "Frosting"]
 		2:
-			rq_type = ["Round", "Shortbread"]
+			rq_type = ["Round", "Skull"]
 			rq_filling.append("Marrow")
-			rq_topping.append("Frosting")
-			rq_decoration.append("Runes")
+			rq_topping = ["Icing", "Frosting"]
 		3:
-			rq_type.append("Square")
-			rq_filling = ["Cream", "Jam"]
-			rq_topping = ["Sugar", "Icing"]
-			rq_decoration.append("Tongue")
-		4:
-			rq_type.append("Gingerbread")
-			rq_filling = ["Cream", "Custard"]
-			rq_topping.append("Icing")
-			rq_decoration.append("Sprinkles")
-		5:
-			rq_type.append("Skull")
-			rq_filling = ["Marrow", "Custard"]
-			rq_topping.append("Caramel")
-			rq_decoration.append("Eyes")
+			rq_type = ["Gingerbread", "Shortbread"]
+			rq_filling = ["Marrow", "Custard", "Cream", "Jam"]
+			rq_topping = ["Caramel", "Icing"]

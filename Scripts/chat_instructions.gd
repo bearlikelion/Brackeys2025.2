@@ -5,54 +5,56 @@ signal instructions_done()
 
 @export var timer_to_speak: float = 2.0
 
+# BASE: Shortbread, Heart, Round, Gingerbread, Square, Skull
+# FILLINGS: Jam, Cream, Custard, Marrrow
+# TOPPINGS: Sugar, Icing, Frosting, Caramel
+# DECORATIONS: Sprinkles, Tongue, Runes, Eyes
+
 var dialogue_by_round: Dictionary = {
-	1: [ # Fillings only
-		"Make it simple: a shortbread with jam inside",
-		"Bake me a heart, filled with cream, soft and sweet",
-		"A round biscuit with custard at its core",
-		"Square and steady, but hide marrow within",
-		"Gingerbread person, give them a jam heart",
-		"Skull biscuits, cracked open and leaking cream"
+	1: [ # Filling only
+		"Something simple, a shortbread filled with jam",
+		"Bake me a heart, filled with cream",
+		"Cut a round biscuit with a custard core",
+		"Make a gingerbread person that has bones filled with marrow",
+		"Craft a perfect square, covered with jam",
+		"A skull overflowing with marrow",
 	],
-	2: [ # Toppings only
-		"Now, coat a shortbread in sugar glaze",
-		"A heart with neat royal icing, to please me",
-		"Round biscuit dripping with cursed frosting",
-		"Square with burnt caramel, bitter and sharp",
-		"Gingerbread person glazed over in sugar",
-		"Skull glazed in black frosting, veins spreading"
+	2: [ # Filling + Topping
+		"Now, fill a shortbread with custard topped with sugar",
+		"Create a creamy heart with royal icing",
+		"Round a biscuit filled with marrow and curse its topping",
+		"Fill a squared shape with jam and topped with burnt caramel",
+		"A gingerbread stuffed with cream and glazed with sugar",
+		"A skull of jam and cursed frosting",
 	],
-	3: [ # Filling + Topping
-		"Round with cream inside and sugar glaze above",
-		"A heart filled with jam, royal icing to finish",
-		"Square packed with custard, sealed by burnt caramel",
-		"Shortbread with marrow hidden, topped with cursed frosting",
-		"Gingerbread stuffed with custard, icing across their limbs",
-		"A skull with jam filling and caramel dripping through the cracks"
+	3: [ # Filling + Topping + Decoration
+		"A shortbread with cream, sugar, and sprinkles",
+		"A heart filled with custard, iced, with sprinkles",
+		"Round marrow, frosted in curses, etched with runes",
+		"A square of jam, burnt with caramel, and a tongue to taste",
+		"Gingerbread with cream, sugar glaze, and watching eyes",
+		"Skull with custard, cursed frosting, and eyes that stare",
 	],
-	4: [ # Filling + Topping + Decoration
-		"Round with jam, sugar glaze, and sprinkles on top",
-		"A heart with cream, royal icing, and runes etched deep",
-		"Shortbread hiding custard, cursed frosting above, eyes staring back",
-		"Square biscuit with marrow inside, burnt caramel, and a tongue laid across",
-		"Gingerbread with jam, sugar glaze, and sprinkles to hide the cracks",
-		"Skull biscuit stuffed with cream, caramel glaze, and eyes in its sockets"
+	4: [ # 2 Filling / 2 Topping
+		"Make it round, with cream or jam, sugar or caramel",
+		"A shortbread packed with custard or marrow, topped with icing or caramel",
+		"Heart that bleeds with jam or cream, cursed frosting or sugar glaze",
+		"Gingerbread stuffed with marrow or custard, sugar or caramel on top",
+		"Square with cream or jam, iced or cursed",
+		"Skull of marrow or jam, dropped with caramel or sugar",
 	],
-	5: [ # Witch speaks in riddles, twisted logic required
-		"Round or short, filled with red that drips like truth, crown it sweet, and let it see.",
-		"A vessel of love, yet rotten inside, dress it bright, but mark it with secrets.",
-		"Four corners, yet no escape, soft within, gilded above, with a mouth to taste your lies.",
-		"Short and plain, creamy but never alone, let its glaze blind, and its eyes accuse.",
-		"Shaped like a man, but hollow of soul, let its insides bleed, its surface burn, and its tongue speak.",
-		"A grinning face, marrow for thought, frost it cursed, etch it deep, and let it whisper back.",
+	5: [ # 2 Filling / 2 Topping / 1 Decoration
+		"Round or Short, bleeding with jam or cream, dripping with sugar or caramel, that watches with eyes",
+		"Any bodypart, with marrow that’s cursed or burnt, with runes across its surface",
+		"4 corners, a filling that starts with C, frosted or iced, that can taste",
+		"A person or skull, jam filled, royal or glazed, that blinks",
+		"Round or Square, make it with marrow or jam, anything sweet, sprinkled with treats",
 	],
-	6: [ # Final madness - the Witch unravels
-		"All biscuits are one… their shells lie, their fillings scream. Frost them. Mark them. Feed me.",
-		"Love is rot in sugar’s guise, choose a shape that once meant heart, and drown it in pale custard, fire, and watching eyes.",
-		"A circle? A hole? A mouth that feeds itself, fill it with marrow, curse its skin, let the runes speak backwards.",
-		"Four walls, no escape, sweet blood inside, glazed with lies, and a tongue that tastes your fear.",
-		"He once danced… now he crumbles, cream in his belly, royal crown upon his head, and ash-like sprinkles as snow.",
-		"Skull or chalice? I forget, stuff it with thought, let caramel weep, and eyes stare where no one looks.",
+	6: [ # Final madness
+		"All shapes blur together, fill them, frost them, decorate them, they all taste the same",
+		"Square heart, a filling with C, and a topping made from something sweet",
+		"Circle shape, leaking bone juice, that’s shivering cold",
+		"A person or star, filled with whatever, that’s burnt or has a crown",
 	]
 }
 
