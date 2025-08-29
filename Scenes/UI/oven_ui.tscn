@@ -518,7 +518,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Frosting/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Low Roll for High Points"
+text = "Roll Low for High Points"
 horizontal_alignment = 1
 
 [node name="Caramel" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
@@ -612,7 +612,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Tongue/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Reduces fear or adds extra"
+text = "Reduces fear"
 horizontal_alignment = 1
 
 [node name="Runes" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]

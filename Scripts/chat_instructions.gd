@@ -20,12 +20,12 @@ var dialogue_by_round: Dictionary = {
 		"A skull overflowing with marrow",
 	],
 	2: [ # Filling + Topping
-		"Now, fill a shortbread with custard topped with sugar",
-		"Create a creamy heart with royal icing",
-		"Round biscuit filled with marrow and curse its topping",
-		"Fill a squared shape with jam and topped with burnt caramel",
-		"A gingerbread stuffed with cream and glazed with sugar",
-		"A skull of jam and cursed frosting",
+		"Now, fill a shortbread with custard topped with sugar and decorated with anything",
+		"Create a creamy heart with royal icing decorated as you choose",
+		"Round biscuit filled with marrow and curse its topping decorated anyway",
+		"Fill a squared shape with jam and topped with burnt caramel with any decoration",
+		"A gingerbread stuffed with cream and glazed with sugar, decorated however you like",
+		"A skull of jam and cursed frosting with any decoration",
 	],
 	3: [ # Filling + Topping + Decoration
 		"A shortbread with cream, sugar, and sprinkles",
@@ -52,7 +52,7 @@ var dialogue_by_round: Dictionary = {
 	],
 	6: [ # Final madness
 		"All shapes blur together, fill them, top them, decorate them, they all taste the same",
-		"Square heart, a filling with C, and a topping made from something sweet",
+		"Square heart, a filling with C and a topping made from something sweet",
 		"Circle shape, leaking bone juice, that’s shivering cold",
 		"A person or star, filled with whatever, that’s burnt or has a crown",
 	]
@@ -99,7 +99,7 @@ func new_instructions() -> void:
 
 	var _round: int = game_manager.round
 	if _round >= 7:
-		_round = randi_range(1, 6)
+		_round = randi_range(2, 6)
 	if _round == 0: # HACK I AM TOO TIRED TO CARE
 		_round = 1
 

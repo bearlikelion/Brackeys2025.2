@@ -12,6 +12,7 @@ var topping_material: ShaderMaterial
 var dissolve_value: float = 1.5
 
 @onready var topping: Node3D = $Topping
+@onready var oven_tray: CSGBox3D = get_tree().get_first_node_in_group("tray")
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("GameManager")
 
 func _ready() -> void:
@@ -58,6 +59,6 @@ func add_topping(selected_topping: String) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("tray") or body.get_parent().is_in_group("tray"):
-		reparent.call_deferred(body)
-	if body is D6 :
+		reparent.call_deferred(oven_tray)
+	if body is D6:
 		body.apply_central_force((body.global_position-global_position).normalized()*50)

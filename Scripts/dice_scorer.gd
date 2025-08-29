@@ -43,9 +43,9 @@ func spawn_floating_number(amount: int, is_fear: bool = false) -> void:
 	# Get target position (score or fear label)
 	var target_control: Control
 	if is_fear:
-		target_control = game_manager.fear_label
+		target_control = game_manager.fear_progress
 	else:
-		target_control = game_manager.score_label
+		target_control = game_manager.score_progress
 
 	if not target_control:
 		return
@@ -201,8 +201,10 @@ func score_gingerbread(dice_face: int) -> void:
 	match dice_face:
 		1:
 			game_manager.add_fear(1)
+			game_manager.add_score(-1)
 		2:
 			game_manager.add_fear(2)
+			game_manager.add_score(-2)
 		3:
 			game_manager.add_score(1)
 		4:
@@ -210,7 +212,7 @@ func score_gingerbread(dice_face: int) -> void:
 		5:
 			game_manager.add_score(3)
 		6:
-			game_manager.add_score(8)
+			game_manager.add_score(4)
 
 
 func score_skull(dice_face: int) -> void:
@@ -268,13 +270,23 @@ func score_cream_filling(dice_face: int) -> void:
 			game_manager.add_score(4)
 
 
-# Success, doubles entire biscuit score, one failure it collapses
+# Success, double score, one failure it breaks
 func score_custard_filling(dice_face: int) -> void:
 	match dice_face:
+		1:
+			game_manager.add_fear(1)
+			game_manager.add_score(-1)
+		2:
+			game_manager.add_fear(1)
+			game_manager.add_score(-2)
+		3:
+			game_manager.add_score(2)
+		4:
+			game_manager.add_score(4)
 		5:
-			game_manager.double_biscuit()
+			game_manager.add_score(8)
 		6:
-			game_manager.double_biscuit()
+			game_manager.add_score(16)
 
 
 # Success: -Fear | Failure: +2 Fear
@@ -369,17 +381,21 @@ func score_sprinkles_decoration() -> void:
 	game_manager.add_score(success_die)
 
 
-# Success: +Reduce Fear | Fail: -Bonus Fear
+# -Fear
 func score_tongue_decoration(dice_face: int) -> void:
 	match dice_face:
 		1:
-			game_manager.add_fear(2)
+			game_manager.add_fear(-1)
 		2:
-			game_manager.add_fear(4)
-		5:
 			game_manager.add_fear(-2)
-		6:
+		3:
+			game_manager.add_fear(-3)
+		4:
 			game_manager.add_fear(-4)
+		5:
+			game_manager.add_fear(-5)
+		6:
+			game_manager.add_fear(-6)
 
 
 # Reroll one failed die TODO

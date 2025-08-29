@@ -89,7 +89,7 @@ func _process_typing(delta: float) -> void:
 			text_label.text += char_to_add
 
 			if typing_sound and randf() > 0.7:
-				typing_sound.pitch_scale += randf_range(-0.1, 0.1)
+				typing_sound.pitch_scale -= 0.01
 				typing_sound.play()
 
 			current_char += 1

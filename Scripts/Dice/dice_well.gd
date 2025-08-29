@@ -147,15 +147,15 @@ func score_dice() -> void:
 	await get_tree().create_timer(1.5).timeout
 
 	# First check if any dice will cause the biscuit to break
-	var will_break: bool = check_for_breaking_dice()
+	# var will_break: bool = check_for_breaking_dice()
 
 	# If biscuit will break, trigger it immediately before scoring
-	if will_break:
-		game_manager.biscuit_broke = true
-		game_manager.biscuit_broken.emit()
-		# Add fear based on dice count but don't score anything
-		game_manager.add_fear(game_manager.dice_to_roll)
-		print("BISCUIT BROKEN! No scoring this round.")
+	#if will_break:
+		#game_manager.biscuit_broke = true
+		#game_manager.biscuit_broken.emit()
+		## Add fear based on dice count but don't score anything
+		#game_manager.add_fear(game_manager.dice_to_roll)
+		#print("BISCUIT BROKEN! No scoring this round.")
 
 	# Score each die with a small delay between each (scores will be 0 if broken)
 	for i in range(rolled_results.size()):

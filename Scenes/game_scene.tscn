@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dn84qu6x3gkeb"]
+[gd_scene load_steps=33 format=3 uid="uid://dn84qu6x3gkeb"]
 
 [ext_resource type="Script" uid="uid://b0g7xyfnao3ev" path="res://Scripts/game_manager.gd" id="1_6h5vk"]
 [ext_resource type="Script" uid="uid://c70ich6p4r7cl" path="res://Scripts/dice_scorer.gd" id="2_a7fet"]
@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://bvnwrmfwdm0st" path="res://Scenes/UI/oven_ui.tscn" id="15_gtbs0"]
 [ext_resource type="Script" uid="uid://exsjg1lx4l31" path="res://Scripts/break_biscuit_sound.gd" id="16_a7fet"]
 [ext_resource type="PackedScene" uid="uid://b614yacjdob64" path="res://Scenes/oven_scene.tscn" id="17_8m72m"]
+[ext_resource type="AudioStream" uid="uid://b25yvck1hfkih" path="res://Assets/Audio/SFX/253779__reitanna__grudge-sound5.ogg" id="18_gtbs0"]
+[ext_resource type="AudioStream" uid="uid://biw35bsp4myft" path="res://Assets/Audio/SFX/676401__cjspellsfish__score-1.ogg" id="19_np3vi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ldntv"]
 shader = ExtResource("3_wywco")
@@ -36,6 +38,30 @@ shader = ExtResource("5_2fmhe")
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.42
 shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m72m"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 1, 0, 0.4)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gtbs0"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.498039, 0, 1, 0.4)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7iton"]
 bg_color = Color(0, 0, 0, 1)
@@ -152,17 +178,30 @@ layout_mode = 2
 [node name="BuscuitBar" type="HBoxContainer" parent="UI/TopBars/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScoreLabel" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
-unique_name_in_owner = true
+[node name="Score" type="HBoxContainer" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar/Score"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
 theme_override_font_sizes/font_size = 30
-text = "SCORE: 0"
+text = "FREEDOM: "
 horizontal_alignment = 1
 
+[node name="ScoreProgress" type="ProgressBar" parent="UI/TopBars/VBoxContainer/BuscuitBar/Score"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_8m72m")
+max_value = 150.0
+
 [node name="BuscuitsLabel" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -181,15 +220,27 @@ theme_override_font_sizes/font_size = 30
 text = "DICE TO ROLL: 0"
 horizontal_alignment = 1
 
-[node name="FearLabel" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
+[node name="Fear" type="HBoxContainer" parent="UI/TopBars/VBoxContainer/BuscuitBar"]
+layout_mode = 2
+
+[node name="FearLabel" type="Label" parent="UI/TopBars/VBoxContainer/BuscuitBar/Fear"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_fiftr")
 theme_override_font_sizes/font_size = 30
-text = "FEAR: 0"
+text = "FEAR: "
 horizontal_alignment = 1
+
+[node name="FearProgress" type="ProgressBar" parent="UI/TopBars/VBoxContainer/BuscuitBar/Fear"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_gtbs0")
+max_value = 50.0
 
 [node name="TopBar" type="HBoxContainer" parent="UI/TopBars/VBoxContainer"]
 visible = false
@@ -224,12 +275,6 @@ theme_override_fonts/font = ExtResource("2_fiftr")
 theme_override_font_sizes/font_size = 30
 text = "TOPPINGS: NONE"
 horizontal_alignment = 1
-
-[node name="MutatorsBar" type="VBoxContainer" parent="UI/TopBars/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
 
 [node name="ChatMessage" type="MarginContainer" parent="UI"]
 unique_name_in_owner = true
@@ -321,9 +366,6 @@ autoplay = true
 [node name="DirectionalLight3D" parent="OvenScene/Environment" index="1"]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 4.63157, 2.50329, 0)
 
-[node name="OvenDoor" parent="OvenScene/Oven" index="1"]
-transform = Transform3D(-3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0, 1, 0.34759, 1.00667, 0)
-
 [node name="GameCamera" parent="OvenScene" index="2"]
 transform = Transform3D(-3.65107e-06, -0.939692, 0.34202, 1.13134e-08, 0.34202, 0.939692, -1, 3.43475e-06, -1.23811e-06, 3.8, 2, 0)
 
@@ -358,6 +400,16 @@ omni_range = 4.39322
 
 [node name="BreakBiscuitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_a7fet")
+volume_db = -15.0
+script = ExtResource("16_a7fet")
+
+[node name="FearSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_gtbs0")
+volume_db = -15.0
+script = ExtResource("16_a7fet")
+
+[node name="ScoreSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_np3vi")
 volume_db = -15.0
 script = ExtResource("16_a7fet")
 

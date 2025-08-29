@@ -1,6 +1,7 @@
 class_name GameManager
 extends Node3D
 
+signal victory()
 signal game_over()
 signal round_started()
 signal fear_increased()
@@ -11,7 +12,7 @@ signal biscuit_placed(biscuit: Biscuit)
 
 @export var obey_instructions: bool = true
 
-var round: int = 0
+var round: int = 1
 var instruction_index: int = 0
 var instructions_round: int = 0
 
@@ -26,6 +27,7 @@ var dice: Array = []
 
 var biscuit: Biscuit
 var valid_biscuit: bool
+var player_won: bool = false
 var player_died: bool = false
 var biscuit_broke: bool = false
 
@@ -47,10 +49,14 @@ var filling_score: int = 0
 @onready var score_label: Label = %ScoreLabel
 @onready var dice_amount: Label = %DiceAmount
 @onready var fear_label: Label = %FearLabel
+@onready var score_progress: ProgressBar = %ScoreProgress
+@onready var fear_progress: ProgressBar = %FearProgress
 
-@onready var mutators_bar: VBoxContainer = %MutatorsBar
 @onready var chat_instructions: ChatInstructions = %ChatInstructions
 @onready var chat_message: MarginContainer = %ChatMessage
+
+@onready var fear_sound: AudioStreamPlayer = $FearSound
+@onready var score_sound: AudioStreamPlayer = $ScoreSound
 
 @onready var game_camera: GameCamera = get_tree().get_first_node_in_group("GameCamera")
 @onready var oven_scene: OvenScene = get_tree().get_first_node_in_group("OvenScene")
@@ -91,28 +97,35 @@ func _on_roll_result(dice_face: int, dice_type: String, dice_name: String, dice_
 
 func add_score(amount: int) -> void:
 	if not biscuit_broke:
+
+		if amount > 0 and not score_sound.playing:
+			score_sound.pitch_scale = 1.0 + randf_range(-0.15, 0.25)
+			score_sound.play()
+
 		score += amount
-		score_label.text = "SCORE: %s" % str(score)
+		# score_label.text = "SCORE: %s" % str(score)
+		score_progress.value = score
+
 		dice_scorer.spawn_floating_number(amount, false)
 
 
 func add_fear(amount: int) -> void:
 	if amount > 0:
 		fear_increased.emit()
+		if not fear_sound.playing:
+			fear_sound.pitch_scale = 1.0 + randf_range(-0.25, 0.25)
+			fear_sound.play()
 	else:
 		fear_decreased.emit()
 
 	fear += amount
 	dice_scorer.spawn_floating_number(amount, true)
 
-	if fear >= 50:
-		player_died = true
-		game_over.emit()
-
 	if fear < 0:
 		fear = 0
 
-	fear_label.text = "FEAR: %s" % str(fear)
+	# fear_label.text = "FEAR: %s" % str(fear)
+	fear_progress.value = fear
 
 
 func update_dice_count() -> void:
@@ -214,9 +227,7 @@ func _on_topping_pressed(is_toggled: bool) -> void:
 
 
 func break_biscuit() -> void:
-	# This is now called by dice_well before scoring
-	# Individual dice scoring methods no longer call this
-	pass
+	biscuit_broken.emit()
 
 
 func double_biscuit() -> void:
@@ -236,15 +247,17 @@ func _on_roll_finished() -> void:
 	if biscuit_broke:
 		game_camera.view_witch()
 		await get_tree().create_timer(0.5).timeout
-		var witch = get_tree().get_first_node_in_group("witch") as Node3D
-		biscuit.apply_central_force(((witch.global_position + (Vector3.UP *5)) - biscuit.global_position).normalized()*400)
+		var witch: Node3D = get_tree().get_first_node_in_group("witch")
+		biscuit.apply_central_force(((witch.global_position + (Vector3.UP * 5)) - biscuit.global_position).normalized() * 400)
 		biscuit.apply_torque(Vector3(randf(),randf(),randf()))
 	else:
 		game_camera.view_oven()
 		await get_tree().create_timer(0.63).timeout
-		var tray = get_tree().get_first_node_in_group("tray") as CSGBox3D
-		biscuit.apply_central_force(((tray.global_position + (Vector3.UP *20)) - biscuit.global_position).normalized()*450)
-		biscuit.apply_torque(Vector3(randf(),randf(),randf()))
+		var tray: CSGBox3D = get_tree().get_first_node_in_group("tray")
+		var force_direction: Vector3 = ((tray.global_position + (Vector3.UP * 20)) - biscuit.global_position).normalized()
+		force_direction.z += randf_range(-0.05, 0.05)
+		biscuit.apply_central_force(force_direction * randf_range(450, 550))
+		biscuit.apply_torque(Vector3(randf(), randf(), randf()))
 		#var tween = biscuit.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		#tween.tween_property(biscuit,"global_position",tray.global_position,2).set_delay(2)
 
@@ -253,6 +266,18 @@ func _on_roll_finished() -> void:
 
 
 func new_round() -> void:
+	# Did player win?
+	if score >= 150:
+		player_won = true
+		victory.emit()
+		return
+
+	# Is player dead?
+	if fear >= 50:
+		player_died = true
+		game_over.emit()
+		return
+
 	round += 1
 	biscuit_validator.reset()
 	print("START ROUND: %s" % str(round))
@@ -287,7 +312,7 @@ func invalid_biscuit() -> void:
 	#biscuit.queue_free()
 	add_fear(round + 1)
 	await get_tree().create_timer(0.5).timeout
-	var witch = get_tree().get_first_node_in_group("witch") as Node3D
+	var witch: Node3D = get_tree().get_first_node_in_group("witch")
 	biscuit.apply_central_force(((witch.global_position + (Vector3.UP *5)) - biscuit.global_position).normalized()*400)
 	biscuit.apply_torque(Vector3(randf(),randf(),randf()))
 
