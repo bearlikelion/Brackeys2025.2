@@ -240,7 +240,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 1
 theme_override_styles/fill = SubResource("StyleBoxFlat_gtbs0")
-max_value = 50.0
+max_value = 35.0
 
 [node name="TopBar" type="HBoxContainer" parent="UI/TopBars/VBoxContainer"]
 visible = false

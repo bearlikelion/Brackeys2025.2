@@ -273,7 +273,7 @@ func new_round() -> void:
 		return
 
 	# Is player dead?
-	if fear >= 50:
+	if fear >= 35:
 		player_died = true
 		game_over.emit()
 		return
