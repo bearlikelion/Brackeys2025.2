@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="2_fiftr"]
 [ext_resource type="Script" uid="uid://rgjqowiggi6a" path="res://Scripts/biscuit_validator.gd" id="3_8m72m"]
 [ext_resource type="Shader" uid="uid://bw7fjsock0lut" path="res://Shaders/camcorder.gdshader" id="3_fiftr"]
-[ext_resource type="Shader" uid="uid://d24hqaydysmou" path="res://Shaders/screen_shake.gdshader" id="3_wywco"]
+[ext_resource type="Shader" path="res://Shaders/screen_shake.gdshader" id="3_wywco"]
 [ext_resource type="Script" uid="uid://byxtjea03mn07" path="res://Scripts/chat_instructions.gd" id="4_5dgvu"]
 [ext_resource type="AudioStream" uid="uid://cmy2kmola5xkv" path="res://Assets/Audio/SFX/bewilderment-animal-crossing-sfx-233483.ogg" id="4_ikfsv"]
 [ext_resource type="Shader" uid="uid://r27skblhwo44" path="res://Shaders/dark_vignette.gdshader" id="4_rgj8m"]
@@ -320,8 +320,6 @@ autoplay = true
 
 [node name="DirectionalLight3D" parent="OvenScene/Environment" index="1"]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 4.63157, 2.50329, 0)
-[node name="OvenTray" parent="OvenScene/Oven" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.736758, 1.51948, 0)
 
 [node name="OvenDoor" parent="OvenScene/Oven" index="1"]
 transform = Transform3D(-3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0, 1, 0.34759, 1.00667, 0)
