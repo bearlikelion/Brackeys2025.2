@@ -26,6 +26,9 @@ shader_parameter/animation_intensity = 0.2
 [node name="Skull" type="RigidBody3D"]
 collision_layer = 3
 collision_mask = 3
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 5
 script = ExtResource("1_ylbd1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

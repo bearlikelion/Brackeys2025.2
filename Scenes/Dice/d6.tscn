@@ -148,5 +148,3 @@ opposite_side = 1
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_112kq")
 volume_db = -20.0
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

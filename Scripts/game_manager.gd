@@ -235,10 +235,21 @@ func _on_roll_finished() -> void:
 
 	if biscuit_broke:
 		game_camera.view_witch()
+		await get_tree().create_timer(0.5).timeout
+		var witch = get_tree().get_first_node_in_group("witch") as Node3D
+		biscuit.apply_central_force(((witch.global_position + (Vector3.UP *5)) - biscuit.global_position).normalized()*400)
+		biscuit.apply_torque(Vector3(randf(),randf(),randf()))
 	else:
 		game_camera.view_oven()
+		await get_tree().create_timer(0.63).timeout
+		var tray = get_tree().get_first_node_in_group("tray") as CSGBox3D
+		biscuit.apply_central_force(((tray.global_position + (Vector3.UP *20)) - biscuit.global_position).normalized()*450)
+		biscuit.apply_torque(Vector3(randf(),randf(),randf()))
+		#var tween = biscuit.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		#tween.tween_property(biscuit,"global_position",tray.global_position,2).set_delay(2)
 
-	biscuit.queue_free()
+
+	#biscuit.queue_free()
 
 
 func new_round() -> void:
@@ -273,8 +284,12 @@ func invalid_biscuit() -> void:
 	valid_biscuit = false
 	game_camera.view_witch()
 	biscuit_invalid.emit()
-	biscuit.queue_free()
+	#biscuit.queue_free()
 	add_fear(round + 1)
+	await get_tree().create_timer(0.5).timeout
+	var witch = get_tree().get_first_node_in_group("witch") as Node3D
+	biscuit.apply_central_force(((witch.global_position + (Vector3.UP *5)) - biscuit.global_position).normalized()*400)
+	biscuit.apply_torque(Vector3(randf(),randf(),randf()))
 
 
 func _on_biscuit_placed(new_biscuit: Biscuit) -> void:
