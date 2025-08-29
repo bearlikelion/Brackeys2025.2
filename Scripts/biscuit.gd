@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 		game_manager.biscuit_placed.emit(self)
 
 	if is_spreading:
-		dissolve_value -= 0.33 * delta
+		dissolve_value -= 0.5 * delta
 		topping_material.set_shader_parameter("dissolveSlider", dissolve_value)
 
 		if dissolve_value <= 0.0 :
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 
 func add_filling() -> void:
 	scale = Vector3(1.25, 1.25, 1.25)
-	await get_tree().create_timer(0.33).timeout
+	await get_tree().create_timer(0.15).timeout
 	filling_added.emit()
 
 
@@ -58,6 +58,6 @@ func add_topping(selected_topping: String) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("tray") or body.get_parent().is_in_group("tray"):
-		reparent(body)
+		reparent.call_deferred(body)
 	if body is D6 :
 		body.apply_central_force((body.global_position-global_position).normalized()*50)

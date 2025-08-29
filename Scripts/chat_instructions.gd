@@ -22,7 +22,7 @@ var dialogue_by_round: Dictionary = {
 	2: [ # Filling + Topping
 		"Now, fill a shortbread with custard topped with sugar",
 		"Create a creamy heart with royal icing",
-		"Round a biscuit filled with marrow and curse its topping",
+		"Round biscuit filled with marrow and curse its topping",
 		"Fill a squared shape with jam and topped with burnt caramel",
 		"A gingerbread stuffed with cream and glazed with sugar",
 		"A skull of jam and cursed frosting",
@@ -51,7 +51,7 @@ var dialogue_by_round: Dictionary = {
 		"Round or Square, make it with marrow or jam, anything sweet, sprinkled with treats",
 	],
 	6: [ # Final madness
-		"All shapes blur together, fill them, frost them, decorate them, they all taste the same",
+		"All shapes blur together, fill them, top them, decorate them, they all taste the same",
 		"Square heart, a filling with C, and a topping made from something sweet",
 		"Circle shape, leaking bone juice, that’s shivering cold",
 		"A person or star, filled with whatever, that’s burnt or has a crown",

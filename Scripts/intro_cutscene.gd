@@ -28,6 +28,8 @@ var time_accumulator: float = 0.0
 var is_typing: bool = false
 var can_continue: bool = false
 var preloaded_scene: PackedScene = null
+var preloaded_biscuits: Dictionary = {}
+var preloaded_dice: PackedScene = null
 
 
 func _ready() -> void:
@@ -51,6 +53,17 @@ func _input(event: InputEvent) -> void:
 
 func _start_preloading() -> void:
 	preloaded_scene = load("res://Scenes/game_scene.tscn")
+
+	# Preload biscuit scenes
+	preloaded_biscuits["gingerbread"] = load("res://Scenes/Biscuits/gingerbread.tscn")
+	preloaded_biscuits["heart"] = load("res://Scenes/Biscuits/heart.tscn")
+	preloaded_biscuits["round"] = load("res://Scenes/Biscuits/round.tscn")
+	preloaded_biscuits["shortbread"] = load("res://Scenes/Biscuits/shortbread.tscn")
+	preloaded_biscuits["skull"] = load("res://Scenes/Biscuits/skull.tscn")
+	preloaded_biscuits["square"] = load("res://Scenes/Biscuits/square.tscn")
+
+	# Preload dice scene
+	preloaded_dice = load("res://Scenes/Dice/d6.tscn")
 
 
 func _process(delta: float) -> void:

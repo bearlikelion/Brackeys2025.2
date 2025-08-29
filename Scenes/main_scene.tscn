@@ -6,7 +6,6 @@
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_jv6wh")
-skip_cutscene = true
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

@@ -19,23 +19,25 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if lerp_visible:
-		modulate.a = lerp(modulate.a, 1.0, 1.0 * delta)
+		modulate.a = lerp(modulate.a, 1.0, 1.5 * delta)
 		if modulate.a == 1.0:
 			lerp_visible = false
 
 	if lerp_invisible:
-		modulate.a = lerp(modulate.a, 0.0, 1.0 * delta)
+		modulate.a = lerp(modulate.a, 0.0, 1.5 * delta)
 		if modulate.a < 0.1:
 			lerp_invisible = false
 			bases_hidden.emit()
 			hide()
 
 func _on_base_selected(selected_base: String) -> void:
+	disable_buttons(true)
 	base_selected.emit(selected_base)
 
 
 func show_bases() -> void:
 	Utils.shuffle_buttons(grid_container)
+	disable_buttons(false)
 	lerp_visible = true
 	modulate.a = 0.0
 	show()
@@ -44,3 +46,8 @@ func show_bases() -> void:
 func hide_bases() -> void:
 	lerp_visible = false
 	lerp_invisible = true
+
+
+func disable_buttons(is_disabled: bool) -> void:
+	for button: Button in grid_container.get_children():
+		button.disabled = is_disabled

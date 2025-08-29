@@ -47,5 +47,6 @@ func add_biscuit(base_name: String) -> void:
 			new_biscuit = SKULL.instantiate()
 
 	biscuit.add_child(new_biscuit)
-	new_biscuit.rotation_degrees = Vector3(randf_range(-15.0, 15.0), 0, randf_range(-15.0, 15.0))
+	new_biscuit.rotation_degrees.x = randf_range(-15.0, 15.0)
+	new_biscuit.rotation_degrees.z = randf_range(-15.0, 15.0)
 	new_biscuit.global_position = biscuit_spawn.position

@@ -104,15 +104,15 @@ func round_two_rules(index: int) -> void:
 			rq_topping.append("Frosting")
 		3:
 			rq_type.append("Square")
-			rq_type.append("Jam")
+			rq_filling.append("Jam")
 			rq_topping.append("Caramel")
 		4:
 			rq_type.append("Gingerbread")
-			rq_type.append("Cream")
+			rq_filling.append("Cream")
 			rq_topping.append("Sugar")
 		5:
 			rq_type.append("Skull")
-			rq_type.append("Jam")
+			rq_filling.append("Jam")
 			rq_topping.append("Frosting")
 
 
