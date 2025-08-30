@@ -127,6 +127,7 @@ script = ExtResource("2_a7fet")
 
 [node name="BiscuitValidator" type="Node" parent="."]
 script = ExtResource("3_8m72m")
+any_biscuit = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2

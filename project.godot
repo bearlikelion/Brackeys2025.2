@@ -13,6 +13,7 @@ config_version=5
 config/name="Brackeys 2025.2"
 run/main_scene="uid://dfqu7qvu0ivul"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+boot_splash/bg_color=Color(0.0627451, 0.0627451, 0.0627451, 1)
 boot_splash/fullsize=false
 boot_splash/image="uid://dt8ax7xjacgfx"
 config/icon="uid://b6rdg4nwvygjv"
@@ -27,8 +28,9 @@ gdscript/warnings/untyped_declaration=1
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/borderless=true
 window/stretch/mode="viewport"
 
 [file_customization]

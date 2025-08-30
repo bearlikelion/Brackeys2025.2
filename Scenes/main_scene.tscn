@@ -99,7 +99,7 @@ content_margin_right = 10.0
 content_margin_bottom = 10.0
 texture = SubResource("AtlasTexture_qqddd")
 region_rect = Rect2(0, 0, 808, 296)
-modulate_color = Color(0.266401, 0.180594, 0.168046, 1)
+modulate_color = Color(0.44375, 0.315017, 0.296089, 1)
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_jv6wh")
@@ -123,7 +123,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Control/BackgroundImage"]
 handle_input_locally = false
-size = Vector2i(1280, 720)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="OvenScene" type="Node3D" parent="Control/BackgroundImage/SubViewport"]
@@ -278,7 +278,7 @@ anchor_right = 1.0
 offset_bottom = 147.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 119
+theme_override_font_sizes/normal_font_size = 118
 bbcode_enabled = true
 text = "[shake rate=1.5]BAKE OR BREAK[/shake]
 "
@@ -293,7 +293,7 @@ anchor_right = 1.0
 offset_bottom = 147.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/normal_font_size = 118
+theme_override_font_sizes/normal_font_size = 115
 bbcode_enabled = true
 text = "[shake rate=1.5]BAKE OR BREAK[/shake]
 "

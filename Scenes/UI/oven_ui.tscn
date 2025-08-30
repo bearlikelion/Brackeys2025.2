@@ -427,6 +427,7 @@ Failure: +2 fear"
 horizontal_alignment = 1
 
 [node name="ToppingsSelector" type="VBoxContainer" parent="ui_3d"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -985,7 +986,8 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Reduces fear"
+text = "Reduces fear at 
+the cost of score"
 horizontal_alignment = 1
 
 [node name="Runes" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
@@ -1064,3 +1066,48 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "BAKE A BISCUIT"
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 147.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.517647, 0.203922, 0.0196078, 1)
+theme_override_font_sizes/normal_font_size = 200
+bbcode_enabled = true
+text = "[shake rate=1.5]BAKE OR BREAK[/shake]
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="RichTextLabel" parent="Title"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 147.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 195
+bbcode_enabled = true
+text = "[shake rate=1.5]BAKE OR BREAK[/shake]
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title3" type="RichTextLabel" parent="Title/Title2"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 258.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 190
+bbcode_enabled = true
+text = "[shake rate=1.5]BAKE OR BREAK[/shake]
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
