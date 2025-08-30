@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://cidci8ycbtf2j" path="res://Assets/Fonts/GhoulFriAOE.ttf" id="2_fiftr"]
 [ext_resource type="Script" uid="uid://rgjqowiggi6a" path="res://Scripts/biscuit_validator.gd" id="3_8m72m"]
 [ext_resource type="Shader" uid="uid://bw7fjsock0lut" path="res://Shaders/camcorder.gdshader" id="3_fiftr"]
-[ext_resource type="Shader" path="res://Shaders/screen_shake.gdshader" id="3_wywco"]
+[ext_resource type="Shader" uid="uid://d24hqaydysmou" path="res://Shaders/screen_shake.gdshader" id="3_wywco"]
 [ext_resource type="Script" uid="uid://byxtjea03mn07" path="res://Scripts/chat_instructions.gd" id="4_5dgvu"]
 [ext_resource type="AudioStream" uid="uid://cmy2kmola5xkv" path="res://Assets/Audio/SFX/bewilderment-animal-crossing-sfx-233483.ogg" id="4_ikfsv"]
 [ext_resource type="Shader" uid="uid://r27skblhwo44" path="res://Shaders/dark_vignette.gdshader" id="4_rgj8m"]
@@ -109,7 +109,7 @@ shader = ExtResource("12_8m72m")
 shader_parameter/wiggleMult = 0.005
 
 [sub_resource type="QuadMesh" id="QuadMesh_gtbs0"]
-size = Vector2(4.864, 2.736)
+size = Vector2(4.17, 2.346)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_x5r4b"]
 viewport_path = NodePath("OvenScene/UIViewport/OvenViewPort")
@@ -456,6 +456,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.0946
 node_viewport = NodePath("OvenViewPort")
 node_quad = NodePath("GameUI")
 
+[node name="Area3D" parent="OvenScene/UIViewport" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0598741, 0)
+
 [node name="OvenViewPort" type="SubViewport" parent="OvenScene/UIViewport" index="1"]
 transparent_bg = true
 size = Vector2i(1280, 720)
@@ -463,7 +466,7 @@ size = Vector2i(1280, 720)
 [node name="OvenUI" parent="OvenScene/UIViewport/OvenViewPort" instance=ExtResource("15_gtbs0")]
 
 [node name="GameUI" type="MeshInstance3D" parent="OvenScene/UIViewport" index="2"]
-transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -2.22772e-09, -0.0696518, 0.0509648)
+transform = Transform3D(1, 4.37114e-08, 4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -2.22768e-09, 0.0932469, 0.0509648)
 mesh = SubResource("QuadMesh_gtbs0")
 surface_material_override/0 = SubResource("StandardMaterial3D_np3vi")
 

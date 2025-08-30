@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c5acoti8d0iuh"]
+
+[ext_resource type="Shader" uid="uid://7krvol3hjat2" path="res://Shaders/wave.gdshader" id="1_8t3ph"]
+
+[resource]
+shader = ExtResource("1_8t3ph")
+shader_parameter/shaking = true
+shader_parameter/amplitude_px = 0.82
+shader_parameter/noise_scale = 17.5
+shader_parameter/noise_speed = 10.0
+shader_parameter/region_size_px = Vector2(996.06, 1000)
+shader_parameter/edge_margin_px = 2.0
