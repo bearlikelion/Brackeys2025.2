@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfbplkli06r8d"]
+
+[ext_resource type="Texture2D" uid="uid://bpxrliw0vg30q" path="res://Assets/Textures/Metals/metall001-new.png" id="1_dypwn"]
+[ext_resource type="Texture2D" uid="uid://45uww4cmse5c" path="res://Assets/Textures/Metals/metall001-new-nm.png" id="2_jlso4"]
+
+[sub_resource type="Environment" id="Environment_hybjd"]
+background_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk8vj"]
+albedo_color = Color(0.601223, 0.601223, 0.601223, 1)
+albedo_texture = ExtResource("1_dypwn")
+normal_enabled = true
+normal_texture = ExtResource("2_jlso4")
+
+[node name="Environment" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hybjd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_energy = 0.1
+shadow_enabled = true
+sky_mode = 1
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.89014, 0, 0)
+size = Vector3(17.7803, 1, 21)
+material = SubResource("StandardMaterial3D_kk8vj")
+
+[node name="FrontWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64722, 2.00667, 0)
+size = Vector3(4.29443, 7.28735, 17)
+material = SubResource("StandardMaterial3D_kk8vj")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="FrontWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18169, -0.117126, 0)
+operation = 2
+size = Vector3(2.59578, 1.76575, 2.50977)
+material = SubResource("StandardMaterial3D_kk8vj")
+
+[node name="LeftWall" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.35278, 2.00667, 10)
+size = Vector3(4.29443, 7.28735, 17)
+material = SubResource("StandardMaterial3D_kk8vj")
+
+[node name="RightWall" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.35278, 2.00667, -11)
+size = Vector3(4.29443, 7.28735, 17)
+material = SubResource("StandardMaterial3D_kk8vj")
