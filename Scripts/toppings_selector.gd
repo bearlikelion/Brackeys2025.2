@@ -68,7 +68,7 @@ func set_hide():
 	#var tweensize = self.create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 	#tweensize.tween_property(self,"size:y",800,tween_speeed).from(450)
 	await ui_3d._animate_toping_out(tween_speeed)
-	
+
 	lerp_invisible = true
 	toppings_hidden.emit()
 	hide()

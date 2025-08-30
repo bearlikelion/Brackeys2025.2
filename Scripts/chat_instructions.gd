@@ -43,7 +43,7 @@ var dialogue_by_round: Dictionary = {
 		"Heart that bleeds with jam or cream, cursed frosting or sugar glaze",
 		"Gingerbread stuffed with marrow or custard, sugar or caramel on top",
 		"Square with cream or jam, iced or cursed",
-		"Skull of marrow or jam, dropped with caramel or sugar",
+		"Skull of marrow or jam, topped with caramel or sugar",
 	],
 	5: [ # 2 Filling / 2 Topping / 1 Decoration
 		"Round or Short, bleeding with jam or cream, dripping with sugar or caramel, that watches with eyes",
@@ -99,6 +99,9 @@ func _physics_process(delta: float) -> void:
 
 
 func new_instructions() -> void:
+	if game_manager.player_died or game_manager.player_won:
+		return
+
 	text = ""
 
 	var _round: int = game_manager.round

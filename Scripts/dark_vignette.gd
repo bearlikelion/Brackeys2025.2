@@ -11,7 +11,7 @@ func _ready() -> void:
 func _on_fear_increased() -> void:
 	var dark_material: ShaderMaterial = material.duplicate()
 	var radius: float = dark_material.get_shader_parameter("radius")
-	radius += 0.033
+	radius += 0.015
 	dark_material.set_shader_parameter("radius", radius)
 	material = dark_material
 
@@ -19,6 +19,6 @@ func _on_fear_increased() -> void:
 func _on_fear_decreased() -> void:
 	var dark_material: ShaderMaterial = material.duplicate()
 	var radius: float = dark_material.get_shader_parameter("radius")
-	radius -= 0.033
+	radius -= 0.015
 	dark_material.set_shader_parameter("radius", radius)
 	material = dark_material

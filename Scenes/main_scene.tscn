@@ -1,9 +1,105 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfqu7qvu0ivul"]
+[gd_scene load_steps=30 format=3 uid="uid://dfqu7qvu0ivul"]
 
 [ext_resource type="FontFile" uid="uid://mr2l1a4mfaft" path="res://Assets/Fonts/ZOMBIE.TTF" id="1_6l7je"]
 [ext_resource type="Texture2D" uid="uid://b6rdg4nwvygjv" path="res://Assets/Images/logo.png" id="1_52fb6"]
 [ext_resource type="Script" uid="uid://do6lsl4yq0osi" path="res://Scripts/main_scene.gd" id="1_jv6wh"]
+[ext_resource type="Texture2D" uid="uid://bpxrliw0vg30q" path="res://Assets/Textures/Metals/metall001-new.png" id="2_mai8y"]
 [ext_resource type="Texture2D" uid="uid://bg1lwixyrj58g" path="res://Assets/Images/cutscene_bg.jpg" id="2_x6ack"]
+[ext_resource type="Texture2D" uid="uid://45uww4cmse5c" path="res://Assets/Textures/Metals/metall001-new-nm.png" id="3_76v2p"]
+[ext_resource type="Texture2D" uid="uid://dgm02mgrj88xd" path="res://Assets/Textures/Metals/metall003-new.png" id="4_drdnd"]
+[ext_resource type="Texture2D" uid="uid://y017gpg7nqwd" path="res://Assets/Textures/Metals/metall003-new-nm.png" id="5_ioaeq"]
+[ext_resource type="Shader" uid="uid://b7w8vso1bv4mm" path="res://Shaders/oven_heat_schlieren.gdshader" id="6_7ewk0"]
+[ext_resource type="Texture2D" uid="uid://jvprl2nbfryr" path="res://Assets/Textures/planks.png" id="7_lhp3t"]
+[ext_resource type="Texture2D" uid="uid://dnf35nipumhl4" path="res://Assets/Images/cookie_godot.png" id="10_drdnd"]
+[ext_resource type="Texture2D" uid="uid://bwsoj1n4sbm84" path="res://Assets/Images/layers/BUttons.png" id="11_76v2p"]
+
+[sub_resource type="Environment" id="Environment_gnsmo"]
+background_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psl12"]
+albedo_color = Color(0.601223, 0.601223, 0.601223, 1)
+albedo_texture = ExtResource("2_mai8y")
+normal_enabled = true
+normal_texture = ExtResource("3_76v2p")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ebs2"]
+albedo_texture = ExtResource("4_drdnd")
+normal_enabled = true
+normal_texture = ExtResource("5_ioaeq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oyb3p"]
+albedo_color = Color(0.0264117, 0.00799411, 0.0588167, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jvnna"]
+data = PackedVector3Array(-0.9107, -0.0646, 1.248, 0.9107, -0.0646, 1.248, 0.9107, -0.0646, -1.248, 0.9107, 0.0646, 1.248, 0.8198, 0.0646, 1.1621, 0.9107, 0.0646, -1.248, 0.9107, 0.0646, 1.248, -0.8074, 0.0646, 1.1621, 0.8198, 0.0646, 1.1621, 0.9107, 0.0646, -1.248, 0.8198, 0.0646, 1.1621, 0.8198, 0.0646, -1.1621, 0.9107, 0.0646, 1.248, 0.9107, 0.0646, -1.248, 0.9107, -0.0646, -1.248, 0.9107, 0.0646, -1.248, 0.8198, 0.0646, -1.1621, -0.9107, 0.0646, -1.248, 0.9107, -0.0646, -1.248, 0.9107, 0.0646, -1.248, -0.9107, 0.0646, -1.248, 0.9107, -0.0646, 1.248, 0.9107, 0.0646, 1.248, 0.9107, -0.0646, -1.248, 0.9107, 0.0646, 1.248, 0.9107, -0.0646, 1.248, -0.9107, -0.0646, 1.248, -0.9107, -0.0646, 1.248, -0.9107, -0.0646, -1.248, -0.9107, 0.0646, -1.248, -0.9107, 0.0646, 1.248, -0.8074, 0.0646, 1.1621, 0.9107, 0.0646, 1.248, -0.9107, -0.0646, 1.248, 0.9107, -0.0646, -1.248, -0.9107, -0.0646, -1.248, -0.9107, 0.0646, 1.248, -0.8074, 0.0646, -1.1621, -0.8074, 0.0646, 1.1621, -0.9107, 0.0646, -1.248, -0.9107, 0.0646, 1.248, -0.9107, -0.0646, 1.248, -0.9107, 0.0646, -1.248, 0.8198, 0.0646, -1.1621, -0.8074, 0.0646, -1.1621, 0.9107, -0.0646, -1.248, -0.9107, 0.0646, -1.248, -0.9107, -0.0646, -1.248, -0.9107, 0.0646, 1.248, 0.9107, 0.0646, 1.248, -0.9107, -0.0646, 1.248, -0.9107, 0.0646, -1.248, -0.8074, 0.0646, -1.1621, -0.9107, 0.0646, 1.248, -0.8074, 0.0072, -1.1621, 0.8198, 0.0072, -1.1621, -0.8074, 0.0072, 1.1621, 0.8198, 0.0646, 1.1621, 0.8198, 0.0072, 1.1621, 0.8198, 0.0072, -1.1621, 0.8198, 0.0646, 1.1621, -0.8074, 0.0646, 1.1621, 0.8198, 0.0072, 1.1621, 0.8198, 0.0072, -1.1621, 0.8198, 0.0072, 1.1621, -0.8074, 0.0072, 1.1621, -0.8074, 0.0646, -1.1621, -0.8074, 0.0072, -1.1621, -0.8074, 0.0072, 1.1621, 0.8198, 0.0072, -1.1621, 0.8198, 0.0646, -1.1621, 0.8198, 0.0646, 1.1621, 0.8198, 0.0072, -1.1621, -0.8074, 0.0072, -1.1621, 0.8198, 0.0646, -1.1621, -0.8074, 0.0646, -1.1621, 0.8198, 0.0646, -1.1621, -0.8074, 0.0072, -1.1621, -0.8074, 0.0072, 1.1621, -0.8074, 0.0646, 1.1621, -0.8074, 0.0646, -1.1621, -0.8074, 0.0072, 1.1621, 0.8198, 0.0072, 1.1621, -0.8074, 0.0646, 1.1621)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b48ew"]
+transparency = 1
+albedo_color = Color(0.0627451, 0.192157, 0.360784, 0.360784)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8edxt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_30i6t"]
+noise = SubResource("FastNoiseLite_8edxt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5oxhp"]
+render_priority = 0
+shader = ExtResource("6_7ewk0")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_30i6t")
+shader_parameter/distortion_strength = 0.02
+shader_parameter/turbulence_scale = 3.0
+shader_parameter/flow_speed = 0.0
+shader_parameter/vertical_rise_speed = 0.8
+shader_parameter/shimmer_frequency = 8.0
+shader_parameter/depth_fade_distance = 2.0
+shader_parameter/edge_softness = 0.3
+shader_parameter/distortion_direction = Vector2(0.3, 1)
+shader_parameter/chromatic_aberration = 0.003
+
+[sub_resource type="QuadMesh" id="QuadMesh_nt2eh"]
+flip_faces = true
+size = Vector2(2, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5cm5d"]
+albedo_texture = ExtResource("7_lhp3t")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nobx"]
+atlas = ExtResource("11_76v2p")
+region = Rect2(0, 300, 808, 300)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_drdnd"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_6nobx")
+modulate_color = Color(0.545174, 0.199802, 0.0234379, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4317"]
+atlas = ExtResource("11_76v2p")
+region = Rect2(0, 616, 808, 304)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ioaeq"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_a4317")
+texture_margin_top = 10.0
+modulate_color = Color(0.545098, 0.2, 0.0235294, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqddd"]
+atlas = ExtResource("11_76v2p")
+region = Rect2(0, 0, 808, 300)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ewk0"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_qqddd")
+region_rect = Rect2(0, 0, 808, 296)
+modulate_color = Color(0.266401, 0.180594, 0.168046, 1)
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_jv6wh")
@@ -16,7 +112,137 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="BackgroundImage" type="SubViewportContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/BackgroundImage"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="OvenScene" type="Node3D" parent="Control/BackgroundImage/SubViewport"]
+
+[node name="Environment" type="Node" parent="Control/BackgroundImage/SubViewport/OvenScene"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Control/BackgroundImage/SubViewport/OvenScene/Environment"]
+environment = SubResource("Environment_gnsmo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Environment"]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_energy = 0.1
+shadow_enabled = true
+sky_mode = 1
+
+[node name="Floor" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.89014, 0, 0)
+size = Vector3(17.7803, 1, 21)
+material = SubResource("StandardMaterial3D_psl12")
+
+[node name="FrontWall" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64722, 2.00667, 0)
+size = Vector3(4.29443, 7.28735, 17)
+material = SubResource("StandardMaterial3D_psl12")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Environment/FrontWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18169, -0.117126, 0)
+operation = 2
+size = Vector3(2.59578, 1.76575, 2.50977)
+material = SubResource("StandardMaterial3D_psl12")
+
+[node name="Oven" type="Node" parent="Control/BackgroundImage/SubViewport/OvenScene"]
+
+[node name="OvenTray" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.736758, 1.51948, 0)
+material_override = SubResource("StandardMaterial3D_2ebs2")
+size = Vector3(1.82135, 0.12915, 2.49609)
+material = SubResource("StandardMaterial3D_oyb3p")
+
+[node name="OvenTray2" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven/OvenTray"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00622559, 0.0718155, 0)
+material_override = SubResource("StandardMaterial3D_2ebs2")
+operation = 2
+size = Vector3(1.6272, 0.12915, 2.32422)
+material = SubResource("StandardMaterial3D_oyb3p")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven/OvenTray"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven/OvenTray/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_jvnna")
+debug_color = Color(0, 0, 1, 1)
+
+[node name="OvenDoor" type="Node3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.34759, 1.00667, 0)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven/OvenDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.879929, -0.065705, 0)
+size = Vector3(1.73927, 0.12915, 2.49609)
+material = SubResource("StandardMaterial3D_oyb3p")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven/OvenDoor/CSGBox3D4"]
+operation = 2
+size = Vector3(1.46484, 0.366943, 2.28125)
+material = SubResource("StandardMaterial3D_oyb3p")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven/OvenDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.879929, -0.065705, 0)
+size = Vector3(1.73927, 0.0488281, 2.49609)
+material = SubResource("StandardMaterial3D_b48ew")
+
+[node name="OvenLight" type="OmniLight3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.463957, 1.96589, 0)
+light_color = Color(0.898039, 0.447059, 0, 1)
+light_energy = 16.0
+light_size = 0.507
+light_specular = 3.514
+shadow_opacity = 0.93
+omni_range = 3.846
+omni_attenuation = 4.919
+
+[node name="OvenHeatShader" type="MeshInstance3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven"]
+transform = Transform3D(-0.0850469, 3.51422e-07, 0.996377, 0.996377, -3.60316e-06, 0.0850469, 3.61999e-06, 1, -4.37114e-08, 0.262543, 2.00305, 0)
+material_override = SubResource("ShaderMaterial_5oxhp")
+mesh = SubResource("QuadMesh_nt2eh")
+skeleton = NodePath("../OvenDoor")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Control/BackgroundImage/SubViewport/OvenScene/Oven"]
+transform = Transform3D(0.984242, 5.26986e-09, -0.176827, 0.176827, -2.93327e-08, 0.984242, 0, -1, -2.98023e-08, -0.427455, 4.88798, 0)
+light_color = Color(0.580392, 0.278431, 0, 1)
+light_energy = 2.0
+light_indirect_energy = 16.0
+light_volumetric_fog_energy = 16.0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 1.076
+shadow_transmittance_bias = 0.5
+shadow_blur = 10.0
+spot_range = 6.40217
+spot_attenuation = -0.98
+spot_angle = 28.3453
+spot_angle_attenuation = 1.03526
+
+[node name="GameCamera" type="Camera3D" parent="Control/BackgroundImage/SubViewport/OvenScene"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.5, 1.85, 0)
+doppler_tracking = 2
+current = true
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Control/BackgroundImage/SubViewport/OvenScene/GameCamera"]
+current = true
+
+[node name="IngredientTable" type="CSGBox3D" parent="Control/BackgroundImage/SubViewport/OvenScene"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.1, 0.1, 0)
+size = Vector3(3, 1, 2)
+material = SubResource("StandardMaterial3D_5cm5d")
+
 [node name="TextureRect" type="TextureRect" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +262,8 @@ grow_vertical = 2
 
 [node name="Title" type="RichTextLabel" parent="Control/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 72
+theme_override_colors/default_color = Color(0.517647, 0.203922, 0.0196078, 1)
+theme_override_font_sizes/normal_font_size = 120
 bbcode_enabled = true
 text = "[shake rate=1.5]BAKE OR BREAK[/shake]
 "
@@ -44,18 +271,67 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="Title2" type="RichTextLabel" parent="Control/VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 147.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 119
+bbcode_enabled = true
+text = "[shake rate=1.5]BAKE OR BREAK[/shake]
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title3" type="RichTextLabel" parent="Control/VBoxContainer/Title/Title2"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 147.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 118
+bbcode_enabled = true
+text = "[shake rate=1.5]BAKE OR BREAK[/shake]
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 texture = ExtResource("1_52fb6")
 expand_mode = 3
 
+[node name="TextureRect2" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("10_drdnd")
+expand_mode = 3
+
 [node name="StartButton" type="Button" parent="Control/VBoxContainer"]
 custom_minimum_size = Vector2(350, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.792157, 0.678431, 0.498039, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_6l7je")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_drdnd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ioaeq")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ewk0")
 text = "BAKE TO SURVIVE"
 
 [connection signal="pressed" from="Control/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

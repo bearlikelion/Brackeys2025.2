@@ -1,11 +1,88 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvnwrmfwdm0st"]
+[gd_scene load_steps=18 format=3 uid="uid://bvnwrmfwdm0st"]
 
-[ext_resource type="Script" uid="uid://cj281huipe6hr" path="res://Scripts/UI_3d.gd" id="1_q6cnh"]
+[ext_resource type="Script" path="res://Scripts/UI_3d.gd" id="1_q6cnh"]
 [ext_resource type="Script" uid="uid://dhoqdlbqwk5nn" path="res://Scripts/base_selector.gd" id="1_vi8dv"]
 [ext_resource type="Script" uid="uid://cc8ijqj6wre6c" path="res://Scripts/toppings_selector.gd" id="3_7x8ys"]
 [ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="4_5ejn6"]
 [ext_resource type="ButtonGroup" uid="uid://dvl0w16ip6kic" path="res://Scenes/UI/Toppings/toppings.tres" id="5_1qx3m"]
 [ext_resource type="ButtonGroup" uid="uid://tsnshd513sfe" path="res://Scenes/UI/Toppings/decorations.tres" id="6_1u3so"]
+[ext_resource type="Texture2D" uid="uid://bwsoj1n4sbm84" path="res://Assets/Images/layers/BUttons.png" id="7_q6cnh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nobx"]
+atlas = ExtResource("7_q6cnh")
+region = Rect2(0, 300, 808, 300)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7x8ys"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_6nobx")
+modulate_color = Color(0.94902, 0.741176, 0.0196078, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4317"]
+atlas = ExtResource("7_q6cnh")
+region = Rect2(0, 616, 808, 304)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ejn6"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_a4317")
+texture_margin_top = 10.0
+modulate_color = Color(0.94902, 0.741176, 0.0196078, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1qx3m"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_6nobx")
+modulate_color = Color(0.94902, 0.741176, 0.0196078, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1u3so"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_a4317")
+texture_margin_top = 10.0
+modulate_color = Color(0.94902, 0.741176, 0.0196078, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q6cnh"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_6nobx")
+modulate_color = Color(0.105882, 0.764706, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_af58e"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_a4317")
+texture_margin_top = 10.0
+modulate_color = Color(0.105882, 0.764706, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o8nvg"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_6nobx")
+modulate_color = Color(0.784314, 0, 0.937255, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0quck"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_a4317")
+texture_margin_top = 10.0
+modulate_color = Color(0.784314, 0, 0.937255, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -189,7 +266,7 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Success: reduces fear
-Failure: doubles fear"
+Failure: extra fear"
 horizontal_alignment = 1
 
 [node name="Round" type="Button" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer"]
@@ -306,7 +383,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Fail ANY role it snaps"
+text = "Failure: Lose Score"
 horizontal_alignment = 1
 
 [node name="Skull" type="Button" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer"]
@@ -346,11 +423,10 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Success: double score
-Failure: +2 fear instead of 1"
+Failure: +2 fear"
 horizontal_alignment = 1
 
 [node name="ToppingsSelector" type="VBoxContainer" parent="ui_3d"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -436,7 +512,6 @@ size_flags_vertical = 3
 theme_override_constants/separation = 3
 
 [node name="Jam" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons"]
-self_modulate = Color(1.3, 0.362, 0.552, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -445,6 +520,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_7x8ys")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5ejn6")
 toggle_mode = true
 button_group = ExtResource("4_5ejn6")
 text = "Jam
@@ -472,7 +549,6 @@ text = "High Score
 horizontal_alignment = 1
 
 [node name="Cream" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons"]
-self_modulate = Color(1.3, 0.362, 0.552, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -481,6 +557,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_1qx3m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1u3so")
 toggle_mode = true
 button_group = ExtResource("4_5ejn6")
 text = "Cream
@@ -507,7 +585,6 @@ text = "Moderate Score"
 horizontal_alignment = 1
 
 [node name="Custard" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons"]
-self_modulate = Color(1.3, 0.362, 0.552, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -516,6 +593,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_1qx3m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1u3so")
 toggle_mode = true
 button_group = ExtResource("4_5ejn6")
 text = "Custard
@@ -538,12 +617,11 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "x2 Score but 
-breaks on fail"
+text = "Success: x2 Score
+Failure: -2x Score"
 horizontal_alignment = 1
 
 [node name="Marrow" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons"]
-self_modulate = Color(1.3, 0.362, 0.552, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -552,6 +630,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_1qx3m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1u3so")
 toggle_mode = true
 button_group = ExtResource("4_5ejn6")
 text = "Marrow
@@ -574,7 +654,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Removes Fear"
+text = "Reduces Fear"
 horizontal_alignment = 1
 
 [node name="Toppings" type="VBoxContainer" parent="ui_3d/ToppingsSelector/HBoxContainer"]
@@ -635,7 +715,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Sugar" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons"]
-self_modulate = Color(0.139, 1.345, 0.5, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -644,6 +723,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_q6cnh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_af58e")
 toggle_mode = true
 button_group = ExtResource("5_1qx3m")
 text = "Sugar Glaze
@@ -670,7 +751,6 @@ text = "Small Points but Safe"
 horizontal_alignment = 1
 
 [node name="Icing" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons"]
-self_modulate = Color(0.139, 1.345, 0.5, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -679,6 +759,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_q6cnh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_af58e")
 toggle_mode = true
 button_group = ExtResource("5_1qx3m")
 text = "Royal Icing
@@ -706,7 +788,6 @@ cracks easily"
 horizontal_alignment = 1
 
 [node name="Frosting" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons"]
-self_modulate = Color(0.139, 1.345, 0.5, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -715,6 +796,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_q6cnh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_af58e")
 toggle_mode = true
 button_group = ExtResource("5_1qx3m")
 text = "Cursed Frosting
@@ -742,7 +825,6 @@ High Points"
 horizontal_alignment = 1
 
 [node name="Caramel" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons"]
-self_modulate = Color(0.139, 1.345, 0.5, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -751,6 +833,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_q6cnh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_af58e")
 toggle_mode = true
 button_group = ExtResource("5_1qx3m")
 text = "Burnt Caramel
@@ -835,7 +919,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Sprinkles" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
-self_modulate = Color(1.105, 0, 1.105, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -843,6 +926,8 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_o8nvg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0quck")
 toggle_mode = true
 button_group = ExtResource("6_1u3so")
 text = "Sprinkles
@@ -869,7 +954,6 @@ text = "+1 per success"
 horizontal_alignment = 1
 
 [node name="Tongue" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
-self_modulate = Color(1.105, 0, 1.105, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -877,6 +961,8 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_o8nvg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0quck")
 toggle_mode = true
 button_group = ExtResource("6_1u3so")
 text = "Tongue
@@ -903,7 +989,6 @@ text = "Reduces fear"
 horizontal_alignment = 1
 
 [node name="Runes" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
-self_modulate = Color(1.105, 0, 1.105, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -911,6 +996,8 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_o8nvg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0quck")
 toggle_mode = true
 button_group = ExtResource("6_1u3so")
 text = "Etched Runes
@@ -937,7 +1024,6 @@ text = "Reroll one failed die"
 horizontal_alignment = 1
 
 [node name="Eyes" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
-self_modulate = Color(1.105, 0, 1.105, 1)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -945,6 +1031,8 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_o8nvg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0quck")
 toggle_mode = true
 button_group = ExtResource("6_1u3so")
 text = "Candied Eyes

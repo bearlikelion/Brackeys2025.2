@@ -201,10 +201,10 @@ func score_gingerbread(dice_face: int) -> void:
 	match dice_face:
 		1:
 			game_manager.add_fear(1)
-			game_manager.add_score(-1)
+			game_manager.add_score(-2)
 		2:
 			game_manager.add_fear(2)
-			game_manager.add_score(-2)
+			game_manager.add_score(-4)
 		3:
 			game_manager.add_score(1)
 		4:
@@ -274,11 +274,11 @@ func score_cream_filling(dice_face: int) -> void:
 func score_custard_filling(dice_face: int) -> void:
 	match dice_face:
 		1:
-			game_manager.add_fear(1)
-			game_manager.add_score(-1)
-		2:
-			game_manager.add_fear(1)
+			game_manager.add_fear(2)
 			game_manager.add_score(-2)
+		2:
+			game_manager.add_fear(4)
+			game_manager.add_score(-4)
 		3:
 			game_manager.add_score(2)
 		4:
@@ -305,9 +305,14 @@ func score_marrow_filling(dice_face: int) -> void:
 		6:
 			game_manager.add_fear(-2)
 
+
 # Small score, no negative
 func score_sugar_topping(dice_face: int) -> void:
 	match dice_face:
+		1:
+			game_manager.add_fear(1)
+		2:
+			game_manager.add_fear(1)
 		3:
 			game_manager.add_score(1)
 		4:
@@ -325,16 +330,17 @@ func score_icing_topping(dice_face: int) -> void:
 			game_manager.add_score(-1)
 			game_manager.add_fear(1)
 		2:
-			game_manager.add_score(-1)
-			game_manager.add_fear(1)
+			game_manager.add_score(-2)
+			game_manager.add_fear(2)
 		3:
-			game_manager.add_score(2)
+			game_manager.add_score(-3)
+			game_manager.add_fear(3)
 		4:
-			game_manager.add_score(2)
+			game_manager.add_score(4)
 		5:
-			game_manager.add_score(4)
+			game_manager.add_score(6)
 		6:
-			game_manager.add_score(4)
+			game_manager.add_score(8)
 
 
 # Low score for high points, high score is fear spike

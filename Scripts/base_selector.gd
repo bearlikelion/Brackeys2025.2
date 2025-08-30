@@ -48,7 +48,7 @@ func set_hide():
 	#var tweensize = self.create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 	#tweensize.tween_property(self,"size:y",800,tween_speeed).from(450)
 	await tween.finished
-	
+
 	lerp_invisible = true
 	bases_hidden.emit()
 	hide()
