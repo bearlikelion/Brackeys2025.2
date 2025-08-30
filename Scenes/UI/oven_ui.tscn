@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://bvnwrmfwdm0st"]
 
-[ext_resource type="Script" path="res://Scripts/UI_3d.gd" id="1_q6cnh"]
+[ext_resource type="Script" uid="uid://cj281huipe6hr" path="res://Scripts/UI_3d.gd" id="1_q6cnh"]
 [ext_resource type="Script" uid="uid://dhoqdlbqwk5nn" path="res://Scripts/base_selector.gd" id="1_vi8dv"]
 [ext_resource type="Script" uid="uid://cc8ijqj6wre6c" path="res://Scripts/toppings_selector.gd" id="3_7x8ys"]
 [ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="4_5ejn6"]
