@@ -427,6 +427,7 @@ Failure: +2 fear"
 horizontal_alignment = 1
 
 [node name="ToppingsSelector" type="VBoxContainer" parent="ui_3d"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -985,7 +986,8 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Reduces fear"
+text = "Reduces fear at 
+the cost of score"
 horizontal_alignment = 1
 
 [node name="Runes" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]

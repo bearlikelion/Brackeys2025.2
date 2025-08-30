@@ -99,7 +99,7 @@ content_margin_right = 10.0
 content_margin_bottom = 10.0
 texture = SubResource("AtlasTexture_qqddd")
 region_rect = Rect2(0, 0, 808, 296)
-modulate_color = Color(0.266401, 0.180594, 0.168046, 1)
+modulate_color = Color(0.44375, 0.315017, 0.296089, 1)
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_jv6wh")
