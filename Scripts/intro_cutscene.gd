@@ -11,6 +11,10 @@ signal cutscene_complete
 @onready var continue_prompt: Label = $DialogueBox/ContinuePrompt
 @onready var dialogue_box: Panel = $DialogueBox
 @onready var typing_sound: AudioStreamPlayer = $TypingSound
+@onready var oven_door: Node3D = %OvenDoor
+@onready var game_camera: Camera3D = %GameCamera
+
+
 
 var dialogue_lines: Array[String] = [
 	"Wake up, little baker. The oven hungers.",
@@ -30,7 +34,7 @@ var can_continue: bool = false
 var preloaded_scene: PackedScene = null
 var preloaded_biscuits: Dictionary = {}
 var preloaded_dice: PackedScene = null
-
+var oven_time_sign : float
 
 func _ready() -> void:
 	continue_prompt.visible = false
@@ -67,13 +71,31 @@ func _start_preloading() -> void:
 
 
 func _process(delta: float) -> void:
+	oven_time_sign += delta
+	#game_camera.global_position.y = lerp(game_camera.global_position.y,(sin(oven_time_sign * PI * 3 ) * 2 * delta)+2,delta*10)
 	if is_typing:
+		oven_door.rotation_degrees.z = lerp((sin(oven_time_sign * PI * 7 ) * 700 * delta - typing_sound.pitch_scale*3 ) +80
+		,randf_range(60,80) ,delta )
+		
+		game_camera.global_position.y = lerp(game_camera.global_position.y,
+		(sin(oven_time_sign * PI * 3 ) * 2 * delta)+2.3,delta)
+		
+		game_camera.fov = lerp(game_camera.fov,77.0,delta/10)
 		_process_typing(delta)
+	else :
+		oven_door.rotation_degrees.z = lerp(oven_door.rotation_degrees.z,90.0,delta*5)
+		
+		game_camera.global_position.y = lerp(game_camera.global_position.y,
+		2.3,delta/5)
+		
+		game_camera.fov = lerp(game_camera.fov,
+		75.0,delta/10)
 
 
 func _process_typing(delta: float) -> void:
 	time_accumulator += delta
-
+	
+	
 	var chars_to_show: int = int(time_accumulator * chars_per_second)
 	if chars_to_show > 0:
 		time_accumulator = 0.0
@@ -85,11 +107,11 @@ func _process_typing(delta: float) -> void:
 
 			var current_text: String = dialogue_lines[current_line]
 			var char_to_add: String = current_text[current_char]
-
 			text_label.text += char_to_add
 
 			if typing_sound and randf() > 0.7:
 				typing_sound.pitch_scale -= 0.01
+				
 				typing_sound.play()
 
 			current_char += 1

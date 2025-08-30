@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvnwrmfwdm0st"]
+[gd_scene load_steps=7 format=3 uid="uid://bvnwrmfwdm0st"]
 
+[ext_resource type="Script" uid="uid://cj281huipe6hr" path="res://Scripts/UI_3d.gd" id="1_q6cnh"]
 [ext_resource type="Script" uid="uid://dhoqdlbqwk5nn" path="res://Scripts/base_selector.gd" id="1_vi8dv"]
 [ext_resource type="Script" uid="uid://cc8ijqj6wre6c" path="res://Scripts/toppings_selector.gd" id="3_7x8ys"]
 [ext_resource type="ButtonGroup" uid="uid://dbjd8h25riv0h" path="res://Scenes/UI/Toppings/fillings.tres" id="4_5ejn6"]
@@ -15,8 +16,23 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BaseSelector" type="Panel" parent="."]
-unique_name_in_owner = true
+[node name="ui_3d" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -272.0
+offset_right = 384.0
+offset_bottom = 272.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(159, 147)
+script = ExtResource("1_q6cnh")
+
+[node name="BaseSelector" type="MarginContainer" parent="ui_3d"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -24,56 +40,92 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -325.0
-offset_top = -200.0
-offset_right = 325.0
-offset_bottom = 200.0
+offset_left = -300.0
+offset_top = -225.0
+offset_right = 300.0
+offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_vi8dv")
-
-[node name="MarginContainer" type="MarginContainer" parent="BaseSelector"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+pivot_offset = Vector2(300, 250)
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+script = ExtResource("1_vi8dv")
+tween_speeed = 0.7
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BaseSelector/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_3d/BaseSelector"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 8
 
-[node name="Label" type="RichTextLabel" parent="BaseSelector/MarginContainer/VBoxContainer"]
+[node name="Label" type="RichTextLabel" parent="ui_3d/BaseSelector/VBoxContainer"]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-theme_override_colors/default_color = Color(0.199722, 0.0819015, 1.20327e-08, 1)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "[shake rate=1.5 level=50 connected=5]P I C K    Y O U R    B I S C U I T[/shake]
-"
+text = "[shake rate=3 level=20 connected=10]P I C K    Y O U R    B I S C U I T[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="BaseSelector/MarginContainer/VBoxContainer"]
+[node name="Label3" type="RichTextLabel" parent="ui_3d/BaseSelector/VBoxContainer/Label"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]P I C K    Y O U R    B I S C U I T[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="ui_3d/BaseSelector/VBoxContainer/Label/Label3"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.509804, 0.239216, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]P I C K    Y O U R    B I S C U I T[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="ui_3d/BaseSelector/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 3
-theme_override_constants/v_separation = -2
+theme_override_constants/v_separation = 3
 columns = 3
 
-[node name="Shortbread" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Shortbread" type="Button" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer"]
+self_modulate = Color(0.832994, 0.32883, 0.304645, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.153135, 0.187792, 0.0971532, 1)
 theme_override_font_sizes/font_size = 35
 text = "Shortbread"
 
-[node name="MarginContainer" type="MarginContainer" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Shortbread"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Shortbread"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -85,27 +137,34 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 25
 
-[node name="Label" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Shortbread/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Shortbread/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "1d6"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Shortbread/MarginContainer"]
+[node name="Label2" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Shortbread/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Failure doesn't add fear"
 horizontal_alignment = 1
 
-[node name="Heart" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Heart" type="Button" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer"]
+self_modulate = Color(0.832994, 0.32883, 0.304645, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.153135, 0.187792, 0.0971532, 1)
 theme_override_font_sizes/font_size = 35
 text = "Heart"
 
-[node name="MarginContainer" type="MarginContainer" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Heart"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Heart"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,28 +176,35 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 25
 
-[node name="Label" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Heart/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Heart/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "2d6"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Heart/MarginContainer"]
+[node name="Label2" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Heart/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Success: reduces fear
 Failure: doubles fear"
 horizontal_alignment = 1
 
-[node name="Round" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Round" type="Button" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer"]
+self_modulate = Color(0.832994, 0.32883, 0.304645, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.153135, 0.187792, 0.0971532, 1)
 theme_override_font_sizes/font_size = 35
 text = "Round"
 
-[node name="MarginContainer" type="MarginContainer" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Round"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Round"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,27 +216,34 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 25
 
-[node name="Label" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Round/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Round/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "3d6"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Round/MarginContainer"]
+[node name="Label2" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Round/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Failure: Reroll 1 die"
 horizontal_alignment = 1
 
-[node name="Square" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Square" type="Button" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer"]
+self_modulate = Color(0.832994, 0.32883, 0.304645, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.153135, 0.187792, 0.0971532, 1)
 theme_override_font_sizes/font_size = 35
 text = "Square"
 
-[node name="MarginContainer" type="MarginContainer" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Square"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,27 +255,34 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 25
 
-[node name="Label" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Square/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "4d6"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Square/MarginContainer"]
+[node name="Label2" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Square/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Bonus points on 4s"
 horizontal_alignment = 1
 
-[node name="Gingerbread" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Gingerbread" type="Button" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer"]
+self_modulate = Color(0.832994, 0.32883, 0.304645, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.153135, 0.187792, 0.0971532, 1)
 theme_override_font_sizes/font_size = 35
 text = "Gingerbread"
 
-[node name="MarginContainer" type="MarginContainer" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Gingerbread"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Gingerbread"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -214,27 +294,34 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 25
 
-[node name="Label" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Gingerbread/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Gingerbread/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "5d6"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Gingerbread/MarginContainer"]
+[node name="Label2" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Gingerbread/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Fail ANY role it snaps"
 horizontal_alignment = 1
 
-[node name="Skull" type="Button" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Skull" type="Button" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer"]
+self_modulate = Color(0.832994, 0.32883, 0.304645, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_color = Color(0.690196, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.153135, 0.187792, 0.0971532, 1)
 theme_override_font_sizes/font_size = 35
 text = "Skull"
 
-[node name="MarginContainer" type="MarginContainer" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Skull"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Skull"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -246,22 +333,23 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 25
 
-[node name="Label" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Skull/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Skull/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "6d6"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="BaseSelector/MarginContainer/VBoxContainer/GridContainer/Skull/MarginContainer"]
+[node name="Label2" type="Label" parent="ui_3d/BaseSelector/VBoxContainer/GridContainer/Skull/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Success: double score
 Failure: +2 fear instead of 1"
 horizontal_alignment = 1
 
-[node name="ToppingsSelector" type="Panel" parent="."]
-unique_name_in_owner = true
+[node name="ToppingsSelector" type="VBoxContainer" parent="ui_3d"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -269,69 +357,101 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -325.0
-offset_top = -200.0
-offset_right = 325.0
-offset_bottom = 200.0
+offset_left = -300.0
+offset_top = -225.0
+offset_right = 300.0
+offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(300, 250)
+theme_override_constants/separation = 0
 script = ExtResource("3_7x8ys")
 fillings = ExtResource("4_5ejn6")
 toppings = ExtResource("5_1qx3m")
 decorations = ExtResource("6_1u3so")
+tween_speeed = 1.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ToppingsSelector"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="Label2" type="RichTextLabel" parent="ToppingsSelector/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 45)
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_3d/ToppingsSelector"]
 layout_mode = 2
-theme_override_colors/default_color = Color(0.199722, 0.0819015, 1.20327e-08, 1)
-theme_override_font_sizes/normal_font_size = 40
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="Fillings" type="VBoxContainer" parent="ui_3d/ToppingsSelector/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="Label2" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
 bbcode_enabled = true
-text = "[shake rate=3.0 level=50 connected=5]SELECT MODIFIERS[/shake]
-"
+text = "[shake rate=3 level=20 connected=10]Fillings[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ToppingsSelector/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = -2
-alignment = 1
-
-[node name="Fillings" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = -1
-
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Fillings"
+[node name="Label3" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/Label2"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]Fillings[/shake]"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="FillingButtons" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings"]
+[node name="Label2" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/Label2/Label3"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.509804, 0.239216, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]Fillings[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FillingButtons" type="VBoxContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 3
 
-[node name="Jam" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons"]
+[node name="Jam" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons"]
+self_modulate = Color(1.3, 0.362, 0.552, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 35
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("4_5ejn6")
-text = "Jam"
+text = "Jam
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Jam"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons/Jam"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -343,21 +463,31 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Jam/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons/Jam/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "High Score, +2 Fear"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "High Score
++2 Fear"
 horizontal_alignment = 1
 
-[node name="Cream" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons"]
+[node name="Cream" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons"]
+self_modulate = Color(1.3, 0.362, 0.552, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 35
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("4_5ejn6")
-text = "Cream"
+text = "Cream
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Cream"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons/Cream"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -369,21 +499,30 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Cream/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons/Cream/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Moderate Score"
 horizontal_alignment = 1
 
-[node name="Custard" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons"]
+[node name="Custard" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons"]
+self_modulate = Color(1.3, 0.362, 0.552, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 35
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("4_5ejn6")
-text = "Custard"
+text = "Custard
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Custard"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons/Custard"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -395,21 +534,31 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Custard/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons/Custard/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "x2 Score but breaks on fail"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "x2 Score but 
+breaks on fail"
 horizontal_alignment = 1
 
-[node name="Marrow" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons"]
+[node name="Marrow" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons"]
+self_modulate = Color(1.3, 0.362, 0.552, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 35
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("4_5ejn6")
-text = "Marrow"
+text = "Marrow
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Marrow"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons/Marrow"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -421,37 +570,87 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Fillings/FillingButtons/Marrow/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Fillings/FillingButtons/Marrow/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Removes Fear"
 horizontal_alignment = 1
 
-[node name="Toppings" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer"]
+[node name="Toppings" type="VBoxContainer" parent="ui_3d/ToppingsSelector/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = -1
+theme_override_constants/separation = 3
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+[node name="Label2" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings"]
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Toppings"
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]Toppings[/shake]"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ToppingButtons" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings"]
+[node name="Label3" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/Label2"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]Toppings[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/Label2/Label3"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.509804, 0.239216, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]Toppings[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ToppingButtons" type="VBoxContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Sugar" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
+[node name="Sugar" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons"]
+self_modulate = Color(0.139, 1.345, 0.5, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("5_1qx3m")
-text = "Sugar Glaze"
+text = "Sugar Glaze
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Sugar"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons/Sugar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -463,21 +662,30 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Sugar/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons/Sugar/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Small Points but Safe"
 horizontal_alignment = 1
 
-[node name="Icing" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
+[node name="Icing" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons"]
+self_modulate = Color(0.139, 1.345, 0.5, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("5_1qx3m")
-text = "Royal Icing"
+text = "Royal Icing
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Icing"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons/Icing"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -489,21 +697,31 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Icing/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons/Icing/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Big Points but cracks easily"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Big Points but
+cracks easily"
 horizontal_alignment = 1
 
-[node name="Frosting" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
+[node name="Frosting" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons"]
+self_modulate = Color(0.139, 1.345, 0.5, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("5_1qx3m")
-text = "Cursed Frosting"
+text = "Cursed Frosting
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Frosting"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons/Frosting"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -515,21 +733,31 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Frosting/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons/Frosting/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Roll Low for High Points"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Roll Low for
+High Points"
 horizontal_alignment = 1
 
-[node name="Caramel" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons"]
+[node name="Caramel" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons"]
+self_modulate = Color(0.139, 1.345, 0.5, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("5_1qx3m")
-text = "Burnt Caramel"
+text = "Burnt Caramel
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Caramel"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons/Caramel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -541,37 +769,87 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Toppings/ToppingButtons/Caramel/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Toppings/ToppingButtons/Caramel/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "+1 Fear but high score"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "+1 Fear but
+high score"
 horizontal_alignment = 1
 
-[node name="Decorations" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer"]
+[node name="Decorations" type="VBoxContainer" parent="ui_3d/ToppingsSelector/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = -1
+theme_override_constants/separation = 3
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+[node name="Label2" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations"]
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Decorations"
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]Decorations[/shake]"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="DecorationButtons" type="VBoxContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations"]
+[node name="Label3" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/Label2"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]Decorations[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/Label2/Label3"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.509804, 0.239216, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "[shake rate=3 level=20 connected=10]Decorations[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DecorationButtons" type="VBoxContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Sprinkles" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]
+[node name="Sprinkles" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
+self_modulate = Color(1.105, 0, 1.105, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("6_1u3so")
-text = "Sprinkles"
+text = "Sprinkles
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Sprinkles"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons/Sprinkles"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -583,21 +861,29 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Sprinkles/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons/Sprinkles/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "+1 per success"
 horizontal_alignment = 1
 
-[node name="Tongue" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]
+[node name="Tongue" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
+self_modulate = Color(1.105, 0, 1.105, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("6_1u3so")
-text = "Tongue"
+text = "Tongue
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Tongue"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons/Tongue"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -609,21 +895,29 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Tongue/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons/Tongue/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Reduces fear"
 horizontal_alignment = 1
 
-[node name="Runes" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]
+[node name="Runes" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
+self_modulate = Color(1.105, 0, 1.105, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("6_1u3so")
-text = "Etched Runes"
+text = "Etched Runes
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Runes"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons/Runes"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -635,21 +929,29 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Runes/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons/Runes/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Reroll one failed die"
 horizontal_alignment = 1
 
-[node name="Eyes" type="Button" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons"]
+[node name="Eyes" type="Button" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons"]
+self_modulate = Color(1.105, 0, 1.105, 1)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 toggle_mode = true
 button_group = ExtResource("6_1u3so")
-text = "Candied Eyes"
+text = "Candied Eyes
 
-[node name="MarginContainer" type="MarginContainer" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Eyes"]
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons/Eyes"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -661,13 +963,15 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="ToppingsSelector/VBoxContainer/HBoxContainer/Decorations/DecorationButtons/Eyes/MarginContainer"]
+[node name="Label" type="Label" parent="ui_3d/ToppingsSelector/HBoxContainer/Decorations/DecorationButtons/Eyes/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Bonus on Gingerbread or Skull"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Bonus on
+Gingerbread or Skull"
 horizontal_alignment = 1
 
-[node name="Bake" type="Button" parent="ToppingsSelector/VBoxContainer"]
+[node name="Bake" type="Button" parent="ui_3d/ToppingsSelector"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
